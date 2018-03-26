@@ -14,6 +14,9 @@ cd "$rails_root"
 mkdir -p "$shared_dir"/vendor/bundle
 ln -snf "$shared_dir"/vendor/bundle vendor/bundle
 
+# Symlink master encryption key
+ln -snf "$shared_dir"/config/master.key config/master.key
+
 bin/bundle install --without development test --deployment --path vendor/bundle
 
 bin/rails assets:precompile
