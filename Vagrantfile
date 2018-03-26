@@ -27,6 +27,14 @@ Vagrant.configure('2') do |config|
     export PATH="$HOME/.rbenv/bin:$PATH"
     eval "$(rbenv init -)"
 
+    if [ ! -d "$HOME/.nvm" ]; then
+      echo 'Installing nvm'
+      curl -o- -sL "https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh" | bash
+    fi
+
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
     export RUBY_VERSION='2.5.0'
     if [ ! -d "$HOME/.rbenv/versions/$RUBY_VERSION" ]; then
       echo 'Installing ruby and bundler'
@@ -35,6 +43,16 @@ Vagrant.configure('2') do |config|
       gem update --system
       bundle config path "$HOME/.bundle"
     fi
+
+    export NODE_VERSION='8.10.0'
+    if [ ! -d "$HOME/.nvm/versions/node/v$NODE_VERSION" ]; then
+      echo 'Installing node and yarn'
+      nvm install $NODE_VERSION
+      nvm use $NODE_VERSION
+      curl -o- -sL https://yarnpkg.com/install.sh | bash
+    fi
+
+    export PATH="$HOME/.yarn/bin:$PATH"
 
     if [ ! -d "$HOME/.gemrc" ]; then
       echo 'gem: --no-ri --no-rdoc' >> ~/.gemrc
