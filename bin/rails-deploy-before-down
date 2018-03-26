@@ -17,6 +17,9 @@ ln -snf "$shared_dir"/vendor/bundle vendor/bundle
 # Symlink master encryption key
 ln -snf "$shared_dir"/config/master.key config/master.key
 
+# Symlink logs directory
+ln -snf "$vhost_root"/applogs log
+
 bin/bundle install --without development test --deployment --path vendor/bundle
 
 bin/rails assets:precompile
