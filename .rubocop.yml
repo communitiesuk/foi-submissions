@@ -1,11 +1,12 @@
 AllCops:
-  TargetRubyVersion: 2.4
-
-AllCops:
   Exclude:
     - 'Vagrantfile'
     - 'db/migrate/**'
     - 'db/schema.rb'
+  TargetRubyVersion: 2.4
+
+Metrics/LineLength:
+  Max: 130
 
 Rails:
   Enabled: true
@@ -17,6 +18,3 @@ Style/MixinUsage:
   Exclude:
     - 'bin/setup'
     - 'bin/update'
-
-Metrics/LineLength:
-  Max: 130
