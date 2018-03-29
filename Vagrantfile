@@ -6,6 +6,7 @@ Vagrant.configure('2') do |config|
 
   config.vm.synced_folder '.', '/home/vagrant/app'
   config.ssh.forward_agent = true
+  config.vbguest.auto_update = false
 
   config.vm.provision 'shell', privileged: false, inline: <<~SHELL
     export DEBIAN_FRONTEND=noninteractive
