@@ -3,6 +3,7 @@ AllCops:
     - 'Vagrantfile'
     - 'db/migrate/**'
     - 'db/schema.rb'
+    - 'gems/**/*'
   TargetRubyVersion: 2.4
 
 Metrics/BlockLength:
