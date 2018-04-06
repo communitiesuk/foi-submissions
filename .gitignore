@@ -9,6 +9,8 @@
 
 # Ignore vagrant dir
 .vagrant
+# Ignore local vagrant config
+.vagrant.yml
 
 # Ignore all logfiles and tempfiles.
 /log/*
