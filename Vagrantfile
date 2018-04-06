@@ -14,7 +14,7 @@ def cpu_count
 end
 
 DEFAULTS = {
-  'box' => 'generic/debian9',
+  'box' => 'debian/contrib-stretch64',
   'memory' => 1536,
   'cpus' => cpu_count
 }
