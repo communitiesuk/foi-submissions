@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -e
+[[ "$TRACE" ]] && set -x
+
+rails_root="$(dirname "$0")/.."
+vhost_root="$(cd "$rails_root"/.. && pwd)"
+shared_dir="$vhost_root"/shared
+
+# Change to Rails root
+cd "$rails_root"
+
+# Install gems into shared path that persists between deploys
+mkdir -p "$shared_dir"/vendor/bundle
+ln -snf "$shared_dir"/vendor/bundle vendor/bundle
+
+# Symlink master encryption key
+ln -snf "$shared_dir"/config/master.key config/master.key
+
+# Symlink logs directory
+ln -snf "$vhost_root"/applogs log
+
+bin/bundle install --without development test --deployment --path vendor/bundle
+
+bin/rails assets:precompile
