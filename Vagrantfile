@@ -16,7 +16,8 @@ end
 DEFAULTS = {
   'box' => 'debian/contrib-stretch64',
   'memory' => 1536,
-  'cpus' => cpu_count
+  'cpus' => cpu_count,
+  'ip' => nil
 }
 
 settings_file_path = File.dirname(__FILE__) + '/.vagrant.yml'
@@ -30,7 +31,12 @@ SETTINGS = DEFAULTS.merge(settings_file).freeze
 
 Vagrant.configure('2') do |config|
   config.vm.box = SETTINGS['box']
-  config.vm.network :forwarded_port, guest: 3000, host: 3000
+
+  if SETTINGS['ip']
+    config.vm.network :private_network, ip: SETTINGS['ip']
+  else
+    config.vm.network :forwarded_port, guest: 3000, host: 3000
+  end
 
   config.vm.synced_folder '.', '/home/vagrant/app'
   config.ssh.forward_agent = true
