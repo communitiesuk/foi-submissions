@@ -50,4 +50,11 @@ Vagrant.configure('2') do |config|
   config.vm.provision 'shell',
                       privileged: false,
                       path: 'script/provision-vagrant.sh'
+
+  config.vm.post_up_message = <<~EOT
+    Log into the Vagrant box with \`vagrant ssh\`
+      Run the test suite by \`./bin/rake\`
+      Start Rails server by \`./bin/rails server\`
+    Access the site at http://0.0.0.0:3000.
+  EOT
 end

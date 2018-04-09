@@ -65,9 +65,3 @@ sed -r \
 
 echo 'Run Rails setup'
 ./bin/setup
-
-echo
-echo "Log into the Vagrant box with \`vagrant ssh\`"
-echo "  Run the test suite by \`./bin/rake\`"
-echo "  Start Rails server by \`./bin/rails server\`"
-echo "Access the site at http://0.0.0.0:3000."
