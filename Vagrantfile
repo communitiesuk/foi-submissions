@@ -1,86 +1,60 @@
 # frozen_string_literal: true
+require 'yaml'
+
+def cpu_count
+  host = RbConfig::CONFIG['host_os']
+  # Give VM access to all cpu cores on the host
+  if host =~ /darwin/
+    `sysctl -n hw.ncpu`.to_i
+  elsif host =~ /linux/
+    `nproc`.to_i
+  else # sorry Windows folks, I can't help you
+    1
+  end
+end
+
+DEFAULTS = {
+  'box' => 'debian/contrib-stretch64',
+  'memory' => 1536,
+  'cpus' => cpu_count,
+  'ip' => nil
+}
+
+settings_file_path = File.dirname(__FILE__) + '/.vagrant.yml'
+settings_file = if File.exist?(settings_file_path)
+  YAML.load(File.read(settings_file_path))
+else
+  {}
+end
+
+SETTINGS = DEFAULTS.merge(settings_file).freeze
 
 Vagrant.configure('2') do |config|
-  config.vm.box = 'generic/debian9'
-  config.vm.network :forwarded_port, guest: 3000, host: 3000
+  config.vm.box = SETTINGS['box']
+
+  if SETTINGS['ip']
+    config.vm.network :private_network, ip: SETTINGS['ip']
+  else
+    config.vm.network :forwarded_port, guest: 3000, host: 3000
+  end
 
   config.vm.synced_folder '.', '/home/vagrant/app'
   config.ssh.forward_agent = true
   config.vbguest.auto_update = false
 
-  config.vm.provision 'shell', privileged: false, inline: <<~SHELL
-    export DEBIAN_FRONTEND=noninteractive
-    sudo apt-get update
-    sudo apt-get -qq install -y autoconf bison build-essential libssl-dev \
-      libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev \
-      libgdbm3 libgdbm-dev git-core postgresql-9.6 postgresql-server-dev-9.6 \
-      postgresql-client-9.6
+  config.vm.provider 'virtualbox' do |vb|
+    vb.customize ['modifyvm', :id, '--memory', SETTINGS['memory']]
+    vb.customize ['modifyvm', :id, '--cpus', SETTINGS['cpus']]
+  end
 
-    if [ ! -d "$HOME/.rbenv" ]; then
-      echo 'Installing rbenv and ruby-build'
-      git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-      git clone https://github.com/rbenv/ruby-build.git \
-        ~/.rbenv/plugins/ruby-build
-      echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-      echo 'eval "$(rbenv init -)"' >> ~/.bashrc
-    fi
+  config.vm.provision 'shell',
+                      privileged: false,
+                      path: 'script/provision-vagrant.sh'
 
-    export PATH="$HOME/.rbenv/bin:$PATH"
-    eval "$(rbenv init -)"
-
-    if [ ! -d "$HOME/.nvm" ]; then
-      echo 'Installing nvm'
-      curl -o- -sL "https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh" | bash
-    fi
-
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-    export RUBY_VERSION='2.5.1'
-    if [ ! -d "$HOME/.rbenv/versions/$RUBY_VERSION" ]; then
-      echo 'Installing ruby and bundler'
-      rbenv install $RUBY_VERSION
-      rbenv global $RUBY_VERSION
-      gem update --system
-      bundle config path "$HOME/.bundle"
-    fi
-
-    export NODE_VERSION='8.10.0'
-    if [ ! -d "$HOME/.nvm/versions/node/v$NODE_VERSION" ]; then
-      echo 'Installing node and yarn'
-      nvm install $NODE_VERSION
-      nvm use $NODE_VERSION
-      curl -o- -sL https://yarnpkg.com/install.sh | bash
-    fi
-
-    export PATH="$HOME/.yarn/bin:$PATH"
-
-    if [ ! -d "$HOME/.gemrc" ]; then
-      echo 'gem: --no-ri --no-rdoc' >> ~/.gemrc
-    fi
-
-    if ! grep -qe "^cd \\$HOME/app$" "./.bashrc"; then
-      echo "cd \\$HOME/app" >> ./.bashrc
-    fi
-    cd "$HOME/app"
-
-    echo 'Create PostgreSQL user'
-    sudo -u postgres createuser --superuser $USER 2>/dev/null
-
-    echo 'Copy config/database.yml-example'
-    sed -r \
-      -e "s,^( *username: *).*,\\1${USER}," \
-      -e "s,^( *password: *).*,\\1null," \
-      -e "s,^( *host: *).*,\\1/var/run/postgresql," \
-      config/database.yml-example > config/database.yml
-
-    echo 'Run Rails setup'
-    ./bin/setup
-
-    echo
-    echo "Log into the Vagrant box with \\`vagrant ssh\\`"
-    echo "  Run the test suite by \\`./bin/rake\\`"
-    echo "  Start Rails server by \\`./bin/rails server\\`"
-    echo "Access the site at \\`http://0.0.0.0:3000\\`."
-  SHELL
+  config.vm.post_up_message = <<~EOT
+    Log into the Vagrant box with \`vagrant ssh\`
+      Run the test suite by \`./bin/rake\`
+      Start Rails server by \`./bin/rails server\`
+    Access the site at http://0.0.0.0:3000.
+  EOT
 end
