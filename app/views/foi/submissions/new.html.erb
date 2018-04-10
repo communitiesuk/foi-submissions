@@ -34,8 +34,8 @@
     </aside>
 
     <p class="cta-section">
-      <a href="write.html" class="button button-secondary">Edit your request</a>
-      <a href="complete.html" class="button">Send now</a>
+      <%= link_to 'Edit your request', edit_foi_request_path(1), class: 'button' %>
+      <%= link_to 'Send now', foi_request_sent_path(1), class: 'button' %>
     </p>
   </div>
 </div>
