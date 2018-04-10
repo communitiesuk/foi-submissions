@@ -7,18 +7,18 @@
 
 <div class="grid-row">
   <div class="column-two-thirds">
-    <form>
+    <%= form_for @contact, url: foi_request_contact_path do |f| %>
       <div class="form-group">
-        <label class="form-label" for="foi-requestor-name">
+        <%= f.label :full_name, class: 'form-label' do %>
           Full name
           <span class="form-hint">For example, “Alice Brown”</span>
-        </label>
-        <input type="text" class="form-control form-control-3-4 js-session-store" name="foi-requestor-name" id="foi-requestor-name">
+        <% end %>
+        <%= f.text_field :full_name, class: 'form-control form-control-3-4 js-session-store' %>
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="foi-requestor-email">Email address</label>
-        <input type="email" class="form-control form-control-3-4 js-session-store js-check-email" name="foi-requestor-email" id="foi-requestor-email">
+        <%= f.label :email, 'Email address', class: 'form-label' %>
+        <%= f.text_field :email, class: 'form-control form-control-3-4 js-session-store js-check-email' %>
       </div>
 
       <aside class="form-aside">
@@ -29,8 +29,8 @@
       </aside>
 
       <p class="cta-section">
-        <%= link_to 'Check your request', foi_request_path(1), class: 'button' %>
+        <%= f.submit 'Check your request', class: 'button' %>
       </p>
-    </form>
+    <% end %>
   </div>
 </div>
