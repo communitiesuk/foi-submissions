@@ -20,8 +20,8 @@ RSpec.describe Foi::SubmissionsController, type: :controller do
   describe 'POST #create' do
     subject { post :create, params: { request_id: '1' } }
 
-    it 'returns http success' do
-      is_expected.to have_http_status(204)
+    it 'redirects to foi_request sent' do
+      is_expected.to redirect_to(foi_request_sent_path(foi_request))
     end
   end
 

@@ -10,7 +10,9 @@ module Foi
 
     def new; end
 
-    def create; end
+    def create
+      redirect_to foi_request_sent_path(@foi_request)
+    end
 
     def show; end
   end
