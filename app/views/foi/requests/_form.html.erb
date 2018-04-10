@@ -9,10 +9,10 @@
 
 <div class="grid-row">
   <div class="column-two-thirds">
-    <form>
+    <%= form_for @foi_request do |f| %>
       <div class="form-group">
-        <label class="form-label" for="foi-request-body">Your request</label>
-        <textarea class="form-control form-control-full-width js-session-store" name="foi-request-body" id="foi-request-body" rows="10"></textarea>
+        <%= f.label :body, 'Your request', class: 'form-label' %>
+        <%= f.text_area :body, class: 'form-control form-control-full-width js-session-store', rows: 10 %>
       </div>
 
       <aside class="form-aside">
@@ -26,8 +26,8 @@
       </aside>
 
       <p class="cta-section">
-        <%= link_to 'Next: Contact details', foi_request_suggestions_path(1), class: 'button' %>
+        <%= f.submit 'Next: Contact details', class: 'button' %>
       </p>
-    </form>
+    <% end %>
   </div>
 </div>
