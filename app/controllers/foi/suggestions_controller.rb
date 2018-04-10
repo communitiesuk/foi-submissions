@@ -6,6 +6,8 @@ module Foi
   # responses based on the content of a pending FOI request.
   #
   class SuggestionsController < ApplicationController
+    include FindableFoiRequest
+
     def index; end
   end
 end
