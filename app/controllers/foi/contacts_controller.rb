@@ -9,6 +9,8 @@ module Foi
     include FindableFoiRequest
 
     before_action :redirect_to_contact, :new_contact, only: %i[new create]
+    before_action :find_contact, only: %i[edit update]
+
     def new; end
 
     def create
@@ -21,7 +23,13 @@ module Foi
 
     def edit; end
 
-    def update; end
+    def update
+      if @contact.update(contact_params)
+        redirect_to foi_request_preview_path(@foi_request)
+      else
+        render :edit
+      end
+    end
 
     private
 
@@ -32,6 +40,10 @@ module Foi
 
     def new_contact
       @contact = @foi_request.build_contact
+    end
+
+    def find_contact
+      @contact = @foi_request.contact
     end
 
     def contact_params

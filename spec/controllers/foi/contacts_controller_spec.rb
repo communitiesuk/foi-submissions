@@ -91,10 +91,34 @@ RSpec.describe Foi::ContactsController, type: :controller do
   end
 
   describe 'PUT #update' do
-    subject { put :update, params: { request_id: '1' } }
+    before { allow(foi_request).to receive(:contact).and_return(contact) }
 
-    it 'returns http success' do
-      is_expected.to have_http_status(204)
+    context 'valid parameters' do
+      subject do
+        put :update, params: { request_id: '1', contact: valid_params }
+      end
+      before { allow(contact).to receive(:update).and_return(true) }
+
+      it 'receives valid attributes' do
+        expect(contact).to receive(:update).
+          with(ActionController::Parameters.new(valid_params).permit!)
+        subject
+      end
+
+      it 'redirects to foi_request' do
+        is_expected.to redirect_to(foi_request_preview_path(foi_request))
+      end
+    end
+
+    context 'invalid parameters' do
+      subject do
+        put :update, params: { request_id: '1', contact: invalid_params }
+      end
+      before { allow(contact).to receive(:update).and_return(false) }
+
+      it 'returns http success' do
+        is_expected.to have_http_status(200)
+      end
     end
   end
 end
