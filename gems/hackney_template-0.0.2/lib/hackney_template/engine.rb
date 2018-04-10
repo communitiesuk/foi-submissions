@@ -15,6 +15,8 @@ module HackneyTemplate
         gov.uk_logotype_crown_invert_trans.png
         gov.uk_logotype_crown.svg
         opengraph-image.png
+        hackney-logo-green.svg
+        hackney-logo-green-trans.png
       )
     end
   end
