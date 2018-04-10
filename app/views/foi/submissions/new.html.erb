@@ -1,2 +1,41 @@
-<h1>Foi::Submissions#new</h1>
-<p>Find me in app/views/foi/submissions/new.html.erb</p>
+<% content_for :title, 'Check your request before it is sent' %>
+<% content_for :body_classes, 'foi foi-check' %>
+
+<h1 class="heading-xlarge">
+  Check your request before it is sent
+</h1>
+
+<div class="grid-row">
+  <div class="column-two-thirds">
+    <table style="margin-bottom: 30px;">
+      <tbody>
+        <tr>
+          <th>Request</th>
+          <td class="js-session-store" id="foi-request-body" style="white-space: pre-line"></td>
+        </tr>
+        <tr>
+          <th>Full name</th>
+          <td class="js-session-store" id="foi-requestor-name"></td>
+        </tr>
+        <tr>
+          <th>Email address</th>
+          <td class="js-session-store" id="foi-requestor-email"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <aside class="form-aside">
+      <h2 class="heading-small">Tips for a quick response:</h2>
+      <ul class="list list-bullet font-xsmall">
+        <li>Don’t ask for more information than you need</li>
+        <li>Jargon and formalities can get in the way – plain English is best</li>
+        <li>Make it clear what time period you’re interested in</li>
+      </ul>
+    </aside>
+
+    <p class="cta-section">
+      <a href="write.html" class="button button-secondary">Edit your request</a>
+      <a href="complete.html" class="button">Send now</a>
+    </p>
+  </div>
+</div>
