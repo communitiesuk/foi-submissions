@@ -6,6 +6,8 @@ module Foi
   # FOI request.
   #
   class SubmissionsController < ApplicationController
+    include FindableFoiRequest
+
     def new; end
 
     def create; end

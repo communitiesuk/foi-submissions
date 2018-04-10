@@ -3,6 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe Foi::SubmissionsController, type: :controller do
+  let(:foi_request) { build_stubbed(:foi_request) }
+
+  before do
+    allow(FoiRequest).to receive(:find).with('1').and_return(foi_request)
+  end
+
   describe 'GET #new' do
     subject { get :new, params: { request_id: '1' } }
 
