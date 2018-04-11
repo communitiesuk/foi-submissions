@@ -1,0 +1,33 @@
+<% content_for :title, 'What do you want to know?' %>
+<% content_for :body_classes, 'foi foi-write' %>
+
+<h1 class="heading-xlarge">
+  What do you want to know?
+</h1>
+
+<p class="lede" style="margin-bottom: 2em;">Clear, simple requests help our staff understand what you need.</p>
+
+<div class="grid-row">
+  <div class="column-two-thirds">
+    <%= form_for @foi_request do |f| %>
+      <div class="form-group">
+        <%= f.label :body, 'Your request', class: 'form-label' %>
+        <%= f.text_area :body, class: 'form-control form-control-full-width js-session-store', rows: 10 %>
+      </div>
+
+      <aside class="form-aside">
+        <h2 class="heading-small">Tips for a quick response:</h2>
+        <ul class="list list-bullet font-xsmall">
+          <li>Keep it <strong>focused</strong>: you’re more likely to get what you want</li>
+          <li>Write in <strong>plain English</strong>: it’ll help our staff understand what you’re looking for</li>
+          <li>It helps if you define the <strong>specific time period</strong> you’re interested in</li>
+          <li>If you want information about yourself, <a href="#">make a Subject Access request</a> instead</li>
+        </ul>
+      </aside>
+
+      <p class="cta-section">
+        <%= f.submit 'Next: Contact details', class: 'button' %>
+      </p>
+    <% end %>
+  </div>
+</div>

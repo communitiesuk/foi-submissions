@@ -1,0 +1,43 @@
+<% content_for :title, 'Make a Freedom of Information request' %>
+<% content_for :body_classes, 'foi foi-index' %>
+
+<h1 class="heading-xlarge" style="max-width: 12em;">Make a Freedom of Information request, or&nbsp;an EIR request</h1>
+
+<p class="text">You have a right to request any recorded information held by the Council.</p>
+
+<p class="text">All FOI and EIR responses we send out will be published in the disclosure log on our website.</p>
+
+<p class="cta-section">
+  <%= link_to 'Start your request', new_foi_request_path, class: 'button button-start' %>
+</p>
+
+<div class="post-cta-information text">
+  <h2 class="heading-medium">Requesting information about yourself</h2>
+
+  <p>If you want information about yourself, such as a social care file, your employment record, or details of correspondence between yourself and the council, <a href="../sar/">you should make a Subject Access request</a>.
+
+  <h2 class="heading-medium">Other ways to request information</h2>
+
+  <h3 class="heading-small">“Business as usual” requests</h3>
+  <p>Often <a href="#">contacting the relevant department</a> to ask common questions can be faster than waiting for an FOI response. Give it a try!</p>
+
+  <h3 class="heading-small">Freedom of Information (FOI) requests</h3>
+  <p>We recommend you <%= link_to 'use our online FOI request form', new_foi_request_path %>. But we <em>will</em> respond to any FOI request made in writing. That includes:</p>
+
+  <div style="padding-left: 2em">
+    <h3 class="heading-xsmall">By email</h3>
+    <p><a href="mailto:info@hackney.gov.uk">info@hackney.gov.uk</a></p>
+
+    <h3 class="heading-xsmall">By post</h3>
+    <p>
+      Corporate Information Governance Service<br>
+      3rd Floor<br>
+      Maurice Bishop House<br>
+      17 Reading Lane<br>
+      E8 1HH
+    </p>
+  </div>
+
+  <h3 class="heading-small">Environmental Information Regulations (EIR) requests</h3>
+  <p>EIR requests can be submitted in writing by any of the above methods, as well as verbally, to <a href="tel:+442083564938">020 8356 4938</a>, in which case an officer will transcribe your request, and confirm it in writing.</p>
+</div>

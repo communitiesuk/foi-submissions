@@ -1,0 +1,19 @@
+<% content_for :title, 'Links that might answer your question' %>
+<% content_for :body_classes, 'foi foi-suggestions' %>
+
+<h1 class="heading-xlarge">
+  Before you continue, we’ve found these links that might answer your questions
+</h1>
+
+<div class="js-foi-suggestions"></div>
+
+<hr class="text" style="margin: 2em 0;">
+
+<p class="text">
+  <strong>Not what you were looking for?</strong>
+  Continue with your request.
+</p>
+
+<p class="cta-section">
+  <%= link_to 'Continue with request', new_foi_request_contact_path(@foi_request), class: 'button' %>
+</p>
