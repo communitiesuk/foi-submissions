@@ -9,14 +9,14 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*_spec.rb'
 
+Layout/DotPosition:
+  EnforcedStyle: trailing
+
 Rails:
   Enabled: true
 
 Style/ClassAndModuleChildren:
-  Enabled: false
-
-Style/Documentation:
-  Enabled: false
+  EnforcedStyle: nested
 
 Style/MixinUsage:
   Exclude:
