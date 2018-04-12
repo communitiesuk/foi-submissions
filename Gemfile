@@ -34,6 +34,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 # Hackney theme
+gem 'govuk_elements_form_builder'
 gem 'hackney_template', path: 'gems/hackney_template-0.0.2'
 
 group :development, :test do
