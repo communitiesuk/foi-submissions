@@ -8,7 +8,8 @@ module Foi
   class ContactsController < ApplicationController
     include FindableFoiRequest
 
-    before_action :redirect_to_contact, :new_contact, only: %i[new create]
+    before_action :redirect_if_exisiting_contact, only: %i[new create]
+    before_action :new_contact, only: %i[new create]
     before_action :find_contact, only: %i[edit update]
 
     def new; end
@@ -33,7 +34,7 @@ module Foi
 
     private
 
-    def redirect_to_contact
+    def redirect_if_exisiting_contact
       return unless @foi_request.contact
       redirect_to edit_foi_request_contact_path(@foi_request)
     end
