@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     root to: redirect('foi/requests')
     resources :requests, except: %i[show destroy] do
       resources :suggestions, only: %i[index]
+      get 'contact', to: redirect('foi/requests/%{request_id}/contact/new')
       resource :contact, except: %i[show destroy]
       get 'preview', to: 'submissions#new', as: 'preview'
       post 'send', to: 'submissions#create', as: 'send'
