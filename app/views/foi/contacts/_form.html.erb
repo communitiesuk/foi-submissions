@@ -9,7 +9,7 @@
   <div class="column-two-thirds">
     <%= form_for @contact, url: foi_request_contact_path do |f| %>
       <%= f.text_field :full_name, class: 'form-control form-control-3-4 js-session-store', required: true %>
-      <%= f.text_field :email, class: 'form-control form-control-3-4 js-session-store js-check-email', required: true %>
+      <%= f.email_field :email, class: 'form-control form-control-3-4 js-session-store js-check-email', required: true %>
 
       <aside class="form-aside">
         <p class="font-xsmall text">

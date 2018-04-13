@@ -28,5 +28,17 @@ RSpec.describe Contact, type: :model do
       expect(contact.valid?).to eq false
       expect(contact.errors[:full_name]).to_not be_empty
     end
+
+    context 'checks the format of an email' do
+      it 'rejects invalid formatted email' do
+        contact.email = 'invalid'
+        expect(contact).to_not be_valid
+      end
+
+      it 'accepts correctly formatted email' do
+        contact.email = 'foo@bar'
+        expect(contact).to be_valid
+      end
+    end
   end
 end
