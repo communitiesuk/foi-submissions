@@ -17,7 +17,7 @@ module FindableFoiRequest
       @foi_request = FoiRequest.
                      includes(:contact).
                      references(:contact).
-                     find(params.require(:request_id))
+                     find_by(id: params.require(:request_id))
     end
   end
 end

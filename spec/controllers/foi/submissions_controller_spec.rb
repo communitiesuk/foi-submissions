@@ -8,8 +8,8 @@ RSpec.describe Foi::SubmissionsController, type: :controller do
   let(:foi_request) { build_stubbed(:foi_request) }
 
   before do
-    allow(foi_request_scope).to receive(:find).
-      with('1').and_return(foi_request)
+    allow(foi_request_scope).to receive(:find_by).
+      with(id: '1').and_return(foi_request)
   end
 
   describe 'GET #new' do

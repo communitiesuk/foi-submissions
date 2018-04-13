@@ -11,8 +11,8 @@ RSpec.describe Foi::ContactsController, type: :controller do
   let(:invalid_params) { { invalid: true } }
 
   before do
-    allow(foi_request_scope).to receive(:find).
-      with('1').and_return(foi_request)
+    allow(foi_request_scope).to receive(:find_by).
+      with(id: '1').and_return(foi_request)
   end
 
   describe 'GET #new' do
