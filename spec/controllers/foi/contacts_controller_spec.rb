@@ -3,16 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe Foi::ContactsController, type: :controller do
+  include_context 'FOI Request Scope'
+
   let(:foi_request) { build_stubbed(:foi_request) }
   let(:contact) { build_stubbed(:contact) }
   let(:valid_params) { { full_name: 'Spock', email: 'spock@localhost' } }
   let(:invalid_params) { { invalid: true } }
 
   before do
-    scope = double
-    allow(FoiRequest).to receive(:includes).with(:contact).and_return(scope)
-    allow(scope).to receive(:references).with(:contact).and_return(scope)
-    allow(scope).to receive(:find).with('1').and_return(foi_request)
+    allow(foi_request_scope).to receive(:find).
+      with('1').and_return(foi_request)
   end
 
   describe 'GET #new' do

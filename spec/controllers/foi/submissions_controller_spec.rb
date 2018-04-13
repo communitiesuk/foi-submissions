@@ -3,13 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe Foi::SubmissionsController, type: :controller do
+  include_context 'FOI Request Scope'
+
   let(:foi_request) { build_stubbed(:foi_request) }
 
   before do
-    scope = double
-    allow(FoiRequest).to receive(:includes).with(:contact).and_return(scope)
-    allow(scope).to receive(:references).with(:contact).and_return(scope)
-    allow(scope).to receive(:find).with('1').and_return(foi_request)
+    allow(foi_request_scope).to receive(:find).
+      with('1').and_return(foi_request)
   end
 
   describe 'GET #new' do

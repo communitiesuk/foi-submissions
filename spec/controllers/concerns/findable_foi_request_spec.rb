@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe FindableFoiRequest do
+  include_context 'FOI Request Scope'
+
   let(:foi_request) { build_stubbed(:foi_request) }
 
   controller(ApplicationController) do
@@ -17,10 +19,8 @@ RSpec.describe FindableFoiRequest do
     subject { get :index, params: { request_id: '1' } }
 
     it 'finds FOI request and sets instance variable' do
-      scope = double
-      expect(FoiRequest).to receive(:includes).with(:contact).and_return(scope)
-      expect(scope).to receive(:references).with(:contact).and_return(scope)
-      expect(scope).to receive(:find).with('1').and_return(foi_request)
+      expect(foi_request_scope).to receive(:find).
+        with('1').and_return(foi_request)
       is_expected.to redirect_to(edit_foi_request_path(foi_request))
     end
   end
