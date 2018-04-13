@@ -8,6 +8,8 @@ module Foi
   class SubmissionsController < ApplicationController
     include FindableFoiRequest
 
+    before_action :redirect_if_missing_contact
+
     def new; end
 
     def create
@@ -15,5 +17,12 @@ module Foi
     end
 
     def show; end
+
+    private
+
+    def redirect_if_missing_contact
+      return if @foi_request.contact
+      redirect_to new_foi_request_contact_path(@foi_request)
+    end
   end
 end
