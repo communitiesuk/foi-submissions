@@ -6,7 +6,10 @@ RSpec.describe Foi::SuggestionsController, type: :controller do
   let(:foi_request) { build_stubbed(:foi_request) }
 
   before do
-    allow(FoiRequest).to receive(:find).with('1').and_return(foi_request)
+    scope = double
+    allow(FoiRequest).to receive(:includes).with(:contact).and_return(scope)
+    allow(scope).to receive(:references).with(:contact).and_return(scope)
+    allow(scope).to receive(:find).with('1').and_return(foi_request)
   end
 
   describe 'GET #index' do
