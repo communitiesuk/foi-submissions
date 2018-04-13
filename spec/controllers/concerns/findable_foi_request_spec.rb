@@ -18,10 +18,25 @@ RSpec.describe FindableFoiRequest do
   describe 'GET #index' do
     subject { get :index, params: { request_id: '1' } }
 
-    it 'finds FOI request and sets instance variable' do
-      expect(foi_request_scope).to receive(:find_by).
-        with(id: '1').and_return(foi_request)
-      is_expected.to redirect_to(edit_foi_request_path(foi_request))
+    context 'with foi_request' do
+      it 'finds FOI request and sets instance variable' do
+        expect(foi_request_scope).to receive(:find_by).
+          with(id: '1').and_return(foi_request)
+        is_expected.to redirect_to(edit_foi_request_path(foi_request))
+      end
+    end
+
+    context 'without foi_request' do
+      let(:foi_request) { nil }
+
+      before do
+        allow(foi_request_scope).to receive(:find_by).
+          with(id: '1').and_return(foi_request)
+      end
+
+      it 'redirects to new foi_request' do
+        is_expected.to redirect_to(new_foi_request_path)
+      end
     end
   end
 end
