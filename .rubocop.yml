@@ -4,6 +4,7 @@ AllCops:
     - 'db/migrate/**'
     - 'db/schema.rb'
     - 'gems/**/*'
+    - 'lib/mysociety/validate.rb'
   TargetRubyVersion: 2.4
 
 Metrics/BlockLength:
