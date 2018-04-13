@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= yield :title %></title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<% content_for :head do %>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+<% end %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+<% content_for :homepage_url, root_url %>
 
-  <body class="<%= yield :body_classes %>">
-    <%= yield %>
-  </body>
-</html>
+<% content_for :content do %>
+  <div id='content'><%= yield %></div>
+<% end %>
+
+<%= render file: 'layouts/hackney_template' %>
