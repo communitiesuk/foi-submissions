@@ -1,0 +1,42 @@
+// From govuk_frontend_toolkit _palette.scss
+$black: #0b0c0c;
+$grey-3: #dee0e2;
+$text-colour: $black;
+
+// From govuk_frontend_toolkit _css3.scss
+@mixin box-shadow($shadow) {
+  -webkit-box-shadow: $shadow;
+     -moz-box-shadow: $shadow;
+          box-shadow: $shadow;
+}
+
+// Ideally we'd use the GOVUK button() mixin here, but
+// replicating it in this file is overkill when all we
+// want is to change a few of the button() colour rules.
+.button-secondary {
+    color: $text-colour;
+    background-color: $grey-3;
+    @include box-shadow(0 2px 0 darken($grey-3, 15%));
+    border-bottom-color: darken($grey-3, 15%); // IE8 only
+
+    &:visited {
+        background-color: $grey-3;
+    }
+
+    &:hover,
+    &:focus {
+        background-color: darken($grey-3, 5%);
+    }
+
+    &:active {
+        @include box-shadow(0 0 0 $grey-3);
+    }
+
+    &:link,
+    &:link:focus,
+    &:hover,
+    &:focus,
+    &:visited {
+        color: $text-colour;
+    }
+}
