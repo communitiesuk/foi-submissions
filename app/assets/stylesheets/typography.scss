@@ -1,4 +1,5 @@
 @import "variables";
+@import "mixins";
 
 #content > .heading-xlarge {
     margin-top: 0.75em;
@@ -6,5 +7,20 @@
 
     @media (min-width: $tablet-breakpoint){
         margin-top: 1.25em;
+    }
+}
+
+table {
+    td, th {
+        vertical-align: top;
+
+        @media (min-height: 700px) {
+            // up from `em(12, 19) em(20, 19) em(9, 19) 0`
+            padding: em(19, 19) em(20, 19) em(19, 19) 0;
+        }
+    }
+
+    th {
+        font-weight: bold;
     }
 }

@@ -4,3 +4,9 @@
      -moz-box-shadow: $shadow;
           box-shadow: $shadow;
 }
+
+// From govuk_elements _helpers.scss
+// Return ems from a pixel value
+@function em($px, $base: 19) {
+    @return ($px / $base) + em;
+}
