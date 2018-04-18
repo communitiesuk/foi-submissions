@@ -24,3 +24,13 @@ table {
         font-weight: bold;
     }
 }
+
+.data-item.bold-xsmall {
+    line-height: 1.25em; // up from 1em, because we have multi-line data labels
+}
+
+.govuk-box-highlight {
+    @media (min-height: 700px) {
+        margin: 2em 0; // up from `1em 0`
+    }
+}
