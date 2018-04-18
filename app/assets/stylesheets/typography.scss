@@ -1,0 +1,10 @@
+@import "variables";
+
+#content > .heading-xlarge {
+    margin-top: 0.75em;
+    margin-bottom: 0.625em;
+
+    @media (min-width: $tablet-breakpoint){
+        margin-top: 1.25em;
+    }
+}
