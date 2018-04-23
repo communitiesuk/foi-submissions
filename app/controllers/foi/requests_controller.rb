@@ -5,6 +5,8 @@ module Foi
   # This controller is responsible for creating and updating of FOI requests.
   #
   class RequestsController < ApplicationController
+    include FindableFoiRequest
+
     before_action :new_foi_request, only: %i[new create]
     before_action :find_foi_request, only: %i[edit update]
 
@@ -34,10 +36,6 @@ module Foi
 
     def new_foi_request
       @foi_request = FoiRequest.new
-    end
-
-    def find_foi_request
-      @foi_request = FoiRequest.find(params.require(:id))
     end
 
     def foi_request_params

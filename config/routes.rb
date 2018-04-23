@@ -5,8 +5,10 @@ Rails.application.routes.draw do
 
   namespace :foi do
     root to: 'requests#index'
-    resources :requests, except: %i[show destroy] do
+    resources :requests, except: %i[show destroy], param: :request_id do
       root to: redirect('foi/request/new')
+    end
+    resources :requests, only: [] do
       resources :suggestions, only: %i[index]
       get 'contact', to: redirect('foi/requests/%{request_id}/contact/new')
       resource :contact, except: %i[show destroy]

@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Foi::RequestsController, type: :controller do
+  include_context 'FOI Request Scope'
+
   let(:foi_request) { build_stubbed(:foi_request) }
   let(:valid_params) { { body: 'A request body' } }
   let(:invalid_params) { { invalid: true } }
@@ -59,7 +61,7 @@ RSpec.describe Foi::RequestsController, type: :controller do
   end
 
   describe 'GET #edit' do
-    subject { get :edit, params: { id: '1' } }
+    subject { get :edit, params: { request_id: '1' } }
 
     before do
       allow(FoiRequest).to receive(:find).with('1').and_return(foi_request)
@@ -72,11 +74,14 @@ RSpec.describe Foi::RequestsController, type: :controller do
 
   describe 'PUT #update' do
     before do
-      allow(FoiRequest).to receive(:find).with('1').and_return(foi_request)
+      allow(foi_request_scope).to receive(:find_by).
+        with(id: '1').and_return(foi_request)
     end
 
     context 'valid parameters' do
-      subject { put :update, params: { id: '1', foi_request: valid_params } }
+      subject do
+        put :update, params: { request_id: '1', foi_request: valid_params }
+      end
       before { allow(foi_request).to receive(:update).and_return(true) }
 
       it 'receives valid attributes' do
@@ -91,7 +96,9 @@ RSpec.describe Foi::RequestsController, type: :controller do
     end
 
     context 'invalid parameters' do
-      subject { put :update, params: { id: '1', foi_request: invalid_params } }
+      subject do
+        put :update, params: { request_id: '1', foi_request: invalid_params }
+      end
       before { allow(foi_request).to receive(:update).and_return(false) }
 
       it 'returns http success' do
