@@ -8,6 +8,7 @@ module Foi
   class ContactsController < ApplicationController
     include FindableFoiRequest
 
+    before_action :find_foi_request
     before_action :redirect_if_exisiting_contact, only: %i[new create]
     before_action :new_contact, only: %i[new create]
     before_action :find_contact, only: %i[edit update]

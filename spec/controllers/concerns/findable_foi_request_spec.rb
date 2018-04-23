@@ -10,6 +10,8 @@ RSpec.describe FindableFoiRequest do
   controller(ApplicationController) do
     include FindableFoiRequest
 
+    before_action :find_foi_request
+
     def index
       redirect_to edit_foi_request_path(@foi_request)
     end

@@ -8,6 +8,8 @@ module Foi
   class SuggestionsController < ApplicationController
     include FindableFoiRequest
 
+    before_action :find_foi_request
+
     def index; end
   end
 end

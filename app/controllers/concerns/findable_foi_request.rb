@@ -9,9 +9,12 @@ module FindableFoiRequest
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_foi_request, :redirect_if_missing_request
-
     private
+
+    def find_foi_request
+      set_foi_request
+      redirect_if_missing_request
+    end
 
     def set_foi_request
       @foi_request = FoiRequest.
