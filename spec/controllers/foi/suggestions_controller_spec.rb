@@ -13,7 +13,9 @@ RSpec.describe Foi::SuggestionsController, type: :controller do
   end
 
   describe 'GET #index' do
-    subject { get :index, params: { request_id: '1' } }
+    subject do
+      get :index, params: { request_id: '1' }, session: { request_id: '1' }
+    end
 
     it 'returns http success' do
       is_expected.to have_http_status(200)

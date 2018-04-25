@@ -23,7 +23,9 @@ RSpec.describe Foi::SubmissionsController, type: :controller do
   end
 
   describe 'GET #new' do
-    subject { get :new, params: { request_id: '1' } }
+    subject do
+      get :new, params: { request_id: '1' }, session: { request_id: '1' }
+    end
 
     include_examples 'redirect if missing contact'
 
@@ -33,7 +35,9 @@ RSpec.describe Foi::SubmissionsController, type: :controller do
   end
 
   describe 'POST #create' do
-    subject { post :create, params: { request_id: '1' } }
+    subject do
+      post :create, params: { request_id: '1' }, session: { request_id: '1' }
+    end
 
     include_examples 'redirect if missing contact'
 
@@ -43,7 +47,9 @@ RSpec.describe Foi::SubmissionsController, type: :controller do
   end
 
   describe 'GET #show' do
-    subject { get :show, params: { request_id: '1' } }
+    subject do
+      get :show, params: { request_id: '1' }, session: { request_id: '1' }
+    end
 
     include_examples 'redirect if missing contact'
 

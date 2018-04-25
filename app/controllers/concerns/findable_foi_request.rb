@@ -20,7 +20,7 @@ module FindableFoiRequest
       @foi_request = FoiRequest.
                      includes(:contact).
                      references(:contact).
-                     find_by(id: params.require(:request_id))
+                     find_by(id: session[:request_id])
     end
 
     def redirect_if_missing_request
