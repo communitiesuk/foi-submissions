@@ -11,7 +11,7 @@ RSpec.describe Submission, type: :model do
     end
 
     it 'removes FOI request on destroy' do
-      submission = create(:foi_request).submission
+      submission = create(:foi_request, :unqueued).submission
       expect { submission.destroy }.to change { FoiRequest.count }.by(-1)
     end
   end
