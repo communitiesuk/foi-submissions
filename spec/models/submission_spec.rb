@@ -23,4 +23,18 @@ RSpec.describe Submission, type: :model do
       expect(submission.errors[:state]).to_not be_empty
     end
   end
+
+  describe '#queue' do
+    let(:submission) { build(:submission) }
+
+    it 'changes the state' do
+      expect { submission.queue }.to change(submission, :state).
+        to(Submission::QUEUED)
+    end
+
+    it 'persists the change' do
+      expect { submission.queue }.to change(submission, :persisted?).
+        to(true)
+    end
+  end
 end

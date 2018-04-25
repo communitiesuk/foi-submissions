@@ -8,22 +8,41 @@ module Foi
   class SubmissionsController < ApplicationController
     include FindableFoiRequest
 
-    before_action :find_foi_request
+    before_action :find_foi_request, only: %i[new create]
+    before_action :find_foi_request_from_session, only: %i[show]
     before_action :redirect_if_missing_contact
+    before_action :new_submission, only: %i[new create]
+    before_action :find_submission, only: %i[show]
 
     def new; end
 
     def create
-      redirect_to sent_foi_request_path
+      if @submission.queue
+        redirect_to sent_foi_request_path
+      else
+        render :new
+      end
     end
 
     def show; end
 
     private
 
+    def find_foi_request_from_session
+      @foi_request = foi_request_from_session
+    end
+
     def redirect_if_missing_contact
       return if @foi_request.contact
       redirect_to new_foi_request_contact_path
+    end
+
+    def new_submission
+      @submission = @foi_request.build_submission
+    end
+
+    def find_submission
+      @submission = @foi_request.submission
     end
   end
 end

@@ -6,6 +6,7 @@ RSpec.describe Foi::SubmissionsController, type: :controller do
   include_context 'FOI Request Scope'
 
   let(:foi_request) { build_stubbed(:foi_request) }
+  let(:submission) { build_stubbed(:submission) }
 
   before do
     allow(foi_request_scope).to receive(:find_by).
@@ -34,16 +35,42 @@ RSpec.describe Foi::SubmissionsController, type: :controller do
 
   describe 'POST #create' do
     subject { post :create, session: { request_id: '1' } }
+    before do
+      allow(foi_request).to receive(:build_submission).and_return(submission)
+    end
 
     include_examples 'redirect if missing contact'
 
-    it 'redirects to foi_request sent' do
-      is_expected.to redirect_to(sent_foi_request_path)
+    context 'queueable' do
+      before { allow(submission).to receive(:queue).and_return(true) }
+
+      it 'must queue submission' do
+        expect(submission).to receive(:queue)
+        subject
+      end
+
+      it 'redirects to foi_request sent' do
+        is_expected.to redirect_to(sent_foi_request_path)
+      end
+    end
+
+    context 'unqueueable' do
+      before { allow(submission).to receive(:queue).and_return(false) }
+
+      it 'returns http success' do
+        is_expected.to have_http_status(200)
+      end
     end
   end
 
   describe 'GET #show' do
     subject { get :show, session: { request_id: '1' } }
+
+    before do
+      # temporary
+      allow(FoiRequest).to receive(:includes).
+        with(:contact).and_return(foi_request_scope)
+    end
 
     include_examples 'redirect if missing contact'
 
