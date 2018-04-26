@@ -1,0 +1,36 @@
+@import "variables";
+@import "mixins";
+
+#content > .heading-xlarge {
+    margin-top: 0.75em;
+    margin-bottom: 0.625em;
+
+    @media (min-width: $tablet-breakpoint){
+        margin-top: 1.25em;
+    }
+}
+
+table {
+    td, th {
+        vertical-align: top;
+
+        @media (min-height: 700px) {
+            // up from `em(12, 19) em(20, 19) em(9, 19) 0`
+            padding: em(19, 19) em(20, 19) em(19, 19) 0;
+        }
+    }
+
+    th {
+        font-weight: bold;
+    }
+}
+
+.data-item.bold-xsmall {
+    line-height: 1.25em; // up from 1em, because we have multi-line data labels
+}
+
+.govuk-box-highlight {
+    @media (min-height: 700px) {
+        margin: 2em 0; // up from `1em 0`
+    }
+}

@@ -1,3 +1,8 @@
 .form-control-full-width {
     width: 100%;
 }
+
+.form-label,
+.form-label-bold {
+    padding-bottom: 0.5em; // up from default 2px
+}

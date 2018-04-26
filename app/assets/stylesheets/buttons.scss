@@ -1,14 +1,5 @@
-// From govuk_frontend_toolkit _palette.scss
-$black: #0b0c0c;
-$grey-3: #dee0e2;
-$text-colour: $black;
-
-// From govuk_frontend_toolkit _css3.scss
-@mixin box-shadow($shadow) {
-  -webkit-box-shadow: $shadow;
-     -moz-box-shadow: $shadow;
-          box-shadow: $shadow;
-}
+@import "variables";
+@import "mixins";
 
 // Ideally we'd use the GOVUK button() mixin here, but
 // replicating it in this file is overkill when all we
