@@ -5,5 +5,9 @@ FactoryBot.define do
     trait :unqueued do
       state Submission::UNQUEUED
     end
+
+    trait :queued do
+      state Submission::QUEUED
+    end
   end
 end

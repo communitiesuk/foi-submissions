@@ -66,12 +66,6 @@ RSpec.describe Foi::SubmissionsController, type: :controller do
   describe 'GET #show' do
     subject { get :show, session: { request_id: '1' } }
 
-    before do
-      # temporary
-      allow(FoiRequest).to receive(:includes).
-        with(:contact).and_return(foi_request_scope)
-    end
-
     include_examples 'redirect if missing contact'
 
     it 'returns http success' do

@@ -11,6 +11,9 @@ RSpec.shared_context 'FOI Request Scope', shared_context: :metadata do
   before do
     allow(FoiRequest).to receive(:unqueued).
       and_return(foi_request_scope)
+    allow(FoiRequest).to receive(:queued).
+      and_return(foi_request_scope)
+
     allow(foi_request_scope).to receive(:includes).
       with(:contact).and_return(foi_request_scope)
     allow(foi_request_scope).to receive(:references).

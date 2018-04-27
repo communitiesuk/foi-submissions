@@ -13,4 +13,9 @@ class FoiRequest < ApplicationRecord
     left_joins(:submission).
       where(submissions: { state: [nil, Submission::UNQUEUED] })
   }
+
+  scope :queued, lambda {
+    left_joins(:submission).
+      where.not(submissions: { state: [nil, Submission::UNQUEUED] })
+  }
 end

@@ -8,5 +8,9 @@ FactoryBot.define do
     trait :unqueued do
       association :submission, :unqueued
     end
+
+    trait :queued do
+      association :submission, :queued
+    end
   end
 end

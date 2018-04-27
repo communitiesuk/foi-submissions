@@ -9,7 +9,7 @@ module Foi
     include FindableFoiRequest
 
     before_action :find_foi_request, only: %i[new create]
-    before_action :find_foi_request_from_session, only: %i[show]
+    before_action :find_queued_foi_request, only: %i[show]
     before_action :redirect_if_missing_contact
     before_action :new_submission, only: %i[new create]
     before_action :find_submission, only: %i[show]
@@ -27,10 +27,6 @@ module Foi
     def show; end
 
     private
-
-    def find_foi_request_from_session
-      @foi_request = foi_request_from_session
-    end
 
     def redirect_if_missing_contact
       return if @foi_request.contact

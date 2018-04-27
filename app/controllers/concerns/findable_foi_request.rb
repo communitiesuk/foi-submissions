@@ -16,6 +16,11 @@ module FindableFoiRequest
       redirect_if_missing_request
     end
 
+    def find_queued_foi_request
+      @foi_request = foi_request_from_session(scope: FoiRequest.queued)
+      redirect_if_missing_request
+    end
+
     def foi_request_from_session(scope: FoiRequest)
       scope.
         includes(:contact).
