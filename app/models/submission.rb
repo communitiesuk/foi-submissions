@@ -5,6 +5,8 @@
 # software.
 #
 class Submission < ApplicationRecord
+  UNQUEUED = 'unqueued'
+
   has_one :foi_request, dependent: :destroy
 
   validates :state, presence: true

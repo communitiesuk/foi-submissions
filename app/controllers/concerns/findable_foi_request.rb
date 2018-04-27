@@ -12,15 +12,15 @@ module FindableFoiRequest
     private
 
     def find_foi_request
-      set_foi_request
+      @foi_request = foi_request_from_session(scope: FoiRequest.unqueued)
       redirect_if_missing_request
     end
 
-    def set_foi_request
-      @foi_request = FoiRequest.
-                     includes(:contact).
-                     references(:contact).
-                     find_by(id: session[:request_id])
+    def foi_request_from_session(scope: FoiRequest)
+      scope.
+        includes(:contact).
+        references(:contact).
+        find_by(id: session[:request_id])
     end
 
     def redirect_if_missing_request

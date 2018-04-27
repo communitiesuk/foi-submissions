@@ -6,7 +6,7 @@ FactoryBot.define do
     contact
 
     trait :unqueued do
-      submission
+      association :submission, :unqueued
     end
   end
 end
