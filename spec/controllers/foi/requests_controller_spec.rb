@@ -41,6 +41,10 @@ RSpec.describe Foi::RequestsController, type: :controller do
         subject
       end
 
+      it 'stores request ID in the session' do
+        expect { subject }.to(change { session[:request_id] })
+      end
+
       it 'redirects to suggestions' do
         is_expected.to redirect_to(foi_request_suggestions_path(foi_request))
       end

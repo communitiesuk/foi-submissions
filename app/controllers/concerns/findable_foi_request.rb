@@ -27,5 +27,9 @@ module FindableFoiRequest
       return if @foi_request
       redirect_to new_foi_request_path
     end
+
+    def store_foi_request_in_session
+      session[:request_id] = @foi_request.id
+    end
   end
 end
