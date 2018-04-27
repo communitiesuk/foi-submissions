@@ -65,9 +65,7 @@ RSpec.describe Foi::RequestsController, type: :controller do
   end
 
   describe 'GET #edit' do
-    subject do
-      get :edit, params: { request_id: '1' }, session: { request_id: '1' }
-    end
+    subject { get :edit, session: { request_id: '1' } }
 
     before do
       allow(FoiRequest).to receive(:find).with('1').and_return(foi_request)
@@ -86,7 +84,7 @@ RSpec.describe Foi::RequestsController, type: :controller do
 
     context 'valid parameters' do
       subject do
-        put :update, params: { request_id: '1', foi_request: valid_params },
+        put :update, params: { foi_request: valid_params },
                      session: { request_id: '1' }
       end
       before { allow(foi_request).to receive(:update).and_return(true) }
@@ -104,7 +102,7 @@ RSpec.describe Foi::RequestsController, type: :controller do
 
     context 'invalid parameters' do
       subject do
-        put :update, params: { request_id: '1', foi_request: invalid_params },
+        put :update, params: { foi_request: invalid_params },
                      session: { request_id: '1' }
       end
       before { allow(foi_request).to receive(:update).and_return(false) }

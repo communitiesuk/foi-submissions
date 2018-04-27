@@ -16,9 +16,7 @@ RSpec.describe Foi::ContactsController, type: :controller do
   end
 
   describe 'GET #new' do
-    subject do
-      get :new, params: { request_id: '1' }, session: { request_id: '1' }
-    end
+    subject { get :new, session: { request_id: '1' } }
     before { allow(foi_request).to receive(:contact).and_return(nil) }
 
     context 'existing contact' do
@@ -43,9 +41,7 @@ RSpec.describe Foi::ContactsController, type: :controller do
     end
 
     context 'existing contact' do
-      subject do
-        post :create, params: { request_id: '1' }, session: { request_id: '1' }
-      end
+      subject { post :create, session: { request_id: '1' } }
       before { allow(foi_request).to receive(:contact).and_return(double) }
 
       it 'does not receive attributes' do
@@ -60,7 +56,7 @@ RSpec.describe Foi::ContactsController, type: :controller do
 
     context 'valid parameters' do
       subject do
-        post :create, params: { request_id: '1', contact: valid_params },
+        post :create, params: { contact: valid_params },
                       session: { request_id: '1' }
       end
       before { allow(contact).to receive(:update).and_return(true) }
@@ -78,7 +74,7 @@ RSpec.describe Foi::ContactsController, type: :controller do
 
     context 'invalid parameters' do
       subject do
-        post :create, params: { request_id: '1', contact: invalid_params },
+        post :create, params: { contact: invalid_params },
                       session: { request_id: '1' }
       end
       before { allow(contact).to receive(:update).and_return(false) }
@@ -90,9 +86,7 @@ RSpec.describe Foi::ContactsController, type: :controller do
   end
 
   describe 'GET #edit' do
-    subject do
-      get :edit, params: { request_id: '1' }, session: { request_id: '1' }
-    end
+    subject { get :edit, session: { request_id: '1' } }
 
     it 'returns http success' do
       is_expected.to have_http_status(200)
@@ -104,7 +98,7 @@ RSpec.describe Foi::ContactsController, type: :controller do
 
     context 'valid parameters' do
       subject do
-        put :update, params: { request_id: '1', contact: valid_params },
+        put :update, params: { contact: valid_params },
                      session: { request_id: '1' }
       end
       before { allow(contact).to receive(:update).and_return(true) }
@@ -122,7 +116,7 @@ RSpec.describe Foi::ContactsController, type: :controller do
 
     context 'invalid parameters' do
       subject do
-        put :update, params: { request_id: '1', contact: invalid_params },
+        put :update, params: { contact: invalid_params },
                      session: { request_id: '1' }
       end
       before { allow(contact).to receive(:update).and_return(false) }
