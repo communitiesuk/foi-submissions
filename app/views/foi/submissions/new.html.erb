@@ -40,8 +40,8 @@
     </aside>
 
     <div class="cta-section">
-      <%= link_to 'Edit your request', edit_foi_request_path(@foi_request), class: 'button button-secondary' %>
-      <%= form_for :submission, url: foi_request_send_path(@foi_request) do |f| %>
+      <%= link_to 'Edit your request', edit_foi_request_path, class: 'button button-secondary' %>
+      <%= form_for :submission, url: send_foi_request_path do |f| %>
         <%= f.submit 'Send now', class: 'button' %>
       <% end %>
     </div>

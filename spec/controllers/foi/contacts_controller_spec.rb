@@ -25,7 +25,7 @@ RSpec.describe Foi::ContactsController, type: :controller do
       before { allow(foi_request).to receive(:contact).and_return(double) }
 
       it 'redirects to edit contact' do
-        is_expected.to redirect_to(edit_foi_request_contact_path(foi_request))
+        is_expected.to redirect_to(edit_foi_request_contact_path)
       end
     end
 
@@ -54,7 +54,7 @@ RSpec.describe Foi::ContactsController, type: :controller do
       end
 
       it 'redirects to edit contact' do
-        is_expected.to redirect_to(edit_foi_request_contact_path(foi_request))
+        is_expected.to redirect_to(edit_foi_request_contact_path)
       end
     end
 
@@ -72,7 +72,7 @@ RSpec.describe Foi::ContactsController, type: :controller do
       end
 
       it 'redirects to foi_request' do
-        is_expected.to redirect_to(foi_request_preview_path(foi_request))
+        is_expected.to redirect_to(preview_foi_request_path)
       end
     end
 
@@ -116,7 +116,7 @@ RSpec.describe Foi::ContactsController, type: :controller do
       end
 
       it 'redirects to foi_request' do
-        is_expected.to redirect_to(foi_request_preview_path(foi_request))
+        is_expected.to redirect_to(preview_foi_request_path)
       end
     end
 

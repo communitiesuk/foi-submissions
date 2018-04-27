@@ -10,17 +10,17 @@ RSpec.describe 'foi namespace', type: :request do
     end
   end
 
-  describe 'GET /foi/requests' do
+  describe 'GET /foi/request' do
     it 'redirects to new request' do
-      get '/foi/requests'
+      get '/foi/request'
       expect(response).to redirect_to('/foi/request/new')
     end
   end
 
-  describe 'GET /foi/requests/:id/contact' do
-    it 'redirects to new request contact' do
-      get '/foi/requests/1/contact'
-      expect(response).to redirect_to('/foi/requests/1/contact/new')
+  describe 'GET /foi/request/contact' do
+    it 'redirects to new contact' do
+      get '/foi/request/contact'
+      expect(response).to redirect_to('/foi/request/contact/new')
     end
   end
 end

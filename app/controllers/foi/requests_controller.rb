@@ -17,7 +17,7 @@ module Foi
     def create
       if @foi_request.update(foi_request_params)
         store_foi_request_in_session
-        redirect_to foi_request_suggestions_path(@foi_request)
+        redirect_to foi_request_suggestions_path
       else
         render :new
       end
@@ -27,7 +27,7 @@ module Foi
 
     def update
       if @foi_request.update(foi_request_params)
-        redirect_to foi_request_suggestions_path(@foi_request)
+        redirect_to foi_request_suggestions_path
       else
         render :edit
       end

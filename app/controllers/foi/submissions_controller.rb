@@ -14,7 +14,7 @@ module Foi
     def new; end
 
     def create
-      redirect_to foi_request_sent_path(@foi_request)
+      redirect_to sent_foi_request_path
     end
 
     def show; end
@@ -23,7 +23,7 @@ module Foi
 
     def redirect_if_missing_contact
       return if @foi_request.contact
-      redirect_to new_foi_request_contact_path(@foi_request)
+      redirect_to new_foi_request_contact_path
     end
   end
 end

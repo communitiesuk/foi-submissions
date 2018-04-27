@@ -46,7 +46,7 @@ RSpec.describe Foi::RequestsController, type: :controller do
       end
 
       it 'redirects to suggestions' do
-        is_expected.to redirect_to(foi_request_suggestions_path(foi_request))
+        is_expected.to redirect_to(foi_request_suggestions_path)
       end
     end
 
@@ -98,7 +98,7 @@ RSpec.describe Foi::RequestsController, type: :controller do
       end
 
       it 'redirects to suggestions' do
-        is_expected.to redirect_to(foi_request_suggestions_path(foi_request))
+        is_expected.to redirect_to(foi_request_suggestions_path)
       end
     end
 

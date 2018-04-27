@@ -17,7 +17,7 @@ RSpec.describe Foi::SubmissionsController, type: :controller do
       let(:foi_request) { build_stubbed(:foi_request, contact: nil) }
 
       it 'redirects to new foi_request contact' do
-        is_expected.to redirect_to(new_foi_request_contact_path(foi_request))
+        is_expected.to redirect_to(new_foi_request_contact_path)
       end
     end
   end
@@ -42,7 +42,7 @@ RSpec.describe Foi::SubmissionsController, type: :controller do
     include_examples 'redirect if missing contact'
 
     it 'redirects to foi_request sent' do
-      is_expected.to redirect_to(foi_request_sent_path(foi_request))
+      is_expected.to redirect_to(sent_foi_request_path)
     end
   end
 
