@@ -4,32 +4,23 @@ require 'rails_helper'
 
 RSpec.describe 'foi namespace', type: :request do
   describe 'GET /' do
-    it 'redirects to requests index' do
+    it 'redirects to foi namespace' do
       get '/'
-      expect(response).to redirect_to('/foi/requests')
+      expect(response).to redirect_to('/foi')
     end
   end
 
-  describe 'GET /foi' do
-    it 'redirects to requests index' do
-      get '/foi'
-      expect(response).to redirect_to('/foi/requests')
+  describe 'GET /foi/request' do
+    it 'redirects to new request' do
+      get '/foi/request'
+      expect(response).to redirect_to('/foi/request/new')
     end
   end
 
-  describe 'GET /foi/request/:id/contact' do
-    include_context 'FOI Request Scope'
-
-    let(:foi_request) { build_stubbed(:foi_request, contact: nil) }
-
-    before do
-      allow(foi_request_scope).to receive(:find_by).
-        with(id: '1').and_return(foi_request)
-    end
-
-    it 'redirects to requests index' do
-      get '/foi/requests/1/contact'
-      expect(response).to redirect_to('/foi/requests/1/contact/new')
+  describe 'GET /foi/request/contact' do
+    it 'redirects to new contact' do
+      get '/foi/request/contact'
+      expect(response).to redirect_to('/foi/request/contact/new')
     end
   end
 end

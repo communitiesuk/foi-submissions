@@ -11,7 +11,7 @@ RSpec.describe Submission, type: :model do
     end
 
     it 'removes FOI request on destroy' do
-      submission = create(:foi_request).submission
+      submission = create(:foi_request, :unqueued).submission
       expect { submission.destroy }.to change { FoiRequest.count }.by(-1)
     end
   end
@@ -21,6 +21,20 @@ RSpec.describe Submission, type: :model do
       submission.state = nil
       expect(submission.valid?).to eq false
       expect(submission.errors[:state]).to_not be_empty
+    end
+  end
+
+  describe '#queue' do
+    let(:submission) { build(:submission) }
+
+    it 'changes the state' do
+      expect { submission.queue }.to change(submission, :state).
+        to(Submission::QUEUED)
+    end
+
+    it 'persists the change' do
+      expect { submission.queue }.to change(submission, :persisted?).
+        to(true)
     end
   end
 end

@@ -6,6 +6,7 @@ RSpec.describe Foi::SubmissionsController, type: :controller do
   include_context 'FOI Request Scope'
 
   let(:foi_request) { build_stubbed(:foi_request) }
+  let(:submission) { build_stubbed(:submission) }
 
   before do
     allow(foi_request_scope).to receive(:find_by).
@@ -17,13 +18,13 @@ RSpec.describe Foi::SubmissionsController, type: :controller do
       let(:foi_request) { build_stubbed(:foi_request, contact: nil) }
 
       it 'redirects to new foi_request contact' do
-        is_expected.to redirect_to(new_foi_request_contact_path(foi_request))
+        is_expected.to redirect_to(new_foi_request_contact_path)
       end
     end
   end
 
   describe 'GET #new' do
-    subject { get :new, params: { request_id: '1' } }
+    subject { get :new, session: { request_id: '1' } }
 
     include_examples 'redirect if missing contact'
 
@@ -33,17 +34,37 @@ RSpec.describe Foi::SubmissionsController, type: :controller do
   end
 
   describe 'POST #create' do
-    subject { post :create, params: { request_id: '1' } }
+    subject { post :create, session: { request_id: '1' } }
+    before do
+      allow(foi_request).to receive(:build_submission).and_return(submission)
+    end
 
     include_examples 'redirect if missing contact'
 
-    it 'redirects to foi_request sent' do
-      is_expected.to redirect_to(foi_request_sent_path(foi_request))
+    context 'queueable' do
+      before { allow(submission).to receive(:queue).and_return(true) }
+
+      it 'must queue submission' do
+        expect(submission).to receive(:queue)
+        subject
+      end
+
+      it 'redirects to foi_request sent' do
+        is_expected.to redirect_to(sent_foi_request_path)
+      end
+    end
+
+    context 'unqueueable' do
+      before { allow(submission).to receive(:queue).and_return(false) }
+
+      it 'returns http success' do
+        is_expected.to have_http_status(200)
+      end
     end
   end
 
   describe 'GET #show' do
-    subject { get :show, params: { request_id: '1' } }
+    subject { get :show, session: { request_id: '1' } }
 
     include_examples 'redirect if missing contact'
 

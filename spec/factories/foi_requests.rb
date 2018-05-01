@@ -4,6 +4,13 @@ FactoryBot.define do
   factory :foi_request do
     body 'How much did you spend on cycling infrastructure last year?'
     contact
-    submission
+
+    trait :unqueued do
+      association :submission, :unqueued
+    end
+
+    trait :queued do
+      association :submission, :queued
+    end
   end
 end

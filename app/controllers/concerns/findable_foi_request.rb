@@ -9,20 +9,32 @@ module FindableFoiRequest
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_foi_request, :redirect_if_missing_request
-
     private
 
-    def set_foi_request
-      @foi_request = FoiRequest.
-                     includes(:contact).
-                     references(:contact).
-                     find_by(id: params.require(:request_id))
+    def find_foi_request
+      @foi_request = foi_request_from_session(scope: FoiRequest.unqueued)
+      redirect_if_missing_request
+    end
+
+    def find_queued_foi_request
+      @foi_request = foi_request_from_session(scope: FoiRequest.queued)
+      redirect_if_missing_request
+    end
+
+    def foi_request_from_session(scope: FoiRequest)
+      scope.
+        includes(:contact).
+        references(:contact).
+        find_by(id: session[:request_id])
     end
 
     def redirect_if_missing_request
       return if @foi_request
       redirect_to new_foi_request_path
+    end
+
+    def store_foi_request_in_session
+      session[:request_id] = @foi_request.id
     end
   end
 end

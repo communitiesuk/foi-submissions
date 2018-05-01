@@ -2,6 +2,12 @@
 
 FactoryBot.define do
   factory :submission do
-    state 'unsent'
+    trait :unqueued do
+      state Submission::UNQUEUED
+    end
+
+    trait :queued do
+      state Submission::QUEUED
+    end
   end
 end

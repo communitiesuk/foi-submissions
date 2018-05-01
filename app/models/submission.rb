@@ -5,7 +5,14 @@
 # software.
 #
 class Submission < ApplicationRecord
+  UNQUEUED = 'unqueued'
+  QUEUED = 'queued'
+
   has_one :foi_request, dependent: :destroy
 
   validates :state, presence: true
+
+  def queue
+    update(state: QUEUED)
+  end
 end
