@@ -19,4 +19,12 @@ class Submission < ApplicationRecord
   def queue
     QueueSubmission.new(self).call
   end
+
+  def deliverable?
+    state == QUEUED
+  end
+
+  def deliver
+    DeliverSubmission.new(self).call
+  end
 end

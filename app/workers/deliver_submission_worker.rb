@@ -6,5 +6,8 @@
 class DeliverSubmissionWorker
   include Sidekiq::Worker
 
-  def perform(id); end
+  def perform(id)
+    submission = Submission.deliverable.find_by(id: id)
+    submission&.deliver
+  end
 end

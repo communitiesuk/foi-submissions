@@ -50,4 +50,34 @@ RSpec.describe Submission, type: :model do
       submission.queue
     end
   end
+
+  describe '#deliverable?' do
+    subject { submission.deliverable? }
+
+    context 'in unqueued state' do
+      before { submission.state = Submission::UNQUEUED }
+      it { is_expected.to eq false }
+    end
+
+    context 'in queued state' do
+      before { submission.state = Submission::QUEUED }
+      it { is_expected.to eq true }
+    end
+
+    context 'in delivered state' do
+      before { submission.state = Submission::DELIVERED }
+      it { is_expected.to eq false }
+    end
+  end
+
+  describe '#deliver' do
+    it 'delegates to DeliverSubmission service' do
+      service = double(:service)
+      expect(DeliverSubmission).to receive(:new).with(submission).
+        and_return(service)
+      expect(service).to receive(:call)
+
+      submission.deliver
+    end
+  end
 end
