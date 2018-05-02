@@ -7,6 +7,7 @@
 class Submission < ApplicationRecord
   UNQUEUED = 'unqueued'
   QUEUED = 'queued'
+  DELIVERED = 'delivered'
 
   has_one :foi_request, dependent: :destroy
 
