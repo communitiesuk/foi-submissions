@@ -17,6 +17,6 @@ class Submission < ApplicationRecord
   scope :deliverable, -> { where(state: QUEUED) }
 
   def queue
-    update(state: QUEUED)
+    QueueSubmission.new(self).call
   end
 end

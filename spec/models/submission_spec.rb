@@ -41,16 +41,13 @@ RSpec.describe Submission, type: :model do
   end
 
   describe '#queue' do
-    let(:submission) { build(:submission) }
+    it 'delegates to QueueSubmission service' do
+      service = double(:service)
+      expect(QueueSubmission).to receive(:new).with(submission).
+        and_return(service)
+      expect(service).to receive(:call)
 
-    it 'changes the state' do
-      expect { submission.queue }.to change(submission, :state).
-        to(Submission::QUEUED)
-    end
-
-    it 'persists the change' do
-      expect { submission.queue }.to change(submission, :persisted?).
-        to(true)
+      submission.queue
     end
   end
 end
