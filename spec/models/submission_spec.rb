@@ -24,6 +24,22 @@ RSpec.describe Submission, type: :model do
     end
   end
 
+  describe 'scopes' do
+    let!(:unqueued) { create(:submission, :unqueued) }
+    let!(:queued) { create(:submission, :queued) }
+    let!(:delivered) { create(:submission, :delivered) }
+
+    describe '.queueable' do
+      subject { Submission.queueable }
+      it { is_expected.to match [unqueued] }
+    end
+
+    describe '.deliverable' do
+      subject { Submission.deliverable }
+      it { is_expected.to match [queued] }
+    end
+  end
+
   describe '#queue' do
     let(:submission) { build(:submission) }
 

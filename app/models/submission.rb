@@ -13,6 +13,9 @@ class Submission < ApplicationRecord
 
   validates :state, presence: true
 
+  scope :queueable, -> { where(state: UNQUEUED) }
+  scope :deliverable, -> { where(state: QUEUED) }
+
   def queue
     update(state: QUEUED)
   end
