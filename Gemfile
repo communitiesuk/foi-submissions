@@ -39,6 +39,7 @@ gem 'hackney_template', path: 'gems/hackney_template-0.0.2'
 gem 'redis', '~> 4.0'
 gem 'redis-namespace', github: 'resque/redis-namespace'
 gem 'sidekiq'
+gem 'sidekiq-lock'
 gem 'sidekiq-scheduler'
 
 group :development, :test do
