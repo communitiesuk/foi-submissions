@@ -9,9 +9,9 @@ RSpec.shared_context 'FOI Request Scope', shared_context: :metadata do
   let(:foi_request_scope) { double(:foi_request_scope) }
 
   before do
-    allow(FoiRequest).to receive(:unqueued).
+    allow(FoiRequest).to receive(:editable).
       and_return(foi_request_scope)
-    allow(FoiRequest).to receive(:queued).
+    allow(FoiRequest).to receive(:sent).
       and_return(foi_request_scope)
 
     allow(foi_request_scope).to receive(:includes).

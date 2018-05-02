@@ -39,13 +39,13 @@ RSpec.describe FoiRequest, type: :model do
     let!(:queued) { create(:foi_request, :queued) }
     let!(:delivered) { create(:foi_request, :delivered) }
 
-    describe '.unqueued' do
-      subject { FoiRequest.unqueued }
+    describe '.editable' do
+      subject { FoiRequest.editable }
       it { is_expected.to match [pending, unqueued] }
     end
 
-    describe '.queued' do
-      subject { FoiRequest.queued }
+    describe '.sent' do
+      subject { FoiRequest.sent }
       it { is_expected.to match [queued, delivered] }
     end
   end

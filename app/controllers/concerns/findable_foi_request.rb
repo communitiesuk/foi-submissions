@@ -12,12 +12,12 @@ module FindableFoiRequest
     private
 
     def find_foi_request
-      @foi_request = foi_request_from_session(scope: FoiRequest.unqueued)
+      @foi_request = foi_request_from_session(scope: FoiRequest.editable)
       redirect_if_missing_request
     end
 
-    def find_queued_foi_request
-      @foi_request = foi_request_from_session(scope: FoiRequest.queued)
+    def find_sent_foi_request
+      @foi_request = foi_request_from_session(scope: FoiRequest.sent)
       redirect_if_missing_request
     end
 
