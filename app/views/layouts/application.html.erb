@@ -11,4 +11,9 @@
   <div id='content'><%= yield %></div>
 <% end %>
 
+<% content_for :body_end do %>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
 <%= render file: 'layouts/hackney_template' %>

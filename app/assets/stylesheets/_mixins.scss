@@ -10,3 +10,46 @@
 @function em($px, $base: 19) {
     @return ($px / $base) + em;
 }
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@mixin loading-spinner($diameter: 4em, $thickness: 0.5em, $color: #000, $background: #fff) {
+    box-sizing: border-box;
+    display: block;
+    width: $diameter;
+    height: $diameter;
+    position: relative;
+    border-radius: $diameter;
+    border: $thickness solid $color;
+    -webkit-animation: 1s infinite linear spin;
+    animation: 1s infinite linear spin;
+
+    &:before {
+        content: "";
+        display: block;
+        width: ($diameter / 2);
+        height: ($diameter / 2);
+        position: absolute;
+        top: ($thickness * -1);
+        left: ($thickness * -1);
+        background-color: $background;
+    }
+}
