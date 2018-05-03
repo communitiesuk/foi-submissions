@@ -2,6 +2,21 @@
 <% content_for :body_classes, 'foi foi-complete' %>
 
 <div class="govuk-box-highlight">
+<%# TODO: Obviously, make this work! %>
+<% if false %>
+  <h1 class="heading-xlarge">
+    Thank your for your&nbsp;request
+  </h1>
+  <p class="font-large" style="margin-left: auto; margin-right: auto; max-width: 18em;">
+    We will email you a reference number
+    and a copy of your request as soon as
+    we start processing it.
+  </p>
+  <p class="font-medium">
+    If you need to contact us before then
+    <strong class="bold">call 020 8356 3000</strong>
+  </p>
+<% else %>
   <h1 class="heading-xlarge">
     Your request has been&nbsp;sent
   </h1>
@@ -13,6 +28,7 @@
     We have emailed a copy to
     <strong class="bold js-session-store" id="foi-requestor-email">you</strong>
   </p>
+<% end %>
 </div>
 
 <h2 class="heading-medium">What happens next?</h2>
