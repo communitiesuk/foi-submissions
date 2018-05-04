@@ -5,8 +5,25 @@
 # normally their case management software
 #
 class DeliverSubmission < SimpleDelegator
+  delegate :contact, to: :foi_request
+
   def call
-    # FIXME: actually submit Request
-    update(state: Submission::DELIVERED, reference: "FOI-#{rand(100)}")
+    request = Infreemation::Request.create!(attributes)
+    update(
+      state: Submission::DELIVERED,
+      reference: request.attributes[:ref]
+    )
+  end
+
+  private
+
+  def attributes
+    {
+      type: 'FOI',
+      requester: contact.full_name,
+      contact: contact.email,
+      contacttype: 'email',
+      body: foi_request.body
+    }
   end
 end
