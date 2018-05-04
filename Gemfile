@@ -35,6 +35,9 @@ gem 'jbuilder', '~> 2.5'
 gem 'govuk_elements_form_builder'
 gem 'hackney_template', path: 'gems/hackney_template-0.0.2'
 
+# Case management
+gem 'infreemation'
+
 # Background workers
 gem 'redis', '~> 4.0'
 gem 'redis-namespace', github: 'resque/redis-namespace'
