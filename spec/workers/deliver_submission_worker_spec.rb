@@ -17,6 +17,8 @@ RSpec.describe DeliverSubmissionWorker, type: :worker do
   end
 
   context 'with a deliverable submission and when lockable' do
+    before { allow(submission).to receive(:deliver) }
+
     it 'finds submission from ID' do
       expect(submission_scope).to receive(:find_by).with(id: 1).
         and_return(submission)
