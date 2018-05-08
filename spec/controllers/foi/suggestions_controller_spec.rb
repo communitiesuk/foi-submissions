@@ -15,8 +15,26 @@ RSpec.describe Foi::SuggestionsController, type: :controller do
   describe 'GET #index' do
     subject { get :index, session: { request_id: '1' } }
 
-    it 'returns http success' do
-      is_expected.to have_http_status(200)
+    context 'there are suggestions' do
+      before do
+        allow(FoiSuggestion).
+          to receive(:from_text).with(foi_request.body).and_return([double])
+      end
+
+      it 'returns http success' do
+        is_expected.to have_http_status(200)
+      end
+    end
+
+    context 'there are no suggestions' do
+      before do
+        allow(FoiSuggestion).
+          to receive(:from_text).with(foi_request.body).and_return([])
+      end
+
+      it 'redirects to the next step' do
+        is_expected.to redirect_to(new_foi_request_contact_path)
+      end
     end
   end
 end
