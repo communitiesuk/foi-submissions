@@ -9,12 +9,12 @@ class FoiRequest < ApplicationRecord
 
   validates :body, presence: true
 
-  scope :unqueued, lambda {
+  scope :editable, lambda {
     left_joins(:submission).
       where(submissions: { state: [nil, Submission::UNQUEUED] })
   }
 
-  scope :queued, lambda {
+  scope :sent, lambda {
     left_joins(:submission).
       where.not(submissions: { state: [nil, Submission::UNQUEUED] })
   }

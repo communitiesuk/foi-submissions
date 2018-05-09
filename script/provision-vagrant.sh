@@ -3,7 +3,7 @@ sudo apt-get update
 sudo apt-get -qq install -y autoconf bison build-essential libssl-dev \
   libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev \
   libgdbm3 libgdbm-dev git-core postgresql-9.6 postgresql-server-dev-9.6 \
-  postgresql-client-9.6 curl
+  postgresql-client-9.6 curl redis-server
 
 if [ ! -d "$HOME/.rbenv" ]; then
   echo 'Installing rbenv and ruby-build'

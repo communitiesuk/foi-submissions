@@ -1,0 +1,3 @@
+:schedule:
+  QueueSubmissionsWorker:
+    every: '5m'

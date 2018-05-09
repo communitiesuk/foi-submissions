@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'sidekiq/web'
+require 'sidekiq-scheduler/web'
+
 Rails.application.routes.draw do
   root to: redirect('foi')
 
@@ -17,4 +20,6 @@ Rails.application.routes.draw do
   end
 
   resolve('FoiRequest') { %i[foi request] }
+
+  mount Sidekiq::Web => '/sidekiq'
 end

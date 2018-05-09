@@ -12,5 +12,9 @@ FactoryBot.define do
     trait :queued do
       association :submission, :queued
     end
+
+    trait :delivered do
+      association :submission, :delivered
+    end
   end
 end

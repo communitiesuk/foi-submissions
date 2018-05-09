@@ -22,8 +22,6 @@ gem 'mini_racer', platforms: :ruby
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -36,6 +34,13 @@ gem 'jbuilder', '~> 2.5'
 # Hackney theme
 gem 'govuk_elements_form_builder'
 gem 'hackney_template', path: 'gems/hackney_template-0.0.2'
+
+# Background workers
+gem 'redis', '~> 4.0'
+gem 'redis-namespace', github: 'resque/redis-namespace'
+gem 'sidekiq'
+gem 'sidekiq-lock'
+gem 'sidekiq-scheduler'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger

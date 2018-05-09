@@ -24,17 +24,60 @@ RSpec.describe Submission, type: :model do
     end
   end
 
-  describe '#queue' do
-    let(:submission) { build(:submission) }
+  describe 'scopes' do
+    let!(:unqueued) { create(:submission, :unqueued) }
+    let!(:queued) { create(:submission, :queued) }
+    let!(:delivered) { create(:submission, :delivered) }
 
-    it 'changes the state' do
-      expect { submission.queue }.to change(submission, :state).
-        to(Submission::QUEUED)
+    describe '.queueable' do
+      subject { Submission.queueable }
+      it { is_expected.to match [unqueued] }
     end
 
-    it 'persists the change' do
-      expect { submission.queue }.to change(submission, :persisted?).
-        to(true)
+    describe '.deliverable' do
+      subject { Submission.deliverable }
+      it { is_expected.to match [queued] }
+    end
+  end
+
+  describe '#queue' do
+    it 'delegates to QueueSubmission service' do
+      service = double(:service)
+      expect(QueueSubmission).to receive(:new).with(submission).
+        and_return(service)
+      expect(service).to receive(:call)
+
+      submission.queue
+    end
+  end
+
+  describe '#deliverable?' do
+    subject { submission.deliverable? }
+
+    context 'in unqueued state' do
+      before { submission.state = Submission::UNQUEUED }
+      it { is_expected.to eq false }
+    end
+
+    context 'in queued state' do
+      before { submission.state = Submission::QUEUED }
+      it { is_expected.to eq true }
+    end
+
+    context 'in delivered state' do
+      before { submission.state = Submission::DELIVERED }
+      it { is_expected.to eq false }
+    end
+  end
+
+  describe '#deliver' do
+    it 'delegates to DeliverSubmission service' do
+      service = double(:service)
+      expect(DeliverSubmission).to receive(:new).with(submission).
+        and_return(service)
+      expect(service).to receive(:call)
+
+      submission.deliver
     end
   end
 end
