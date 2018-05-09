@@ -11,6 +11,7 @@ RSpec.describe DeliverSubmission, type: :service do
   let(:response) { Infreemation::Request.new(ref: '001') }
   let(:attributes) do
     {
+      rt: 'create',
       type: 'FOI',
       requester: 'Worf',
       contact: 'worf@ufp',

@@ -19,6 +19,7 @@ class DeliverSubmission < SimpleDelegator
 
   def attributes
     {
+      rt: 'create',
       type: 'FOI',
       requester: contact.full_name,
       contact: contact.email,
