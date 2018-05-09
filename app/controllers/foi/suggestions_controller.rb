@@ -10,6 +10,9 @@ module Foi
 
     before_action :find_foi_request
 
-    def index; end
+    def index
+      @suggestions = FoiSuggestion.from_text(@foi_request.body)
+      redirect_to new_foi_request_contact_path if @suggestions.empty?
+    end
   end
 end
