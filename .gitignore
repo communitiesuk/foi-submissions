@@ -32,3 +32,6 @@
 
 # Ignore database config
 /config/database.yml
+
+# Ignore Rails ENV file
+/config/rails_env.rb

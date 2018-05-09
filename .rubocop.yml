@@ -3,6 +3,7 @@ AllCops:
     - 'Vagrantfile'
     - 'db/migrate/**'
     - 'db/schema.rb'
+    - 'config/rails_env.rb'
     - 'gems/**/*'
     - 'lib/mysociety/validate.rb'
   TargetRubyVersion: 2.4
