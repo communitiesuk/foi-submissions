@@ -64,12 +64,24 @@ RSpec.describe Foi::SubmissionsController, type: :controller do
   end
 
   describe 'GET #show' do
-    subject { get :show, session: { request_id: '1' } }
+    context 'HTML format' do
+      subject { get :show, session: { request_id: '1' } }
 
-    include_examples 'redirect if missing contact'
+      include_examples 'redirect if missing contact'
 
-    it 'returns http success' do
-      is_expected.to have_http_status(200)
+      it 'returns http success' do
+        is_expected.to have_http_status(200)
+      end
+    end
+
+    context 'JSON format' do
+      subject { get :show, session: { request_id: '1' }, format: :json }
+
+      include_examples 'redirect if missing contact'
+
+      it 'returns http success' do
+        is_expected.to have_http_status(200)
+      end
     end
   end
 end
