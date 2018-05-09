@@ -24,7 +24,12 @@ module Foi
       end
     end
 
-    def show; end
+    def show
+      respond_to do |format|
+        format.html
+        format.json { render json: @submission }
+      end
+    end
 
     private
 

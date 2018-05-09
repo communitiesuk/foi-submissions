@@ -1,0 +1,38 @@
+@import "variables";
+@import "mixins";
+
+.async-delivery-status--loading,
+.async-delivery-status--delivered {
+    display: none;
+}
+
+// Show loading message as soon as possible if we know JS is supported.
+body.js-enabled {
+    .async-delivery-status--generic {
+        display: none;
+    }
+
+    .async-delivery-status--loading {
+        display: block;
+    }
+}
+
+.govuk-box-highlight {
+    &.govuk-box-highlight--loaded {
+        .async-delivery-status--generic {
+            display: none;
+        }
+
+        .async-delivery-status--loading {
+            display: none;
+        }
+
+        .async-delivery-status--delivered {
+            display: block;
+        }
+    }
+    .loading-spinner {
+        @include loading-spinner($color: #fff, $background: $turquoise);
+        margin: 2em auto;
+    }
+}
