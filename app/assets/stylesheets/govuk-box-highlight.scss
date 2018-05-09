@@ -18,6 +18,19 @@ body.js-enabled {
 }
 
 .govuk-box-highlight {
+    &.govuk-box-highlight--loaded {
+        .async-delivery-status--generic {
+            display: none;
+        }
+
+        .async-delivery-status--loading {
+            display: none;
+        }
+
+        .async-delivery-status--delivered {
+            display: block;
+        }
+    }
     .loading-spinner {
         @include loading-spinner($color: #fff, $background: $turquoise);
         margin: 2em auto;
