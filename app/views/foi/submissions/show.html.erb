@@ -1,7 +1,7 @@
 <% content_for :page_title, 'Your request has been sent' %>
 <% content_for :body_classes, 'foi foi-complete' %>
 
-<div class="govuk-box-highlight <%= @submission.reference ? 'govuk-box-highlight--loaded' : 'js-async-delivery-status' %>">
+<div class="govuk-box-highlight <%= @submission.reference ? 'govuk-box-highlight--loaded' : 'js-async-delivery-status' %>" data-source="<%= sent_foi_request_path(format: :json) %>">
 
   <div class="async-delivery-status--generic">
     <h1 class="heading-xlarge">
@@ -26,7 +26,7 @@
     </h1>
     <p class="font-large">
       Your reference number is <br>
-      <strong class="bold"><%= @submission.reference %></strong>
+      <strong class="bold js-submission-reference"><%= @submission.reference %></strong>
     </p>
     <p class="font-medium">
       We have emailed a copy to
