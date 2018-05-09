@@ -45,6 +45,9 @@ gem 'sidekiq'
 gem 'sidekiq-lock'
 gem 'sidekiq-scheduler'
 
+# Error reporting
+gem 'exception_notification'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger
   # console
