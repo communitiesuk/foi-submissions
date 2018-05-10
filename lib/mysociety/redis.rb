@@ -32,7 +32,8 @@ module MySociety
       end
 
       def options
-        { url: ENV['REDIS_URL'] }.merge(sentinel_options)
+        { url: ENV['REDIS_URL'], password: ENV['REDIS_PASSWORD'] }.
+          merge(sentinel_options)
       end
 
       def sentinel_options
