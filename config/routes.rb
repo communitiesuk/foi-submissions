@@ -24,6 +24,11 @@ Rails.application.routes.draw do
     resources :curated_links, except: [:show]
   end
 
+  namespace :health do
+    root to: redirect('/health/metrics')
+    resources :metrics, only: [:index]
+  end
+
   resolve('FoiRequest') { %i[foi request] }
 
   mount Sidekiq::Web => '/sidekiq'
