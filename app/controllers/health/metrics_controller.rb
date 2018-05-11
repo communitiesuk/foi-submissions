@@ -8,6 +8,8 @@ module Health
   class MetricsController < ApplicationController
     layout false
 
-    def index; end
+    def index
+      @sidekiq_stats = Sidekiq::Stats.new
+    end
   end
 end

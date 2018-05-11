@@ -26,7 +26,7 @@ Rails.application.routes.draw do
 
   namespace :health do
     root to: redirect('/health/metrics')
-    resources :metrics, only: [:index]
+    resources :metrics, only: [:index], format: 'txt'
   end
 
   resolve('FoiRequest') { %i[foi request] }
