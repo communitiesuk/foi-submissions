@@ -2,11 +2,11 @@
 <% content_for :body_classes, 'foi foi-complete' %>
 
 <div class="govuk-box-highlight <%= @submission.reference ? 'govuk-box-highlight--loaded' : 'js-async-delivery-status' %>" data-source="<%= sent_foi_request_path(format: :json) %>">
-
   <div class="async-delivery-status--generic">
     <h1 class="heading-xlarge">
       Thank your for your&nbsp;request
     </h1>
+
     <p class="font-large" style="margin-left: auto; margin-right: auto; max-width: 18em;">
       We will email a reference number to
       <strong class="bold" id="foi-requestor-email">
@@ -17,6 +17,7 @@
 
   <div class="async-delivery-status--loading">
     <div class="loading-spinner"></div>
+
     <p class="font-large">
       Sending your request
     </p>
@@ -26,10 +27,14 @@
     <h1 class="heading-xlarge">
       Your request has been&nbsp;sent
     </h1>
+
     <p class="font-large">
       Your reference number is <br>
-      <strong class="bold js-submission-reference"><%= @submission.reference %></strong>
+      <strong class="bold js-submission-reference">
+        <%= @submission.reference %>
+      </strong>
     </p>
+
     <p class="font-medium">
       We have emailed a copy to
       <strong class="bold" id="foi-requestor-email">
@@ -37,35 +42,41 @@
       </strong>
     </p>
   </div>
-
 </div>
 
 <h2 class="heading-medium">What happens next?</h2>
 
 <div class="grid-row">
   <div class="column-two-thirds">
-
     <p class="text">
-      The team member handling your response will be in touch if they have any questions.
+      The team member handling your response will be in touch if they have any
+      questions.
     </p>
 
     <p class="text">
-      We aim to respond to all requests within 20 working days, and we’re currently hitting this target for 65% of requests.
+      We aim to respond to all requests within 20 working days, and we’re
+      currently hitting this target for 65% of requests.
     </p>
 
     <p class="text">
-      Please bear in mind that we may not have the information you’ve asked for in exactly the format you’ve requested, but we’ll do our best to answer your question.
+      Please bear in mind that we may not have the information you’ve asked for
+      in exactly the format you’ve requested, but we’ll do our best to answer
+      your question.
     </p>
 
     <p>
-      <button class="button button-secondary js-print-button">Print this page</button>
+      <button class="button button-secondary js-print-button">
+        Print this page
+      </button>
     </p>
-
   </div>
+
   <div class="column-one-third">
     <div class="data">
       <span class="data-item bold-xxlarge">65%</span>
-      <span class="data-item bold-xsmall">FOI requests currently being answered within 20 working days</span>
+      <span class="data-item bold-xsmall">
+        FOI requests currently being answered within 20 working days
+      </span>
     </div>
   </div>
 </div>
