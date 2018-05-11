@@ -9,6 +9,8 @@ module Health
     layout false
 
     def index
+      @submissions_delivered_unsuccessfully =
+        Submission.delivered_unsuccessfully.count
       @sidekiq_stats = Sidekiq::Stats.new
     end
   end

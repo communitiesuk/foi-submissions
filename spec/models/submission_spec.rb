@@ -49,6 +49,11 @@ RSpec.describe Submission, type: :model do
       subject { Submission.delivered_successfully }
       it { is_expected.to match_array [delivered_successfully] }
     end
+
+    describe '.delivered_unsuccessfully' do
+      subject { Submission.delivered_unsuccessfully }
+      it { is_expected.to match [delivered] }
+    end
   end
 
   describe '#queue' do

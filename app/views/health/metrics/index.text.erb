@@ -1,3 +1,7 @@
+# HELP app_delivered_unsuccessfully_submissions Submissions we've marked as delivered but haven't received a reference number back from Infreemation.
+# TYPE app_delivered_unsuccessfully_submissions gauge
+app_delivered_unsuccessfully_submissions <%= @submissions_delivered_unsuccessfully %>
+
 # HELP sidekiq_processed_jobs The total number of processed jobs.
 # TYPE sidekiq_processed_jobs gauge
 sidekiq_processed_job <%= @sidekiq_stats.processed %>

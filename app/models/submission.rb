@@ -19,6 +19,9 @@ class Submission < ApplicationRecord
   scope :delivered_successfully, lambda {
     where(state: DELIVERED).where.not(reference: nil)
   }
+  scope :delivered_unsuccessfully, lambda {
+    where(state: DELIVERED, reference: nil)
+  }
 
   def queue
     QueueSubmission.new(self).call
