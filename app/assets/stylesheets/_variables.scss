@@ -6,3 +6,10 @@ $text-colour: $black;
 
 // From govuk_frontend_toolkit _conditionals.scss
 $tablet-breakpoint: 641px;
+
+// From govuk_frontend_toolkit _measurements.scss
+$gutter: 30px;
+$gutter-half: $gutter / 2;
+
+// From govuk_frontend_toolkit _grid_layout.scss
+$site-width: 960px;

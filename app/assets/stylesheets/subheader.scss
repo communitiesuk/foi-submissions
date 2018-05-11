@@ -1,0 +1,6 @@
+@import "variables";
+@import "mixins";
+
+.subheader {
+    @extend %site-width-container;
+}

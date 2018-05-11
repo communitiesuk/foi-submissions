@@ -1,3 +1,5 @@
+@import "variables";
+
 // From govuk_frontend_toolkit _css3.scss
 @mixin box-shadow($shadow) {
   -webkit-box-shadow: $shadow;
@@ -51,5 +53,19 @@
         top: ($thickness * -1);
         left: ($thickness * -1);
         background-color: $background;
+    }
+}
+
+// From govuk_frontend_toolkit _grid_layout.scss
+%site-width-container {
+    max-width: $site-width;
+    margin: 0 $gutter-half;
+
+    @media (min-width: $tablet-breakpoint) {
+        margin: 0 $gutter;
+    }
+
+    @media (min-width: ($site-width + $gutter * 2)) {
+        margin: 0 auto;
     }
 }

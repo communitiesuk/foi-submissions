@@ -6,6 +6,19 @@
 
 <% content_for :homepage_url, root_url %>
 
+<% content_for :after_header do %>
+  <nav class="subheader">
+    <ol role="breadcrumbs" class="breadcrumbs">
+      <li>
+        <a href="https://www.hackney.gov.uk">Home</a>
+      </li>
+      <li>
+        <a href="<%= root_url %>">Make an FOI request</a>
+      </li>
+    </ol>
+  </nav>
+<% end %>
+
 <% content_for :content do %>
   <div id='content'><%= yield %></div>
 <% end %>
