@@ -41,12 +41,12 @@ RSpec.describe FoiRequest, type: :model do
 
     describe '.editable' do
       subject { FoiRequest.editable }
-      it { is_expected.to match [pending, unqueued] }
+      it { is_expected.to match_array [pending, unqueued] }
     end
 
     describe '.sent' do
       subject { FoiRequest.sent }
-      it { is_expected.to match [queued, delivered] }
+      it { is_expected.to match_array [queued, delivered] }
     end
   end
 end

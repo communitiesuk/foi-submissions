@@ -31,12 +31,12 @@ RSpec.describe Submission, type: :model do
 
     describe '.queueable' do
       subject { Submission.queueable }
-      it { is_expected.to match [unqueued] }
+      it { is_expected.to match_array [unqueued] }
     end
 
     describe '.deliverable' do
       subject { Submission.deliverable }
-      it { is_expected.to match [queued] }
+      it { is_expected.to match_array [queued] }
     end
   end
 
