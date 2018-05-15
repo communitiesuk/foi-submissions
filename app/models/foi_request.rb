@@ -18,4 +18,18 @@ class FoiRequest < ApplicationRecord
     left_joins(:submission).
       where.not(submissions: { state: [nil, Submission::UNQUEUED] })
   }
+
+  scope :delivered, lambda {
+    left_joins(:submission).merge(
+      Submission.delivered_successfully
+    )
+  }
+
+  scope :last_updated, lambda { |time|
+    where('foi_requests.updated_at < ?', time)
+  }
+
+  scope :removable, lambda {
+    editable.last_updated(4.weeks.ago).or(delivered.last_updated(1.week.ago))
+  }
 end

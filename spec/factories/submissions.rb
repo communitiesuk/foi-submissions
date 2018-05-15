@@ -12,6 +12,9 @@ FactoryBot.define do
 
     trait :delivered do
       state Submission::DELIVERED
+      sequence :reference do |n|
+        "FOI-#{n}"
+      end
     end
   end
 end

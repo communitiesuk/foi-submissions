@@ -48,5 +48,46 @@ RSpec.describe FoiRequest, type: :model do
       subject { FoiRequest.sent }
       it { is_expected.to match_array [queued, delivered] }
     end
+
+    describe '.delivered' do
+      subject { FoiRequest.delivered }
+      it { is_expected.to match_array [delivered] }
+    end
+
+    describe '.last_updated' do
+      subject { FoiRequest.last_updated(2.seconds.ago) }
+
+      it 'includes requests updated_at before given time' do
+        _newer_request = create(:foi_request, updated_at: 1.second.ago)
+        older_request = create(:foi_request, updated_at: 3.seconds.ago)
+        is_expected.to match_array [older_request]
+      end
+    end
+
+    describe '.removable' do
+      subject { FoiRequest.removable }
+
+      it 'includes requests pending/unqueued over 4 weeks ago' do
+        _newer_pending = create(:foi_request,
+                                updated_at: 4.weeks.ago + 1.minute)
+        pending = create(:foi_request, updated_at: 4.weeks.ago)
+        _newer_unqueued = create(:foi_request, :unqueued,
+                                 updated_at: 4.weeks.ago + 1.minute)
+        unqueued = create(:foi_request, :unqueued, updated_at: 4.weeks.ago)
+        is_expected.to match_array [pending, unqueued]
+      end
+
+      it 'includes requests delivered over 1 week ago' do
+        _newer_delivered = create(:foi_request, :delivered,
+                                  updated_at: 1.week.ago + 1.minute)
+        delivered = create(:foi_request, :delivered, updated_at: 1.week.ago)
+        is_expected.to match_array [delivered]
+      end
+
+      it 'does not include any queued requests' do
+        queued = create(:foi_request, :queued, updated_at: 1.year.ago)
+        is_expected.to_not include queued
+      end
+    end
   end
 end
