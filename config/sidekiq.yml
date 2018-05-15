@@ -1,3 +1,5 @@
 :schedule:
   QueueSubmissionsWorker:
     every: '5m'
+  CleanRequestsWorker:
+    every: '1d'
