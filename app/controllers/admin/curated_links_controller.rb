@@ -41,7 +41,7 @@ module Admin
     private
 
     def curated_link_params
-      params.require(:curated_link).permit(:title, :url, :summary)
+      params.require(:curated_link).permit(:title, :url, :summary, :keywords)
     end
   end
 end

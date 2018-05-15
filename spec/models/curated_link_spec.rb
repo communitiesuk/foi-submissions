@@ -18,4 +18,28 @@ RSpec.describe CuratedLink, type: :model do
       expect(curated_link.errors[:url]).to_not be_empty
     end
   end
+
+  describe '#keywords' do
+    subject { curated_link.keywords }
+
+    context 'when there are keywords' do
+      let(:curated_link) do
+        build_stubbed(:curated_link, keywords: 'budget health')
+      end
+
+      it 'splits on spaces' do
+        is_expected.to eq(%w[budget health])
+      end
+    end
+
+    context 'when there are no keywords' do
+      let(:curated_link) do
+        build_stubbed(:curated_link, keywords: nil)
+      end
+
+      it 'returns an empty Array' do
+        is_expected.to eq([])
+      end
+    end
+  end
 end
