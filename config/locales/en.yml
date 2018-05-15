@@ -9,6 +9,8 @@ en:
         body: Your request
       contact:
         email: Email address
+      curated_link:
+        url: URL
     hint:
       contact:
         full_name: |

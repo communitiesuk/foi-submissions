@@ -22,6 +22,14 @@ ActiveRecord::Schema.define(version: 2018_05_15_131458) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "curated_links", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "url", null: false
+    t.text "summary"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "foi_requests", force: :cascade do |t|
     t.text "body", null: false
     t.bigint "contact_id"
