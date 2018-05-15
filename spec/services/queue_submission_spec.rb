@@ -13,6 +13,15 @@ RSpec.describe QueueSubmission, type: :service do
           to(Submission::QUEUED)
       end
 
+      it 'records the job ID on the submission' do
+        expect { service.call }.to change(submission, :job_id).from(nil)
+      end
+
+      it 'pass submission ID as argument to worker' do
+        expect(DeliverSubmissionWorker).to receive(:perform_async).with(Integer)
+        service.call
+      end
+
       it 'queues job' do
         expect { service.call }.to change(DeliverSubmissionWorker.jobs, :size).
           by(1)
