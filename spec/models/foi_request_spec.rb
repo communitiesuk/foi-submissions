@@ -19,9 +19,9 @@ RSpec.describe FoiRequest, type: :model do
       expect { request.destroy }.to change { Contact.count }.by(-1)
     end
 
-    it 'removes Submission on destroy' do
+    it 'does not remove Submission on destroy' do
       request = create(:foi_request, :unqueued)
-      expect { request.destroy }.to change { Submission.count }.by(-1)
+      expect { request.destroy }.to_not(change { Submission.count })
     end
   end
 

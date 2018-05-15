@@ -5,7 +5,7 @@
 #
 class FoiRequest < ApplicationRecord
   belongs_to :contact, optional: true, dependent: :destroy
-  belongs_to :submission, optional: true, dependent: :destroy
+  belongs_to :submission, optional: true
 
   validates :body, presence: true
 
