@@ -10,13 +10,17 @@ class FoiRequest < ApplicationRecord
   validates :body, presence: true
 
   scope :editable, lambda {
-    left_joins(:submission).
-      where(submissions: { state: [nil, Submission::UNQUEUED] })
+    left_joins(:submission).merge(
+      # Find submissions which haven't been queued or where submission hasn't
+      # been created yet, this works as we're using a left join.
+      Submission.queueable.or(Submission.where(id: nil))
+    )
   }
 
   scope :sent, lambda {
-    left_joins(:submission).
-      where.not(submissions: { state: [nil, Submission::UNQUEUED] })
+    left_joins(:submission).merge(
+      Submission.deliverable.or(Submission.delivered)
+    )
   }
 
   scope :delivered, lambda {
