@@ -8,6 +8,8 @@ class DeliverSubmissionWorker
 
   def perform(id)
     submission = Submission.deliverable.find_by(id: id)
-    submission&.deliver
+    return unless submission
+
+    submission.with_lock { submission.deliver }
   end
 end
