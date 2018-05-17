@@ -38,28 +38,4 @@ RSpec.describe DeliverSubmissionWorker, type: :worker do
       expect { perform }.to_not raise_error
     end
   end
-
-  context 'when already locked' do
-    let(:lock) { set_sidekiq_lock(described_class, 1) }
-
-    before { lock.acquire! }
-    after { lock.release! }
-
-    it 'does not call #deliver on submission' do
-      expect(submission).to_not receive(:deliver)
-      perform
-    end
-  end
-
-  context 'when another record is locked' do
-    let(:lock) { set_sidekiq_lock(described_class, 2) }
-
-    before { lock.acquire! }
-    after { lock.release! }
-
-    it 'call #deliver on submission' do
-      expect(submission).to receive(:deliver)
-      perform
-    end
-  end
 end

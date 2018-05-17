@@ -40,7 +40,6 @@ gem 'infreemation'
 gem 'redis', '~> 4.0'
 gem 'redis-namespace', github: 'resque/redis-namespace'
 gem 'sidekiq'
-gem 'sidekiq-lock'
 gem 'sidekiq-scheduler'
 
 # Error reporting
