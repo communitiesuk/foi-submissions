@@ -27,6 +27,7 @@ RSpec.describe Submission, type: :model do
   describe 'scopes' do
     let!(:unqueued) { create(:submission, :unqueued) }
     let!(:queued) { create(:submission, :queued) }
+    let!(:delivered) { create(:submission, :delivered, reference: nil) }
     let!(:delivered_successfully) { create(:submission, :delivered) }
 
     describe '.queueable' do
@@ -37,6 +38,11 @@ RSpec.describe Submission, type: :model do
     describe '.deliverable' do
       subject { Submission.deliverable }
       it { is_expected.to match_array [queued] }
+    end
+
+    describe '.delivered' do
+      subject { Submission.delivered }
+      it { is_expected.to match_array [delivered, delivered_successfully] }
     end
 
     describe '.delivered_successfully' do
