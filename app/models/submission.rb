@@ -28,7 +28,15 @@ class Submission < ApplicationRecord
     state == QUEUED
   end
 
+  def delivered_successfully?
+    state == DELIVERED && reference.present?
+  end
+
   def deliver
+    deliver! unless delivered_successfully?
+  end
+
+  def deliver!
     DeliverSubmission.new(self).call
   end
 end
