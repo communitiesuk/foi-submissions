@@ -1,0 +1,17 @@
+language: ruby
+services:
+  - postgresql
+  - redis-server
+rvm: 2.5.1
+cache: bundler
+sudo: false
+before_script:
+  - psql -c 'create database foi_for_councils_test;' -U postgres
+  - cp config/database.yml-travis config/database.yml
+before_install:
+  - "echo '--colour' > ~/.rspec"
+  - gem install bundler
+  - gem update --system
+install: bundle install
+notifications:
+  email: false
