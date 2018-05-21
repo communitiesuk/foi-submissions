@@ -3,17 +3,20 @@
 require 'rails_helper'
 
 RSpec.describe CleanRequestsWorker, type: :worker do
-  let(:request_scope) { double(:request_scope) }
   subject(:perform) { described_class.perform_async }
-
-  before do
-    allow(FoiRequest).to receive(:removable).and_return(request_scope)
-  end
 
   around { |example| Sidekiq::Testing.inline!(&example) }
 
-  it 'calls #destory_all on removable requests' do
-    expect(request_scope).to receive(:destory_all)
+  it 'calls #destroy_all on removable requests' do
+    request_scope = double(:request_scope)
+    allow(FoiRequest).to receive(:removable).and_return(request_scope)
+    expect(request_scope).to receive(:destroy_all)
     perform
+  end
+
+  it 'removes old requests from the database' do
+    request = create(:foi_request, updated_at: 1.year.ago)
+    perform
+    expect { request.reload }.to raise_error ActiveRecord::RecordNotFound
   end
 end

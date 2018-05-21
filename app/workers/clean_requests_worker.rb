@@ -7,6 +7,6 @@ class CleanRequestsWorker
   include Sidekiq::Worker
 
   def perform(*_args)
-    FoiRequest.removable.destory_all
+    FoiRequest.removable.destroy_all
   end
 end
