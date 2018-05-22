@@ -5,7 +5,7 @@ module Admin
   # This controller is responsible for allowing staff to add CuratedLinks that
   # appear in the Suggestions to users.
   #
-  class CuratedLinksController < ApplicationController
+  class CuratedLinksController < AdminController
     def index
       @curated_links = CuratedLink.all
     end
