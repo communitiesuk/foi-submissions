@@ -1,7 +1,8 @@
 language: ruby
 services:
-  - postgresql
   - redis-server
+addons:
+  postgresql: "9.6"
 rvm: 2.5.1
 cache: bundler
 sudo: false
