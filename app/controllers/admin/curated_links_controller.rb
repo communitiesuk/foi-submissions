@@ -18,7 +18,8 @@ module Admin
       @curated_link = CuratedLink.new
 
       if @curated_link.update(curated_link_params)
-        redirect_to edit_admin_curated_link_path(@curated_link)
+        redirect_to admin_curated_links_path,
+                    notice: 'Curated Link successfully created'
       else
         render :new
       end
@@ -32,7 +33,8 @@ module Admin
       @curated_link = CuratedLink.find(params[:id])
 
       if @curated_link.update(curated_link_params)
-        redirect_to edit_admin_curated_link_path(@curated_link)
+        redirect_to admin_curated_links_path,
+                    notice: 'Curated Link successfully updated'
       else
         render :edit
       end

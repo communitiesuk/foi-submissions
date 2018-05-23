@@ -36,8 +36,13 @@ RSpec.describe Admin::CuratedLinksController, type: :controller do
         subject
       end
 
-      it 'redirects to edit' do
-        is_expected.to redirect_to(edit_admin_curated_link_path(curated_link))
+      it 'redirects to index' do
+        is_expected.to redirect_to(admin_curated_links_path)
+      end
+
+      it 'sets flash notice' do
+        subject
+        expect(flash.notice).to_not be_nil
       end
     end
 
@@ -77,8 +82,13 @@ RSpec.describe Admin::CuratedLinksController, type: :controller do
         subject
       end
 
-      it 'redirects to edit' do
-        is_expected.to redirect_to(edit_admin_curated_link_path(curated_link))
+      it 'redirects to index' do
+        is_expected.to redirect_to(admin_curated_links_path)
+      end
+
+      it 'sets flash notice' do
+        subject
+        expect(flash.notice).to_not be_nil
       end
     end
 
