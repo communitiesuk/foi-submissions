@@ -81,7 +81,62 @@ RSpec.describe Submission, type: :model do
     end
   end
 
+  describe '#delivered_successfully?' do
+    subject { submission.delivered_successfully? }
+
+    context 'in delivered state and with reference' do
+      before do
+        submission.state = Submission::DELIVERED
+        submission.reference = 'FOI-1'
+      end
+
+      it { is_expected.to eq true }
+    end
+
+    context 'without reference' do
+      before do
+        submission.state = Submission::DELIVERED
+        submission.reference = nil
+      end
+
+      it { is_expected.to eq false }
+    end
+
+    context 'not in delivered state' do
+      before do
+        submission.state = Submission::QUEUED
+        submission.reference = 'FOI-1'
+      end
+
+      it { is_expected.to eq false }
+    end
+  end
+
   describe '#deliver' do
+    context 'when delivered successfully' do
+      before do
+        allow(submission).to receive(:delivered_successfully?).and_return(true)
+      end
+
+      it 'does not call `deliver!`' do
+        expect(submission).to_not receive(:deliver!)
+        submission.deliver
+      end
+    end
+
+    context 'when not delivered successfully' do
+      before do
+        allow(submission).to receive(:delivered_successfully?).and_return(false)
+      end
+
+      it 'calls `deliver!`' do
+        expect(submission).to receive(:deliver!)
+        submission.deliver
+      end
+    end
+  end
+
+  describe '#deliver!' do
     it 'delegates to DeliverSubmission service' do
       service = double(:service)
       expect(DeliverSubmission).to receive(:new).with(submission).

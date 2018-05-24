@@ -222,9 +222,6 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (>= 3.3.5, < 5)
-    sidekiq-lock (0.3.1)
-      redis (>= 3.0.5)
-      sidekiq (>= 2.14.0)
     sidekiq-scheduler (2.2.1)
       redis (>= 3, < 5)
       rufus-scheduler (~> 3.2)
@@ -288,7 +285,6 @@ DEPENDENCIES
   rubocop (~> 0.54.0)
   sass-rails (~> 5.0)
   sidekiq
-  sidekiq-lock
   sidekiq-scheduler
   spring
   spring-watcher-listen (~> 2.0.0)

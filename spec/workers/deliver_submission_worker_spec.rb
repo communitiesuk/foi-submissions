@@ -39,27 +39,31 @@ RSpec.describe DeliverSubmissionWorker, type: :worker do
     end
   end
 
-  context 'when already locked' do
-    let(:lock) { set_sidekiq_lock(described_class, 1) }
+  describe 'locking' do
+    let(:submission) { create(:submission, :queued) }
 
-    before { lock.acquire! }
-    after { lock.release! }
+    it 'calls Submission#deliver with SQL locking' do
+      # Update all records in the DB; this doesn't update the in memory Ruby
+      # submission instance. This is simulating another worker running.
+      Submission.update(state: Submission::DELIVERED)
 
-    it 'does not call #deliver on submission' do
-      expect(submission).to_not receive(:deliver)
-      perform
-    end
-  end
+      # Prove this in memory submission instance still has the old state:
+      expect(submission.state).to eq Submission::QUEUED
 
-  context 'when another record is locked' do
-    let(:lock) { set_sidekiq_lock(described_class, 2) }
-
-    before { lock.acquire! }
-    after { lock.release! }
-
-    it 'call #deliver on submission' do
+      # Stub `Submission#deliver` as calling the original implementation isn't
+      # any good as it would try create a remote request which is obviously
+      # outside the concern for this test. Prove these methods are called:
       expect(submission).to receive(:deliver)
+      expect(submission).to receive(:with_lock).and_call_original
+
+      # Run the worker job.
       perform
+
+      # Because of the `with_lock` block the submission instance gets reloaded.
+      # Without this the state would have remained as QUEUED and saved into the
+      # database. Prove submission has been reloaded and has the state from the
+      # first step:
+      expect(submission.state).to eq Submission::DELIVERED
     end
   end
 end
