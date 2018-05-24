@@ -1,0 +1,43 @@
+<% content_for :page_title, 'Curated Links' %>
+
+<div class="grid-row">
+  <div class="column-full">
+    <h1 class="heading-xlarge">
+      Curated Links
+    </h1>
+    <%= render partial: 'flash' %>
+  </div>
+</div>
+
+<div class="grid-row">
+  <div class="column-full">
+    <%= link_to new_admin_curated_link_path, class: 'button button-start' do %>
+      Add new Curated Link
+    <% end %>
+  </div>
+</div>
+
+<div class="grid-row">
+  <div class="column-full">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">URL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @curated_links.each do |link| %>
+          <tr>
+            <td>
+              <%= link_to link.title, edit_admin_curated_link_path(link) %>
+            </td>
+            <td>
+              <%= link.url %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

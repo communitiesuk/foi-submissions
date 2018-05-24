@@ -19,6 +19,11 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :admin do
+    root to: redirect('/admin/curated_links')
+    resources :curated_links, except: [:show]
+  end
+
   resolve('FoiRequest') { %i[foi request] }
 
   mount Sidekiq::Web => '/sidekiq'
