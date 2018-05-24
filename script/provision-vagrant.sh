@@ -48,6 +48,10 @@ if [ ! -d "$HOME/.gemrc" ]; then
   echo 'gem: --no-ri --no-rdoc' >> ~/.gemrc
 fi
 
+echo 'Installing shoreman'
+sudo curl -o /usr/local/bin/shoreman -sL https://github.com/chrismytton/shoreman/raw/master/shoreman.sh
+sudo chmod 755 /usr/local/bin/shoreman
+
 if ! grep -qe "^cd \\$HOME/app$" "./.bashrc"; then
   echo "cd \\$HOME/app" >> ./.bashrc
 fi
