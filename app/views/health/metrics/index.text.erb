@@ -1,3 +1,11 @@
+# HELP app_queuable_submissions Submissions that haven't been queued. A background task should come along and queue these.
+# TYPE app_queuable_submissions gauge
+app_queuable_submissions <%= @submissions_queueable %>
+
+# HELP app_deliverable_submissions Submissions that have been queued. We should always have a Sidekiq job for each deliverable Submission. Deliverable Submissions with no Sidekiq jobs can indicate a problem.
+# TYPE app_deliverable_submissions gauge
+app_deliverable_submissions <%= @submissions_deliverable %>
+
 # HELP app_delivered_unsuccessfully_submissions Submissions we've marked as delivered but haven't received a reference number back from Infreemation.
 # TYPE app_delivered_unsuccessfully_submissions gauge
 app_delivered_unsuccessfully_submissions <%= @submissions_delivered_unsuccessfully %>
