@@ -5,7 +5,18 @@
   Before you continue, we’ve found these links that might answer your questions
 </h1>
 
-<div class="js-foi-suggestions"></div>
+<div class="js-foi-suggestions">
+  <% @suggestions.each do |suggestion| %>
+    <%= link_to suggestion.url, class: 'foi-suggestion text', target: '_blank' do %>
+      <h3 class="heading-medium"><%= suggestion.title %></h3>
+
+      <% if suggestion.summary %>
+        <p class="excerpt"><%= suggestion.summary %></p>
+      <% end %>
+      <p><span class="link-fake">Open in a new window</span></p>
+    <% end %>
+  <% end %>
+</div>
 
 <hr class="text" style="margin: 2em 0;">
 
