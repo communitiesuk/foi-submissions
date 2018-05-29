@@ -7,8 +7,16 @@ RSpec.describe Admin::CuratedLinksController, type: :controller do
   let(:valid_params) { { title: 'Title', url: 'https://www.example.com' } }
   let(:invalid_params) { { invalid: true } }
 
+  let(:session) do
+    { current_user: 123, authenticated_until: (Time.zone.now + 1.hour).to_i }
+  end
+
+  before do
+    allow(User).to receive(:find_by).with(uid: 123).and_return(build(:user))
+  end
+
   describe 'GET #index' do
-    subject { get :index }
+    subject { get :index, session: session }
 
     it 'returns http success' do
       is_expected.to have_http_status(200)
@@ -16,7 +24,7 @@ RSpec.describe Admin::CuratedLinksController, type: :controller do
   end
 
   describe 'GET #new' do
-    subject { get :new }
+    subject { get :new, session: session }
 
     it 'returns http success' do
       is_expected.to have_http_status(200)
@@ -27,7 +35,9 @@ RSpec.describe Admin::CuratedLinksController, type: :controller do
     before { allow(CuratedLink).to receive(:new).and_return(curated_link) }
 
     context 'valid parameters' do
-      subject { post :create, params: { curated_link: valid_params } }
+      subject do
+        post :create, params: { curated_link: valid_params }, session: session
+      end
       before { allow(curated_link).to receive(:update).and_return(true) }
 
       it 'receives valid attributes' do
@@ -47,7 +57,10 @@ RSpec.describe Admin::CuratedLinksController, type: :controller do
     end
 
     context 'invalid parameters' do
-      subject { post :create, params: { curated_link: invalid_params } }
+      subject do
+        post :create, params: { curated_link: invalid_params },
+                      session: session
+      end
       before { allow(curated_link).to receive(:update).and_return(false) }
 
       it 'returns http success' do
@@ -57,7 +70,7 @@ RSpec.describe Admin::CuratedLinksController, type: :controller do
   end
 
   describe 'GET #edit' do
-    subject { get :edit, params: { id: 1 } }
+    subject { get :edit, params: { id: 1 }, session: session }
     before do
       allow(CuratedLink).to receive(:find).with('1').and_return(curated_link)
     end
@@ -73,7 +86,10 @@ RSpec.describe Admin::CuratedLinksController, type: :controller do
     end
 
     context 'valid parameters' do
-      subject { put :update, params: { id: '1', curated_link: valid_params } }
+      subject do
+        put :update, params: { id: '1', curated_link: valid_params },
+                     session: session
+      end
       before { allow(curated_link).to receive(:update).and_return(true) }
 
       it 'receives valid attributes' do
@@ -93,7 +109,10 @@ RSpec.describe Admin::CuratedLinksController, type: :controller do
     end
 
     context 'invalid parameters' do
-      subject { put :update, params: { id: '1', curated_link: invalid_params } }
+      subject do
+        put :update, params: { id: '1', curated_link: invalid_params },
+                     session: session
+      end
       before { allow(curated_link).to receive(:update).and_return(false) }
 
       it 'returns http success' do
