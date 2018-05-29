@@ -1,0 +1,3 @@
+[submodule "vendor/assets/taggle.js"]
+	path = vendor/assets/taggle.js
+	url = https://github.com/okcoker/taggle.js.git
