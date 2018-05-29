@@ -15,3 +15,8 @@ en:
       contact:
         full_name: |
           For example, “Alice Brown”
+      curated_link:
+        summary: |
+          Describe the information this link leads to, in around 15–30 words
+        keywords: |
+          Use a comma to separate keywords

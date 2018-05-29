@@ -39,6 +39,7 @@ var arrayToCSV = function (array) {
 
 var setUpKeywordPicker = function () {
   var $originalInput = $(this)
+  var $label = $('label[for="' + $originalInput.attr('id') + '"]')
   var originalInputClasses = removeEmptyItems( $originalInput.attr('class').split(/\s+/) )
   var originalInputKeywords = CSVToArray( $originalInput.val() )
   var originalInputPlaceholder = $originalInput.attr('placeholder') || null
@@ -73,6 +74,10 @@ var setUpKeywordPicker = function () {
   }
 
   taggleInstance = new Taggle($fakeInput[0], taggleOptions)
+
+  // The input is now more interactive, so update
+  // the hint text to explain how to save keywords.
+  $label.find('.form-hint').html('Type a comma, Return, or Enter to finish a keyword')
 }
 
 // Filter out older browsers, like IE8.
