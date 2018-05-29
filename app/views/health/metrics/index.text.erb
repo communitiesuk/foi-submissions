@@ -1,0 +1,39 @@
+# HELP app_queuable_submissions Submissions that haven't been queued. A background task should come along and queue these.
+# TYPE app_queuable_submissions gauge
+app_queuable_submissions <%= @submissions_queueable %>
+
+# HELP app_deliverable_submissions Submissions that have been queued. We should always have a Sidekiq job for each deliverable Submission. Deliverable Submissions with no Sidekiq jobs can indicate a problem.
+# TYPE app_deliverable_submissions gauge
+app_deliverable_submissions <%= @submissions_deliverable %>
+
+# HELP app_delivered_unsuccessfully_submissions Submissions we've marked as delivered but haven't received a reference number back from Infreemation.
+# TYPE app_delivered_unsuccessfully_submissions gauge
+app_delivered_unsuccessfully_submissions <%= @submissions_delivered_unsuccessfully %>
+
+# HELP sidekiq_processed_jobs The total number of processed jobs.
+# TYPE sidekiq_processed_jobs gauge
+sidekiq_processed_job <%= @sidekiq_stats.processed %>
+
+# HELP sidekiq_busy_workers The number of workers performing a job.
+# TYPE sidekiq_busy_workers gauge
+sidekiq_busy_workers  <%= @sidekiq_stats.workers_size %>
+
+# HELP sidekiq_enqueued_jobs The number of enqueued jobs waiting to be processed.
+# TYPE sidekiq_enqueued_jobs gauge
+sidekiq_enqueued_jobs <%= @sidekiq_stats.enqueued %>
+
+# HELP sidekiq_retry_jobs The number of failed jobs scheduled for a retry.
+# TYPE sidekiq_retry_jobs gauge
+sidekiq_retry_jobs <%= @sidekiq_stats.retry_size %>
+
+# HELP sidekiq_scheduled_jobs The number of jobs scheduled for a future execution.
+# TYPE sidekiq_scheduled_jobs gauge
+sidekiq_scheduled_jobs <%= @sidekiq_stats.scheduled_size %>
+
+# HELP sidekiq_failed_jobs The total number of failed jobs; these will be retried automatically.
+# TYPE sidekiq_failed_jobs gauge
+sidekiq_failed_jobs <%= @sidekiq_stats.failed %>
+
+# HELP sidekiq_processed_jobs Number of jobs that need manual intervention to retry
+# TYPE sidekiq_dead_jobs gauge
+sidekiq_dead_jobs <%= @sidekiq_stats.dead_size %>
