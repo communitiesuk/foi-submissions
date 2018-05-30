@@ -9,10 +9,7 @@
   <% @suggestions.each do |suggestion| %>
     <%= link_to suggestion.url, class: 'foi-suggestion text', target: '_blank' do %>
       <h3 class="heading-medium"><%= suggestion.title %></h3>
-
-      <% if suggestion.summary %>
-        <p class="excerpt"><%= suggestion.summary %></p>
-      <% end %>
+      <p class="summary"><%= suggestion.summary %></p>
       <p><span class="link-fake">Open in a new window</span></p>
     <% end %>
   <% end %>
