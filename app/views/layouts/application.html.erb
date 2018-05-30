@@ -4,6 +4,10 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 <% end %>
 
+<% content_for :proposition_header do %>
+  <%= render partial: 'header' %>
+<% end %>
+
 <% content_for :after_header do %>
   <%= render partial: 'breadcrumbs' %>
 <% end %>
