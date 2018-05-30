@@ -59,4 +59,30 @@ RSpec.describe SessionsController, type: :controller do
       is_expected.to redirect_to(admin_root_path)
     end
   end
+
+  describe 'DELETE #destroy' do
+    subject { delete :destroy }
+
+    it 'removes current user UID in session' do
+      session[:current_user] = '007'
+      expect { subject }.to(change { session[:current_user] })
+      expect(session[:current_user]).to be_nil
+    end
+
+    it 'removes current provider in session' do
+      session[:current_provider] = 'google'
+      expect { subject }.to(change { session[:current_provider] })
+      expect(session[:current_provider]).to be_nil
+    end
+
+    it 'removes authenticated until in session' do
+      session[:authenticated_until] = '123'
+      expect { subject }.to(change { session[:authenticated_until] })
+      expect(session[:authenticated_until]).to be_nil
+    end
+
+    it 'redirects back to root' do
+      is_expected.to redirect_to(root_path)
+    end
+  end
 end

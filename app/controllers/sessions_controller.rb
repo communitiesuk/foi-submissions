@@ -20,6 +20,14 @@ class SessionsController < ApplicationController
     redirect_to session[:redirect_to] || admin_root_path
   end
 
+  def destroy
+    session[:current_user] = nil
+    session[:current_provider] = nil
+    session[:authenticated_until] = nil
+
+    redirect_to root_path
+  end
+
   protected
 
   def auth_hash
