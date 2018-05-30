@@ -6,6 +6,8 @@
 class AdminController < ApplicationController
   before_action :authenticate
 
+  helper_method :current_user
+
   private
 
   def authenticate
