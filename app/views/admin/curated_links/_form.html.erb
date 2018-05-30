@@ -1,16 +1,13 @@
-<div class="grid-row">
-  <div class="column-two-thirds">
-    <%= form_for [:admin, @curated_link] do |f| %>
-      <%= f.text_field :title, class: 'form-control form-control-3-4', required: true %>
-      <%= f.url_field :url, class: 'form-control form-control-3-4', required: true %>
+<%= form_for [:admin, @curated_link] do |f| %>
+  <%= f.url_field :url, class: 'form-control-full-width', required: true %>
 
-      <%= f.text_area :summary, class: 'form-control form-control-3-4' %>
+  <%= f.text_field :title, class: 'form-control-full-width', required: true %>
 
-      <%= f.text_field :keywords, class: 'form-control form-control-3-4 js-keyword-picker' %>
+  <%= f.text_area :summary, class: 'form-control-full-width' %>
 
-      <p class="cta-section">
-        <%= f.submit 'Save Curated Link', class: 'button' %>
-      </p>
-    <% end %>
-  </div>
-</div>
+  <%= f.text_field :keywords, class: 'form-control-full-width js-keyword-picker' %>
+
+  <p class="cta-section">
+    <%= f.submit 'Save Curated Link', class: 'button' %>
+  </p>
+<% end %>

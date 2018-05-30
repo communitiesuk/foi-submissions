@@ -47,3 +47,19 @@
         margin-bottom: 0; // avoid weird background-color gap on :focus
     }
 }
+
+.curated-link-preview {
+    display: none; // will get unhidden once JavaScript loads
+
+    @media (min-width: $tablet-breakpoint) {
+        margin-left: 10%;
+    }
+
+    & > :first-child {
+        margin-top: 0;
+    }
+
+    .js-enabled & {
+        display: block;
+    }
+}

@@ -7,11 +7,7 @@
 
 <div class="js-foi-suggestions">
   <% @suggestions.each do |suggestion| %>
-    <%= link_to suggestion.url, class: 'foi-suggestion text', target: '_blank' do %>
-      <h3 class="heading-medium"><%= suggestion.title %></h3>
-      <p class="summary"><%= suggestion.summary %></p>
-      <p><span class="link-fake">Open in a new window</span></p>
-    <% end %>
+    <%= render partial: 'suggestion', locals: { suggestion: suggestion } %>
   <% end %>
 </div>
 
