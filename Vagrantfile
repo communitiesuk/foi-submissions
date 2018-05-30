@@ -22,7 +22,7 @@ DEFAULTS = {
 
 settings_file_path = File.dirname(__FILE__) + '/.vagrant.yml'
 settings_file = if File.exist?(settings_file_path)
-  YAML.load(File.read(settings_file_path))
+  YAML.load(File.read(settings_file_path)) || {}
 else
   {}
 end
