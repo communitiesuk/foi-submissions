@@ -3,6 +3,18 @@
 require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
+  describe 'GET #new' do
+    context 'with invalid credentials' do
+      subject { get :new, params: { message: 'invalid_credentials' } }
+      it { is_expected.to have_http_status(401) }
+    end
+
+    context 'other errors' do
+      subject { get :new, params: { message: 'other' } }
+      it { is_expected.to redirect_to('/auth/google') }
+    end
+  end
+
   describe 'GET #create' do
     let(:user) { build(:user) }
     let(:auth_hash) do

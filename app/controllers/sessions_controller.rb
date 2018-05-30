@@ -5,7 +5,11 @@
 #
 class SessionsController < ApplicationController
   def new
-    render plain: ''
+    if params[:message] == 'invalid_credentials'
+      render file: 'public/401.html', status: 401, layout: false
+    else
+      redirect_to '/auth/google'
+    end
   end
 
   def create
