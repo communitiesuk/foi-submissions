@@ -5,3 +5,5 @@ Rails.application.config.middleware.use OmniAuth::Builder do
            name: 'google', hd: %w[mysociety.org hackney.gov.uk],
            prompt: 'select_account'
 end
+
+OmniAuth.config.failure_raise_out_environments = []

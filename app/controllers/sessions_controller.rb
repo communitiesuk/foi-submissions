@@ -4,6 +4,10 @@
 # This controller is responsible for handling OminAuth callbacks
 #
 class SessionsController < ApplicationController
+  def new
+    render plain: ''
+  end
+
   def create
     session[:current_user] = user.uid
     session[:current_provider] = provider
