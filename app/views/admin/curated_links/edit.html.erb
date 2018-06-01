@@ -8,4 +8,11 @@
   </div>
 </div>
 
-<%= render 'form' %>
+<div class="grid-row">
+  <div class="column-one-half">
+    <%= render 'form' %>
+  </div>
+  <div class="column-one-half">
+    <%= render partial: 'preview', locals: { curated_link: @curated_link } %>
+  </div>
+</div>
