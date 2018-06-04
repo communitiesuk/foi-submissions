@@ -1,9 +1,14 @@
 // From govuk_frontend_toolkit _palette.scss
 $turquoise: #28a197;
+$red: #b10e1e;
+$yellow: #ffbf47;
+$light-blue: #2b8cc4;
 $black: #0b0c0c;
 $grey-3: #dee0e2;
 $grey-4: #f8f8f8;
+$focus-colour: $yellow;
 $text-colour: $black;
+$error-colour: $red;
 
 // From govuk_frontend_toolkit _conditionals.scss
 $tablet-breakpoint: 641px;
@@ -11,6 +16,7 @@ $tablet-breakpoint: 641px;
 // From govuk_frontend_toolkit _measurements.scss
 $gutter: 30px;
 $gutter-half: $gutter / 2;
+$gutter-two-thirds: $gutter * 2 / 3;
 
 // From govuk_frontend_toolkit _grid_layout.scss
 $site-width: 960px;
