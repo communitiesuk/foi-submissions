@@ -5,6 +5,7 @@
 #
 class AdminController < ApplicationController
   before_action :authenticate
+  before_action :set_cache_buster
 
   helper_method :current_user
 
@@ -28,5 +29,9 @@ class AdminController < ApplicationController
 
   def authenticated_until
     Time.zone.at(session[:authenticated_until].to_i)
+  end
+
+  def set_cache_buster
+    response.headers['Cache-Control'] = 'no-store, must-revalidate'
   end
 end
