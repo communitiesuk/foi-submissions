@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe FoiSuggestion, type: :service do
+RSpec.describe GenerateFoiSuggestion, type: :service do
   describe '.from_request' do
     def suggest(body)
       request = create(:foi_request, body: body)

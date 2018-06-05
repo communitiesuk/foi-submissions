@@ -3,7 +3,7 @@
 ##
 # Provides suggested resources based on the FOI request made by a user.
 #
-class FoiSuggestion
+class GenerateFoiSuggestion
   def self.from_request(request)
     sql = <<~SQL
       SELECT request_matches, relevance, curated_links.*
