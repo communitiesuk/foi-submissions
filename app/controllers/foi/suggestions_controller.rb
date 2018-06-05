@@ -11,7 +11,7 @@ module Foi
     before_action :find_foi_request
 
     def index
-      @suggestions = GenerateFoiSuggestion.from_request(@foi_request)
+      @suggestions = FoiSuggestion.from_request(@foi_request)
       redirect_to new_foi_request_contact_path if @suggestions.empty?
     end
   end

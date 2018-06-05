@@ -5,7 +5,19 @@
 #
 class GenerateFoiSuggestion
   def self.from_request(request)
-    sql = <<~SQL
+    CuratedLink.find_by_sql([sql, request: request]).map do |resource|
+      request.foi_suggestions.
+        find_or_initialize_by(resource: resource).tap do |instance|
+        instance.update(
+          request_matches: resource.request_matches.join(', '),
+          relevance: resource.relevance
+        )
+      end
+    end
+  end
+
+  def self.sql
+    <<~SQL
       SELECT request_matches, relevance, curated_links.*
       FROM curated_links,
       LATERAL (#{request_matches}) AS T1(request_matches),
@@ -14,9 +26,8 @@ class GenerateFoiSuggestion
       ORDER BY relevance DESC
       LIMIT 3
     SQL
-
-    CuratedLink.find_by_sql([sql, request: request])
   end
+  private_class_method :sql
 
   # Rank curated links on the request keyword matches against the title, summary
   # or keywords - with different weighting for each

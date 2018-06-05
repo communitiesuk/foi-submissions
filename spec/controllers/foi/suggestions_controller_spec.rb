@@ -17,7 +17,7 @@ RSpec.describe Foi::SuggestionsController, type: :controller do
 
     context 'there are suggestions' do
       before do
-        allow(GenerateFoiSuggestion).
+        allow(FoiSuggestion).
           to receive(:from_request).with(foi_request).and_return([double])
       end
 
@@ -28,7 +28,7 @@ RSpec.describe Foi::SuggestionsController, type: :controller do
 
     context 'there are no suggestions' do
       before do
-        allow(GenerateFoiSuggestion).
+        allow(FoiSuggestion).
           to receive(:from_request).with(foi_request).and_return([])
       end
 

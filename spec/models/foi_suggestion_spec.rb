@@ -28,4 +28,41 @@ RSpec.describe FoiSuggestion, type: :model do
       expect { suggestion.destroy }.to_not(change { CuratedLink.count })
     end
   end
+
+  describe 'delegated methods' do
+    let(:resource) do
+      build(:curated_link, title: 'The title', url: 'http://example.com/abc',
+                           summary: 'The summary', keywords: 'foo, bar, baz')
+    end
+
+    before { suggestion.resource = resource }
+
+    describe '#title' do
+      subject { suggestion.title }
+      it { is_expected.to eq 'The title' }
+    end
+
+    describe '#url' do
+      subject { suggestion.url }
+      it { is_expected.to eq 'http://example.com/abc' }
+    end
+
+    describe '#summary' do
+      subject { suggestion.summary }
+      it { is_expected.to eq 'The summary' }
+    end
+
+    describe '#keywords' do
+      subject { suggestion.keywords }
+      it { is_expected.to eq 'foo, bar, baz' }
+    end
+  end
+
+  describe '.from_request' do
+    it 'delegates to GenerateFoiSuggestion service' do
+      request = double(:request)
+      expect(GenerateFoiSuggestion).to receive(:from_request).with(request)
+      described_class.from_request(request)
+    end
+  end
 end
