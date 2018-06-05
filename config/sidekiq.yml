@@ -3,3 +3,15 @@
     every: '5m'
   CleanRequestsWorker:
     every: '1d'
+  ImportDisclosureLogWorker-week:
+    class: ImportDisclosureLogWorker
+    every: '1h'
+    args: 'week'
+  ImportDisclosureLogWorker-month:
+    class: ImportDisclosureLogWorker
+    every: '1w'
+    args: 'month'
+  ImportDisclosureLogWorker-year:
+    class: ImportDisclosureLogWorker
+    every: '1M' # m = minute, M = month
+    args: 'year'
