@@ -36,5 +36,9 @@ module FindableFoiRequest
     def store_foi_request_in_session
       session[:request_id] = @foi_request.id
     end
+
+    def current_foi_request?(foi_request)
+      foi_request == foi_request_from_session
+    end
   end
 end

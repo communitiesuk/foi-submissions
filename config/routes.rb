@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :links, only: %i[show]
+
   namespace :admin do
     root to: redirect('/admin/curated_links')
     resources :curated_links, except: [:show]

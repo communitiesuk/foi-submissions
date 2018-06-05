@@ -65,4 +65,28 @@ RSpec.describe FoiSuggestion, type: :model do
       described_class.from_request(request)
     end
   end
+
+  describe '.submitted!' do
+    it 'calls submitted! on all instances' do
+      suggestion = create(:foi_suggestion)
+      expect { described_class.submitted! }.to(change do
+        suggestion.reload
+        suggestion.submissions
+      end.by(1))
+    end
+  end
+
+  describe '#submitted!' do
+    it 'increases submissions count' do
+      suggestion = create(:foi_suggestion)
+      expect { suggestion.submitted! }.to change(suggestion, :submissions).by(1)
+    end
+  end
+
+  describe '#clicked!' do
+    it 'increases clicks count' do
+      suggestion = create(:foi_suggestion)
+      expect { suggestion.clicked! }.to change(suggestion, :clicks).by(1)
+    end
+  end
 end

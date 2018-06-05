@@ -16,5 +16,9 @@ FactoryBot.define do
         "FOI-#{n}"
       end
     end
+
+    factory :submission_with_foi_request do
+      association :foi_request, strategy: :build
+    end
   end
 end

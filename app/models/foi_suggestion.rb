@@ -12,4 +12,16 @@ class FoiSuggestion < ApplicationRecord
   def self.from_request(request)
     GenerateFoiSuggestion.from_request(request)
   end
+
+  def self.submitted!
+    transaction { all.find_each(&:submitted!) }
+  end
+
+  def submitted!
+    increment!(:submissions) # rubocop:disable Rails/SkipsModelValidations
+  end
+
+  def clicked!
+    increment!(:clicks) # rubocop:disable Rails/SkipsModelValidations
+  end
 end
