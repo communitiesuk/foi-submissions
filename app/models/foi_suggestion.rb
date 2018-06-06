@@ -13,6 +13,20 @@ class FoiSuggestion < ApplicationRecord
     GenerateFoiSuggestion.from_request(request)
   end
 
+  def self.statistics
+    stats = select(
+      'COUNT(*) AS shown',
+      'SUM(CASE WHEN clicks <> 0 THEN 1 END) AS clicks',
+      'SUM(CASE WHEN clicks > 0 AND submissions = 0 THEN 1 END) AS answers'
+    ).to_a.first
+
+    shown = stats.shown
+
+    { shown: shown,
+      click_rate: shown.zero? ? 0.0 : stats.clicks.to_f / shown,
+      answer_rate: shown.zero? ? 0.0 : stats.answers.to_f / shown }
+  end
+
   def self.submitted!
     transaction { all.find_each(&:submitted!) }
   end

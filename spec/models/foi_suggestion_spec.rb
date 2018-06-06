@@ -66,6 +66,32 @@ RSpec.describe FoiSuggestion, type: :model do
     end
   end
 
+  describe '.statistics' do
+    subject { described_class.statistics }
+
+    context 'suggestions shown' do
+      before do
+        create(:foi_suggestion, submissions: 1) # neither
+        create(:foi_suggestion, clicks: 2) # click & answer
+        create(:foi_suggestion, clicks: 3, submissions: 1) # click
+      end
+
+      it 'runs SQL query and compile shown count, and click/ anser rates' do
+        is_expected.to match(
+          shown: 3,
+          click_rate: 0.6666666666666666,
+          answer_rate: 0.3333333333333333
+        )
+      end
+    end
+
+    context 'suggestion not shown' do
+      it 'does not return NaN when there has not been any clicks' do
+        is_expected.to match(shown: 0, click_rate: 0.0, answer_rate: 0.0)
+      end
+    end
+  end
+
   describe '.submitted!' do
     it 'calls submitted! on all instances' do
       suggestion = create(:foi_suggestion)
