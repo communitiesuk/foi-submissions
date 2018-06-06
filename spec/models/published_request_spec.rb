@@ -3,6 +3,39 @@
 require 'rails_helper'
 
 RSpec.describe PublishedRequest, type: :model do
+  describe '.create_or_update_from_api!' do
+    subject { described_class.create_or_update_from_api!(attributes) }
+
+    context 'when a record with the ref does not exist' do
+      let(:attributes) { attributes_for(:published_request)[:payload] }
+
+      it 'persists the record' do
+        expect { subject }.to change { described_class.count }.by(1)
+      end
+    end
+
+    context 'when a record with the ref exists and attributes have changed' do
+      let(:attributes) { attributes_for(:published_request)[:payload] }
+
+      let!(:published_request) do
+        old_attrs =
+          attributes.merge(dateclosed: '1918-04-22', keywords: 'old')
+
+        create(:published_request, payload: old_attrs)
+      end
+
+      it 'does not create a new record' do
+        expect { subject }.not_to(change { described_class.count })
+      end
+
+      it 'updates the payload' do
+        subject
+        expect(published_request.reload.payload['keywords']).
+          to eq('Business, business rates')
+      end
+    end
+  end
+
   describe '#save' do
     let(:published_request) { build(:published_request) }
 
