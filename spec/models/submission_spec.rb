@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Submission, type: :model do
   let(:submission) { build_stubbed(:submission) }
 
-  describe 'assoications' do
+  describe 'associations' do
     it 'has one FOI request' do
       expect(submission.build_foi_request).to be_a FoiRequest
     end
