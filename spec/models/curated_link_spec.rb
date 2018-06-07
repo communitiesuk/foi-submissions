@@ -19,6 +19,16 @@ RSpec.describe CuratedLink, type: :model do
     end
   end
 
+  describe 'scopes' do
+    let!(:active) { create(:curated_link, destroyed_at: nil) }
+    let!(:destroyed) { create(:curated_link, destroyed_at: Time.zone.now) }
+
+    describe '.active' do
+      subject { described_class.active }
+      it { is_expected.to match_array [active] }
+    end
+  end
+
   describe '#soft_destroy' do
     let(:curated_link) { create(:curated_link) }
 
