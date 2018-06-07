@@ -26,6 +26,8 @@
         <tr>
           <th scope="col">Title</th>
           <th scope="col">URL</th>
+          <th style="width: 0"></th>
+          <th style="width: 0"></th>
         </tr>
       </thead>
       <tbody>
@@ -36,6 +38,16 @@
             </td>
             <td>
               <%= link.url %>
+            </td>
+            <td>
+                <%= link_to 'Edit', edit_admin_curated_link_path(link) %>
+            </td>
+            <td>
+                <%= button_to 'Delete',
+                              admin_curated_link_path(link),
+                              method: 'delete',
+                              form_class: 'table-row-delete-form',
+                              data: { confirm: 'Are you sure?' }  %>
             </td>
           </tr>
         <% end %>
