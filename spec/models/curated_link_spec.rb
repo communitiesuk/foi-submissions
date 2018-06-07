@@ -18,4 +18,15 @@ RSpec.describe CuratedLink, type: :model do
       expect(curated_link.errors[:url]).to_not be_empty
     end
   end
+
+  describe '#soft_destroy' do
+    let(:curated_link) { create(:curated_link) }
+
+    it 'updates destroyed_at with the current time' do
+      freeze_time do
+        expect { curated_link.soft_destroy }.
+          to change { curated_link.destroyed_at }.from(nil).to(Time.zone.now)
+      end
+    end
+  end
 end
