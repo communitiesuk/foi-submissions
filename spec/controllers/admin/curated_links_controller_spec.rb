@@ -120,4 +120,38 @@ RSpec.describe Admin::CuratedLinksController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    before do
+      allow(CuratedLink).to receive(:find).with('1').and_return(curated_link)
+    end
+
+    context 'successful soft-destroy' do
+      subject { delete :destroy, params: { id: '1' }, session: session }
+      before { allow(curated_link).to receive(:soft_destroy).and_return(true) }
+
+      it 'redirects to index' do
+        is_expected.to redirect_to(admin_curated_links_path)
+      end
+
+      it 'sets flash notice' do
+        subject
+        expect(flash.notice).to_not be_nil
+      end
+    end
+
+    context 'unsuccessful soft-destroy' do
+      subject { delete :destroy, params: { id: '1' }, session: session }
+      before { allow(curated_link).to receive(:soft_destroy).and_return(false) }
+
+      it 'redirects to edit' do
+        is_expected.to redirect_to(edit_admin_curated_link_path(curated_link))
+      end
+
+      it 'sets flash alert' do
+        subject
+        expect(flash.alert).to_not be_nil
+      end
+    end
+  end
 end

@@ -40,6 +40,19 @@ module Admin
       end
     end
 
+    def destroy
+      @curated_link = CuratedLink.find(params[:id])
+
+      if @curated_link.soft_destroy
+        redirect_to admin_curated_links_path,
+                    notice: 'Curated Link successfully destroyed'
+      else
+        redirect_to edit_admin_curated_link_path(@curated_link),
+                    alert: 'Something went wrong - Curated Link was not ' \
+                           'destroyed'
+      end
+    end
+
     private
 
     def curated_link_params
