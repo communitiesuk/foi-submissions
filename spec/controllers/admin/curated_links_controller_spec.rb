@@ -72,7 +72,9 @@ RSpec.describe Admin::CuratedLinksController, type: :controller do
   describe 'GET #edit' do
     subject { get :edit, params: { id: 1 }, session: session }
     before do
-      allow(CuratedLink).to receive(:find).with('1').and_return(curated_link)
+      relation = double(:curated_link_relation)
+      allow(CuratedLink).to receive(:active).and_return(relation)
+      allow(relation).to receive(:find).with('1').and_return(curated_link)
     end
 
     it 'returns http success' do
@@ -82,7 +84,9 @@ RSpec.describe Admin::CuratedLinksController, type: :controller do
 
   describe 'PUT #update' do
     before do
-      allow(CuratedLink).to receive(:find).with('1').and_return(curated_link)
+      relation = double(:curated_link_relation)
+      allow(CuratedLink).to receive(:active).and_return(relation)
+      allow(relation).to receive(:find).with('1').and_return(curated_link)
     end
 
     context 'valid parameters' do
@@ -123,7 +127,9 @@ RSpec.describe Admin::CuratedLinksController, type: :controller do
 
   describe 'DELETE #destroy' do
     before do
-      allow(CuratedLink).to receive(:find).with('1').and_return(curated_link)
+      relation = double(:curated_link_relation)
+      allow(CuratedLink).to receive(:active).and_return(relation)
+      allow(relation).to receive(:find).with('1').and_return(curated_link)
     end
 
     context 'successful soft-destroy' do
