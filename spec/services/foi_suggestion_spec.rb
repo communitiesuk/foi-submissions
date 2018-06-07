@@ -11,6 +11,10 @@ RSpec.describe FoiSuggestion, type: :service do
 
     let!(:l1) { create(:curated_link, keywords: 'housing, budget') }
     let!(:l2) { create(:curated_link, keywords: 'council tax') }
+    let!(:l3) do
+      create(:curated_link, destroyed_at: Time.zone.now,
+                            keywords: 'council tax')
+    end
 
     it 'returns the matched selections' do
       s = suggest('What is the budget for housing in 2018?')
