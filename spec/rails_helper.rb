@@ -57,4 +57,8 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # Make Rails' built-in time travel test helpers available
+  # http://api.rubyonrails.org/v5.2.0/classes/ActiveSupport/Testing/TimeHelpers.html
+  include ActiveSupport::Testing::TimeHelpers
 end
