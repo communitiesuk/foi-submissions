@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe FoiRequest, type: :model do
   let(:request) { build_stubbed(:foi_request) }
 
-  describe 'assoications' do
+  describe 'associations' do
     it 'belongs to a contact' do
       expect(request.build_contact).to be_a Contact
     end
