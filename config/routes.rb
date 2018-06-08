@@ -29,6 +29,10 @@ Rails.application.routes.draw do
     resources :metrics, only: [:index], format: 'txt'
   end
 
+  get '/auth/failure', to: 'sessions#new'
+  get '/auth/:provider/callback', to: 'sessions#create'
+  delete '/auth/sign_out', to: 'sessions#destroy'
+
   resolve('FoiRequest') { %i[foi request] }
 
   mount Sidekiq::Web => '/sidekiq'

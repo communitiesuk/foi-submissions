@@ -1,0 +1,11 @@
+@import "mixins";
+
+#global-header .header-proposition #proposition-menu {
+    @include media(desktop){
+        float: right;
+    }
+}
+
+#global-header .header-proposition #proposition-links span {
+    color: white
+}

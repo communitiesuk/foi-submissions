@@ -1,0 +1,13 @@
+<% content_for :header_class, 'with-proposition' %>
+
+<div class="header-proposition">
+  <div class="content">
+    <a role="button" href="#proposition-links" class="js-header-toggle menu" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</a>
+    <nav id="proposition-menu">
+      <ul id="proposition-links" aria-label="Top Level Navigation">
+        <li><span>Logged in as <%= current_user.email %></span></li>
+        <li><%= link_to 'Sign out', auth_sign_out_path, method: :delete %></li>
+      </ul>
+    </nav>
+  </div>
+</div>
