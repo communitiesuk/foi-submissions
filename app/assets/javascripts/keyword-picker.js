@@ -63,6 +63,7 @@ var setUpKeywordPicker = function () {
   var taggleOptions = {
     placeholder: originalInputPlaceholder,
     tags: originalInputKeywords,
+    tabIndex: 0,
     onTagAdd: function (e, tag){
       saveTagsToInput()
     },
