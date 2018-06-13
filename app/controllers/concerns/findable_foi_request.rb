@@ -21,7 +21,7 @@ module FindableFoiRequest
       redirect_if_missing_request
     end
 
-    def foi_request_from_session(scope: FoiRequest)
+    def foi_request_from_session(scope: FoiRequest.all)
       scope.
         includes(:contact).
         references(:contact).

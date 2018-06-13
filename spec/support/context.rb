@@ -13,6 +13,8 @@ RSpec.shared_context 'FOI Request Scope', shared_context: :metadata do
       and_return(foi_request_scope)
     allow(FoiRequest).to receive(:sent).
       and_return(foi_request_scope)
+    allow(FoiRequest).to receive(:all).
+      and_return(foi_request_scope)
 
     allow(foi_request_scope).to receive(:includes).
       with(:contact).and_return(foi_request_scope)
