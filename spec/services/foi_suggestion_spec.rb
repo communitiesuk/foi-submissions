@@ -94,5 +94,13 @@ RSpec.describe FoiSuggestion, type: :service do
         expect(s3).to match [l2, l1]
       end
     end
+
+    context 'curated link without keywords' do
+      before { create(:curated_link, keywords: '') }
+
+      it 'returns no suggestions' do
+        expect(suggest('Request about council budgets')).to eq []
+      end
+    end
   end
 end

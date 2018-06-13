@@ -72,7 +72,7 @@ class FoiSuggestion
     <<~SQL
       SELECT DISTINCT UNNEST(regexp_split_to_array(keywords, ',\s*'))
       FROM curated_links _cl
-      WHERE _cl.id = curated_links.id
+      WHERE _cl.id = curated_links.id AND keywords IS NOT NULL AND keywords <> ''
     SQL
   end
   private_class_method :keywords
