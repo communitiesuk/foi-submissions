@@ -65,6 +65,7 @@ var setUpKeywordPicker = function () {
     placeholder: originalInputPlaceholder,
     tags: originalInputKeywords,
     tabIndex: 0,
+    saveOnBlur: true,
     onTagAdd: function (e, tag){
       saveTagsToInput()
     },
