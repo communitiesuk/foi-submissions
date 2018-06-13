@@ -7,29 +7,23 @@
 
 <div class="grid-row">
   <div class="column-two-thirds">
-    <table style="margin-bottom: 30px;">
-      <tbody>
-        <tr>
-          <th>Request</th>
-          <td id="foi-request-body">
-            <div style="white-space: pre-line"><%= @foi_request.body %></div>
-          </td>
-        </tr>
-        <tr>
-          <th>Full name</th>
-          <td id="foi-requestor-name">
-            <%= @foi_request.contact.full_name %>
-          </td>
-        </tr>
-        <tr>
-          <th>Email address</th>
-          <td id="foi-requestor-email">
-            <%= @foi_request.contact.email %>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
+    <div class="foi-request__preview">
+    <h2 class="heading-small">Request</h2>
+    
+      
+    <div class="foi-request__preview__body"><%= @foi_request.body %></div>
+    
+  
+    <h2 class="heading-small">Full name</h2>
+    
+      <%= @foi_request.contact.full_name %>
+    
+     <h2 class="heading-small">Email address</h2>
+    
+      <%= @foi_request.contact.email %>
+          
+       
+    </div>
     <aside class="form-aside">
       <h2 class="heading-small">Tips for a quick response:</h2>
       <ul class="list list-bullet font-xsmall">
@@ -47,3 +41,4 @@
     </div>
   </div>
 </div>
+        
