@@ -5,7 +5,14 @@
 #
 class FoiSuggestion
   def self.from_request(request)
-    sql = <<~SQL
+    CuratedLink.find_by_sql([sql, request: request])
+  rescue ActiveRecord::StatementInvalid => ex
+    ExceptionNotifier.notify_exception(ex)
+    []
+  end
+
+  def self.sql
+    <<~SQL
       SELECT request_matches, relevance, curated_links.*
       FROM curated_links,
       LATERAL (#{request_matches}) AS T1(request_matches),
@@ -14,8 +21,6 @@ class FoiSuggestion
       ORDER BY relevance DESC
       LIMIT 3
     SQL
-
-    CuratedLink.find_by_sql([sql, request: request])
   end
 
   # Rank curated links on the request keyword matches against the title, summary

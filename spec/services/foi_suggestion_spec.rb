@@ -102,5 +102,22 @@ RSpec.describe FoiSuggestion, type: :service do
         expect(suggest('Request about council budgets')).to eq []
       end
     end
+
+    context 'where SQL search throws and error' do
+      let(:error) { ActiveRecord::StatementInvalid }
+
+      before do
+        allow(CuratedLink).to receive(:find_by_sql).and_raise(error)
+      end
+
+      it 'returns no suggestions' do
+        expect(suggest('Request about council budgets')).to eq []
+      end
+
+      it 'notifies exception' do
+        expect(ExceptionNotifier).to receive(:notify_exception).with(error)
+        suggest('Request about council budgets')
+      end
+    end
   end
 end
