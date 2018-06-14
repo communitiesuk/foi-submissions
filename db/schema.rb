@@ -60,6 +60,10 @@ ActiveRecord::Schema.define(version: 2018_06_06_111720) do
     t.jsonb "payload"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "title"
+    t.string "url"
+    t.text "summary"
+    t.string "keywords"
   end
 
   create_table "submissions", force: :cascade do |t|
