@@ -16,6 +16,10 @@ RSpec.describe GenerateFoiSuggestion, type: :service do
     context 'curated links with keywords' do
       let!(:l1) { create(:curated_link, keywords: 'housing, budget') }
       let!(:l2) { create(:curated_link, keywords: 'council tax') }
+      let!(:l3) do
+        create(:curated_link, destroyed_at: Time.zone.now,
+                              keywords: 'council tax')
+      end
 
       it 'finds and updates existing suggestions' do
         suggestion = create(:foi_suggestion, resource: l1)

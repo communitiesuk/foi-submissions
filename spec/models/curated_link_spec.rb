@@ -54,4 +54,25 @@ RSpec.describe CuratedLink, type: :model do
       it { is_expected.to eq 0.33 }
     end
   end
+
+  describe 'scopes' do
+    let!(:active) { create(:curated_link, destroyed_at: nil) }
+    let!(:destroyed) { create(:curated_link, destroyed_at: Time.zone.now) }
+
+    describe '.active' do
+      subject { described_class.active }
+      it { is_expected.to match_array [active] }
+    end
+  end
+
+  describe '#soft_destroy' do
+    let(:curated_link) { create(:curated_link) }
+
+    it 'updates destroyed_at with the current time' do
+      freeze_time do
+        expect { curated_link.soft_destroy }.
+          to change { curated_link.destroyed_at }.from(nil).to(Time.zone.now)
+      end
+    end
+  end
 end

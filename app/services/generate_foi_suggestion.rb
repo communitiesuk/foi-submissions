@@ -30,6 +30,7 @@ class GenerateFoiSuggestion
       LATERAL (#{request_matches}) AS T1(request_matches),
       LATERAL (#{relevance}) AS T2(relevance)
       WHERE relevance > 0.5
+      AND destroyed_at IS NULL
       ORDER BY relevance DESC
       LIMIT 3
     SQL

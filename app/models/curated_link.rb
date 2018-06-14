@@ -6,6 +6,8 @@ class CuratedLink < ApplicationRecord
 
   validates :title, :url, presence: true
 
+  scope :active, -> { where(destroyed_at: nil) }
+
   delegate :shown, :click_rate, :answer_rate, to: :statistics
 
   def statistics
@@ -18,5 +20,9 @@ class CuratedLink < ApplicationRecord
 
   def as_csv
     csv_columns.map { |column| public_send(column) }
+  end
+
+  def soft_destroy
+    update(destroyed_at: Time.zone.now)
   end
 end
