@@ -13,7 +13,7 @@ RSpec.describe GenerateFoiSuggestion, type: :service do
       suggest_all(*args).first
     end
 
-    context 'curated links with keywords' do
+    context 'resources with keywords' do
       let!(:l1) { create(:curated_link, keywords: 'housing, budget') }
       let!(:l2) { create(:curated_link, keywords: 'council tax') }
       let!(:l3) do
@@ -118,7 +118,7 @@ RSpec.describe GenerateFoiSuggestion, type: :service do
       end
     end
 
-    context 'curated link without keywords' do
+    context 'resource without keywords' do
       before { create(:curated_link, keywords: '') }
 
       it 'returns no suggestions' do
@@ -130,7 +130,7 @@ RSpec.describe GenerateFoiSuggestion, type: :service do
       let(:error) { ActiveRecord::StatementInvalid }
 
       before do
-        allow(CuratedLink).to receive(:find_by_sql).and_raise(error)
+        allow(Resource).to receive(:find_by_sql).and_raise(error)
       end
 
       it 'returns no suggestions' do
