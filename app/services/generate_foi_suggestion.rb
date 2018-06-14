@@ -6,13 +6,20 @@
 class GenerateFoiSuggestion
   def self.from_request(request)
     CuratedLink.find_by_sql([sql, request: request]).map do |resource|
-      request.foi_suggestions.
-        find_or_initialize_by(resource: resource).tap do |instance|
-        instance.update(
-          request_matches: resource.request_matches.join(', '),
-          relevance: resource.relevance
-        )
-      end
+      create_or_update(request, resource)
+    end
+  rescue ActiveRecord::StatementInvalid => ex
+    ExceptionNotifier.notify_exception(ex)
+    []
+  end
+
+  def self.create_or_update(request, resource)
+    request.foi_suggestions.
+      find_or_initialize_by(resource: resource).tap do |instance|
+      instance.update(
+        request_matches: resource.request_matches.join(', '),
+        relevance: resource.relevance
+      )
     end
   end
 
@@ -83,7 +90,7 @@ class GenerateFoiSuggestion
     <<~SQL
       SELECT DISTINCT UNNEST(regexp_split_to_array(keywords, ',\s*'))
       FROM curated_links _cl
-      WHERE _cl.id = curated_links.id
+      WHERE _cl.id = curated_links.id AND keywords IS NOT NULL AND keywords <> ''
     SQL
   end
   private_class_method :keywords
