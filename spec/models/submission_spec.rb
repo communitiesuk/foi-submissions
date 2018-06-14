@@ -57,6 +57,8 @@ RSpec.describe Submission, type: :model do
   end
 
   describe '#queue' do
+    let(:submission) { build_stubbed(:submission_with_foi_request) }
+
     it 'delegates to QueueSubmission service' do
       service = double(:service)
       expect(QueueSubmission).to receive(:new).with(submission).

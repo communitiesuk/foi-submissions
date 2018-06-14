@@ -11,5 +11,11 @@ FactoryBot.define do
       of this curated link.
       TEXT
     end
+
+    factory :curated_link_with_suggestions do
+      after(:create) do |curated_link, _evaluator|
+        create_list(:foi_suggestion, 3, resource: curated_link)
+      end
+    end
   end
 end

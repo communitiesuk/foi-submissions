@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_29_111912) do
+ActiveRecord::Schema.define(version: 2018_06_05_112908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,20 @@ ActiveRecord::Schema.define(version: 2018_05_29_111912) do
     t.datetime "updated_at", null: false
     t.index ["contact_id"], name: "index_foi_requests_on_contact_id"
     t.index ["submission_id"], name: "index_foi_requests_on_submission_id"
+  end
+
+  create_table "foi_suggestions", force: :cascade do |t|
+    t.bigint "foi_request_id"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.string "request_matches"
+    t.decimal "relevance", precision: 7, scale: 6
+    t.integer "clicks", default: 0, null: false
+    t.integer "submissions", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["foi_request_id"], name: "index_foi_suggestions_on_foi_request_id"
+    t.index ["resource_type", "resource_id"], name: "index_foi_suggestions_on_resource_type_and_resource_id"
   end
 
   create_table "submissions", force: :cascade do |t|

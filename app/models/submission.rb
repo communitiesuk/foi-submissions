@@ -24,6 +24,7 @@ class Submission < ApplicationRecord
   }
 
   def queue
+    foi_request.foi_suggestions.submitted!
     QueueSubmission.new(self).call
   end
 
