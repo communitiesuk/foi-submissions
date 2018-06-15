@@ -14,6 +14,7 @@ class PublishedRequest < ApplicationRecord
     cache_url
     construct_summary
     cache_keywords
+    parse_published_at
   end
 
   def cache_reference
@@ -43,5 +44,10 @@ class PublishedRequest < ApplicationRecord
 
   def cache_keywords
     self.keywords = payload['keywords']
+  end
+
+  def parse_published_at
+    date = payload['datepublished']
+    self.published_at = Date.parse(date) if date.present?
   end
 end
