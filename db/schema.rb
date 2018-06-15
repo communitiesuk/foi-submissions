@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2018_06_06_111720) do
     t.string "url"
     t.text "summary"
     t.string "keywords"
+    t.string "reference"
   end
 
   create_table "submissions", force: :cascade do |t|

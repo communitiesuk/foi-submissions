@@ -9,10 +9,15 @@ class PublishedRequest < ApplicationRecord
   private
 
   def update_cached_columns
+    cache_reference
     cache_title
     cache_url
     construct_summary
     cache_keywords
+  end
+
+  def cache_reference
+    self.reference = payload['ref']
   end
 
   def cache_title

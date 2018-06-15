@@ -11,6 +11,10 @@ RSpec.describe PublishedRequest, type: :model do
       published_request.reload
     end
 
+    it 'creates a cache of the reference' do
+      expect(published_request.reference).to eq('FOI-1')
+    end
+
     it 'creates a cache of the keywords' do
       expect(published_request.keywords).to eq('Business, business rates')
     end
