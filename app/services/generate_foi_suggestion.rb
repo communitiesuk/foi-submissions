@@ -5,7 +5,7 @@
 #
 class GenerateFoiSuggestion
   def self.from_request(request)
-    CuratedLink.find_by_sql([sql, request: request]).map do |resource|
+    Resource.find_by_sql([sql, request: request]).map do |resource|
       create_or_update(request, resource)
     end
   rescue ActiveRecord::StatementInvalid => ex
@@ -14,8 +14,10 @@ class GenerateFoiSuggestion
   end
 
   def self.create_or_update(request, resource)
-    request.foi_suggestions.
-      find_or_initialize_by(resource: resource).tap do |instance|
+    request.foi_suggestions.find_or_initialize_by(
+      resource_id: resource.resource_id,
+      resource_type: resource.resource_type
+    ).tap do |instance|
       instance.update(
         request_matches: resource.request_matches.join(', '),
         relevance: resource.relevance
@@ -25,19 +27,18 @@ class GenerateFoiSuggestion
 
   def self.sql
     <<~SQL
-      SELECT request_matches, relevance, curated_links.*
-      FROM curated_links,
+      SELECT request_matches, relevance, resources.*
+      FROM resources,
       LATERAL (#{request_matches}) AS T1(request_matches),
       LATERAL (#{relevance}) AS T2(relevance)
       WHERE relevance > 0.5
-      AND destroyed_at IS NULL
-      ORDER BY relevance DESC
+      ORDER BY relevance DESC, resource_id ASC
       LIMIT 3
     SQL
   end
   private_class_method :sql
 
-  # Rank curated links on the request keyword matches against the title, summary
+  # Rank resources on the request keyword matches against the title, summary
   # or keywords - with different weighting for each
   def self.relevance
     <<~SQL
@@ -86,12 +87,17 @@ class GenerateFoiSuggestion
   end
   private_class_method :keywords_query
 
-  # Get a unique list of all comma separated keywords from current curated links
+  # Get a unique list of all comma separated keywords from current resources
   def self.keywords
     <<~SQL
       SELECT DISTINCT UNNEST(regexp_split_to_array(keywords, ',\s*'))
-      FROM curated_links _cl
-      WHERE _cl.id = curated_links.id AND keywords IS NOT NULL AND keywords <> ''
+      FROM resources _r
+      WHERE (
+        _r.resource_id = resources.resource_id AND
+        _r.resource_type = resources.resource_type AND
+        keywords IS NOT NULL AND
+        keywords <> ''
+      )
     SQL
   end
   private_class_method :keywords

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_15_085720) do
+ActiveRecord::Schema.define(version: 2018_06_15_085721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,4 +87,25 @@ ActiveRecord::Schema.define(version: 2018_06_15_085720) do
 
   add_foreign_key "foi_requests", "contacts"
   add_foreign_key "foi_requests", "submissions"
+
+  create_view "resources",  sql_definition: <<-SQL
+      SELECT curated_links.id AS resource_id,
+      'CuratedLink'::text AS resource_type,
+      curated_links.title,
+      curated_links.summary,
+      curated_links.url,
+      curated_links.keywords
+     FROM curated_links
+    WHERE (curated_links.destroyed_at IS NULL)
+  UNION
+   SELECT published_requests.id AS resource_id,
+      'PublishedRequest'::text AS resource_type,
+      published_requests.title,
+      published_requests.summary,
+      published_requests.url,
+      published_requests.keywords
+     FROM published_requests
+    WHERE (published_requests.published_at IS NOT NULL);
+  SQL
+
 end
