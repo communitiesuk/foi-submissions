@@ -13,7 +13,13 @@ require 'csv'
 
 ActionController::Renderers.add :csv do |objects, _options|
   def convert_to_csv(object)
-    object.csv_columns.map { |column| object.public_send(column) }
+    object.csv_columns.map do |column|
+      value = object.public_send(column)
+      case value
+      when Time then value.to_s(:db)
+      else value
+      end
+    end
   end
 
   csv_string = CSV.generate do |csv|

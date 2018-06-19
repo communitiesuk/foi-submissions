@@ -38,7 +38,8 @@ RSpec.describe Admin::ExportsController, type: :controller do
 
       expect(lines).to include([
         link.id, link.title, link.url, link.keywords, link.shown,
-        link.click_rate, link.answer_rate, link.created_at, link.updated_at
+        link.click_rate, link.answer_rate,
+        link.created_at.to_s(:db), link.updated_at.to_s(:db)
       ].join(','))
     end
   end
