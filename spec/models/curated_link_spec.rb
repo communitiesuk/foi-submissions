@@ -31,6 +31,12 @@ RSpec.describe CuratedLink, type: :model do
     end
   end
 
+  describe '.csv_columns' do
+    it 'returns an array' do
+      expect(described_class.csv_columns).to be_a Array
+    end
+  end
+
   describe 'statistics delegate methods' do
     before do
       expect(curated_link).to(

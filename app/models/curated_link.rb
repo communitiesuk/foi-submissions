@@ -14,7 +14,7 @@ class CuratedLink < ApplicationRecord
     @statistics ||= OpenStruct.new(foi_suggestions.statistics)
   end
 
-  def csv_columns
+  def self.csv_columns
     %i[id title url keywords shown click_rate answer_rate created_at updated_at]
   end
 
