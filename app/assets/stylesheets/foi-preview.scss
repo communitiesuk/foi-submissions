@@ -1,0 +1,19 @@
+@import "variables";
+@import "mixins";
+
+.foi-request__preview {
+    margin-bottom: 3em;
+    h2 {
+        margin-top: 1em;
+        border-bottom: 1px solid $grey-3;
+        padding-bottom: 0.25em;
+        &:first-of-type {
+            margin-top: 0;
+        }
+    }
+}
+
+.foi-request__preview__body {
+    white-space: pre-line;
+    font-size: 1.125em;
+}
