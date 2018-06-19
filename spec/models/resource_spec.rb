@@ -67,4 +67,13 @@ RSpec.describe Resource, type: :model do
       it { is_expected.to eq 0.33 }
     end
   end
+
+  describe '#type' do
+    subject { resource.type }
+
+    it 'titleise the resource_type' do
+      resource.resource_type = 'FooBar_baz'
+      is_expected.to eq 'Foo Bar Baz'
+    end
+  end
 end

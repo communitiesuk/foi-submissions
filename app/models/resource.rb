@@ -10,9 +10,13 @@ class Resource < ApplicationRecord
   delegate :shown, :click_rate, :answer_rate, to: :statistics
 
   def self.csv_columns
-    %i[id title url keywords
+    %i[id type title url keywords
        shown click_rate answer_rate
        created_at updated_at]
+  end
+
+  def type
+    resource_type.titleize
   end
 
   private

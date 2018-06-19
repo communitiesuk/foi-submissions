@@ -29,14 +29,14 @@ RSpec.describe Admin::ExportsController, type: :controller do
 
     it 'should have CSV headers' do
       expect(lines).to include(
-        'id,title,url,keywords,shown,' \
+        'id,type,title,url,keywords,shown,' \
         'click_rate,answer_rate,created_at,updated_at'
       )
     end
 
     it 'should have CSV data' do
       expect(lines).to include([
-        resource.id,
+        resource.id, resource.type,
         resource.title, resource.url, resource.keywords,
         resource.shown, resource.click_rate, resource.answer_rate,
         resource.created_at.to_s(:db), resource.updated_at.to_s(:db)
