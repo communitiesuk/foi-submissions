@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_06_111720) do
+ActiveRecord::Schema.define(version: 2018_06_15_085720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,18 @@ ActiveRecord::Schema.define(version: 2018_06_06_111720) do
     t.datetime "updated_at", null: false
     t.index ["foi_request_id"], name: "index_foi_suggestions_on_foi_request_id"
     t.index ["resource_type", "resource_id"], name: "index_foi_suggestions_on_resource_type_and_resource_id"
+  end
+
+  create_table "published_requests", force: :cascade do |t|
+    t.jsonb "payload"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
+    t.string "url"
+    t.text "summary"
+    t.string "keywords"
+    t.string "reference"
+    t.datetime "published_at"
   end
 
   create_table "submissions", force: :cascade do |t|
