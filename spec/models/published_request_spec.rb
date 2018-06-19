@@ -3,6 +3,20 @@
 require 'rails_helper'
 
 RSpec.describe PublishedRequest, type: :model do
+  let(:published_request) { build_stubbed(:published_request) }
+
+  describe 'associations' do
+    it 'has many FOI suggestions' do
+      expect(published_request.foi_suggestions.new).to be_a FoiSuggestion
+    end
+
+    it 'removes FOI suggestions on destroy' do
+      published_request = create(:published_request_with_suggestions)
+      expect { published_request.destroy }.to change(FoiSuggestion, :count).
+        from(3).to(0)
+    end
+  end
+
   describe '.create_or_update_from_api!' do
     subject { described_class.create_or_update_from_api!(attributes) }
 

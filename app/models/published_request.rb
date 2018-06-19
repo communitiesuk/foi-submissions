@@ -4,6 +4,8 @@
 # A cache of published FOI requests and responses from the disclosure log.
 #
 class PublishedRequest < ApplicationRecord
+  has_many :foi_suggestions, as: :resource, dependent: :destroy
+
   before_save :update_cached_columns
 
   def self.create_or_update_from_api!(attrs)
