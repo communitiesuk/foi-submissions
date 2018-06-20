@@ -12,13 +12,15 @@ class CSVExporter
 
   def initialize(objects, _options = nil)
     @objects = objects
+    return if objects&.empty?
+
     raise Error, "#{klass} doesn't respond to `csv_columns`" unless
       klass.respond_to?(:csv_columns)
   end
 
   def data
     CSV.generate do |csv|
-      csv << headers if headers
+      csv << headers unless headers.empty?
       objects.each { |object| csv << convert_to_csv(object) }
     end
   end
@@ -30,7 +32,7 @@ class CSVExporter
   end
 
   def headers
-    @headers ||= klass.csv_columns
+    @headers ||= klass&.csv_columns || []
   end
 
   def convert_to_csv(object)

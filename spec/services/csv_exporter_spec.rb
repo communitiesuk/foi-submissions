@@ -22,6 +22,10 @@ RSpec.describe CSVExporter, type: :service do
       expect { export }.to_not raise_error
       expect { described_class.new(['foo']) }.to raise_error(CSVExporter::Error)
     end
+
+    it 'can handle no objects without raising an error' do
+      expect { described_class.new([]) }.to_not raise_error
+    end
   end
 
   describe '#data' do
@@ -38,6 +42,11 @@ RSpec.describe CSVExporter, type: :service do
 
     it 'maps Times to DB format' do
       expect(lines.last).to eq 'event,2018-06-20 15:30:00'
+    end
+
+    context 'without an objects' do
+      let(:objects) { [] }
+      it { is_expected.to eq '' }
     end
   end
 end
