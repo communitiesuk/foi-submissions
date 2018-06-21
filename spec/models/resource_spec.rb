@@ -23,8 +23,8 @@ RSpec.describe Resource, type: :model do
     before do
       resource.resource = CuratedLink.new(
         id: 3,
-        created_at: Time.new(2018, 1, 1, 0, 0).utc,
-        updated_at: Time.new(2018, 1, 1, 0, 1).utc
+        created_at: Time.utc(2018, 1, 1, 0, 0),
+        updated_at: Time.utc(2018, 1, 1, 0, 1)
       )
     end
 
@@ -35,12 +35,12 @@ RSpec.describe Resource, type: :model do
 
     describe '#created_at' do
       subject { resource.created_at }
-      it { is_expected.to eq Time.new(2018, 1, 1, 0, 0).utc }
+      it { is_expected.to eq Time.utc(2018, 1, 1, 0, 0) }
     end
 
     describe '#updated_at' do
       subject { resource.updated_at }
-      it { is_expected.to eq Time.new(2018, 1, 1, 0, 1).utc }
+      it { is_expected.to eq Time.utc(2018, 1, 1, 0, 1) }
     end
   end
 

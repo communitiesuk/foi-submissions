@@ -6,7 +6,7 @@ RSpec.describe ImportDisclosureLogWorker, type: :worker do
   let(:duration) { nil }
   subject(:perform) { described_class.perform_async(duration) }
 
-  before { travel_to Time.new(2018, 6, 18, 11, 30).utc }
+  before { travel_to Time.utc(2018, 6, 18, 11, 30) }
   around { |example| Sidekiq::Testing.inline!(&example) }
 
   let(:log) { double(:disclosure_log) }

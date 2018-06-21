@@ -9,7 +9,7 @@ RSpec.describe DisclosureLog, type: :service do
   end
 
   describe 'initialisation' do
-    before { travel_to Time.new(2018, 6, 18, 11, 30).utc }
+    before { travel_to Time.utc(2018, 6, 18, 11, 30) }
 
     it 'accepts a start_date' do
       subject = described_class.new(start_date: Date.new(2018, 2, 1))
