@@ -4,25 +4,24 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 <% end %>
 
+<% content_for :proposition_header do %>
+  <%= render partial: 'header' %>
+<% end %>
+
 <% content_for :after_header do %>
-  <nav class="subheader">
-    <ol role="breadcrumbs" class="breadcrumbs">
-      <li>
-        <a href="https://www.hackney.gov.uk">Home</a>
-      </li>
-      <li>
-        <a href="<%= root_url %>">Make an FOI request</a>
-      </li>
-    </ol>
-  </nav>
+  <%= render partial: 'breadcrumbs' %>
 <% end %>
 
 <% content_for :content do %>
-  <div id='content'><%= yield %></div>
+  <div id='content' role='main'><%= yield %></div>
 <% end %>
 
 <% content_for :body_end do %>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!--[if lte IE 9]>
+    <%= javascript_include_tag 'src/taggle-ie9' %>
+  <![endif]-->
+  <%= javascript_include_tag 'src/taggle' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 <% end %>
 

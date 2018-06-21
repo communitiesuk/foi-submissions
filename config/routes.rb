@@ -19,6 +19,26 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :links, only: %i[show]
+
+  namespace :admin do
+    root to: redirect('/admin/curated_links')
+    resources :curated_links, except: [:show] do
+      collection do
+        resource :export, only: [:show], format: 'csv'
+      end
+    end
+  end
+
+  namespace :health do
+    root to: redirect('/health/metrics')
+    resources :metrics, only: [:index], format: 'txt'
+  end
+
+  get '/auth/failure', to: 'sessions#new'
+  get '/auth/:provider/callback', to: 'sessions#create'
+  delete '/auth/sign_out', to: 'sessions#destroy'
+
   resolve('FoiRequest') { %i[foi request] }
 
   mount Sidekiq::Web => '/sidekiq'

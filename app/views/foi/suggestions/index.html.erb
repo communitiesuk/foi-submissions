@@ -5,7 +5,11 @@
   Before you continue, we’ve found these links that might answer your questions
 </h1>
 
-<div class="js-foi-suggestions"></div>
+<div class="js-foi-suggestions">
+  <% @suggestions.each do |suggestion| %>
+    <%= render partial: 'suggestion', locals: { suggestion: suggestion } %>
+  <% end %>
+</div>
 
 <hr class="text" style="margin: 2em 0;">
 

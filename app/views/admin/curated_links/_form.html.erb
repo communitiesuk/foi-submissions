@@ -1,0 +1,13 @@
+<%= form_for [:admin, @curated_link] do |f| %>
+  <%= f.url_field :url, class: 'form-control-full-width', required: true %>
+
+  <%= f.text_field :title, class: 'form-control-full-width', required: true %>
+
+  <%= f.text_area :summary, class: 'form-control-full-width' %>
+
+  <%= f.text_field :keywords, class: 'form-control-full-width js-keyword-picker' %>
+
+  <p class="cta-section">
+    <%= f.submit 'Save Curated Link', class: 'button' %>
+  </p>
+<% end %>

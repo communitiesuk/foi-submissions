@@ -1,0 +1,18 @@
+<% content_for :page_title, 'Add a new Curated Link' %>
+
+<div class="grid-row">
+  <div class="column-full">
+    <h1 class="heading-xlarge">
+      Add a new Curated Link
+    </h1>
+  </div>
+</div>
+
+<div class="grid-row">
+  <div class="column-one-half">
+    <%= render 'form' %>
+  </div>
+  <div class="column-one-half">
+    <%= render partial: 'preview', locals: { curated_link: @curated_link } %>
+  </div>
+</div>

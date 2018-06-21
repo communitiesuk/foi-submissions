@@ -1,0 +1,13 @@
+<% if flash.notice %>
+<% uuid = SecureRandom.uuid %>
+<div class="flash flash-notice" role="alert" aria-labelledby="<%= uuid %>" tabindex="-1">
+    <h2 id="<%= uuid %>" class="heading-medium"><%= flash.notice %></h2>
+</div>
+<% end %>
+
+<% if flash.alert %>
+<% uuid = SecureRandom.uuid %>
+<div class="flash flash-alert" role="alert" aria-labelledby="<%= uuid %>" tabindex="-1">
+    <h2 id="<%= uuid %>" class="heading-medium"><%= flash.alert %></h2>
+</div>
+<% end %>

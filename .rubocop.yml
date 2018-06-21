@@ -10,7 +10,9 @@ AllCops:
 
 Metrics/BlockLength:
   Exclude:
+    - 'spec/factories/*.rb'
     - 'spec/**/*_spec.rb'
+    - 'config/routes.rb'
 
 Layout/DotPosition:
   EnforcedStyle: trailing

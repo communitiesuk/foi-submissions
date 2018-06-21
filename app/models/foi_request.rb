@@ -7,6 +7,8 @@ class FoiRequest < ApplicationRecord
   belongs_to :contact, optional: true, dependent: :destroy
   belongs_to :submission, optional: true
 
+  has_many :foi_suggestions, dependent: :nullify
+
   validates :body, presence: true
 
   scope :editable, lambda {

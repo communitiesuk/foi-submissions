@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_15_131458) do
+ActiveRecord::Schema.define(version: 2018_06_15_085721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 2018_05_15_131458) do
     t.string "email", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "curated_links", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "url", null: false
+    t.text "summary"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "keywords"
+    t.datetime "destroyed_at"
   end
 
   create_table "foi_requests", force: :cascade do |t|
@@ -32,6 +42,32 @@ ActiveRecord::Schema.define(version: 2018_05_15_131458) do
     t.index ["submission_id"], name: "index_foi_requests_on_submission_id"
   end
 
+  create_table "foi_suggestions", force: :cascade do |t|
+    t.bigint "foi_request_id"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.string "request_matches"
+    t.decimal "relevance", precision: 7, scale: 6
+    t.integer "clicks", default: 0, null: false
+    t.integer "submissions", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["foi_request_id"], name: "index_foi_suggestions_on_foi_request_id"
+    t.index ["resource_type", "resource_id"], name: "index_foi_suggestions_on_resource_type_and_resource_id"
+  end
+
+  create_table "published_requests", force: :cascade do |t|
+    t.jsonb "payload"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
+    t.string "url"
+    t.text "summary"
+    t.string "keywords"
+    t.string "reference"
+    t.datetime "published_at"
+  end
+
   create_table "submissions", force: :cascade do |t|
     t.string "state", null: false
     t.datetime "created_at", null: false
@@ -40,6 +76,36 @@ ActiveRecord::Schema.define(version: 2018_05_15_131458) do
     t.string "job_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "provider"
+    t.string "uid"
+    t.string "name"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "foi_requests", "contacts"
   add_foreign_key "foi_requests", "submissions"
+
+  create_view "resources",  sql_definition: <<-SQL
+      SELECT curated_links.id AS resource_id,
+      'CuratedLink'::text AS resource_type,
+      curated_links.title,
+      curated_links.summary,
+      curated_links.url,
+      curated_links.keywords
+     FROM curated_links
+    WHERE (curated_links.destroyed_at IS NULL)
+  UNION
+   SELECT published_requests.id AS resource_id,
+      'PublishedRequest'::text AS resource_type,
+      published_requests.title,
+      published_requests.summary,
+      published_requests.url,
+      published_requests.keywords
+     FROM published_requests
+    WHERE (published_requests.published_at IS NOT NULL);
+  SQL
+
 end

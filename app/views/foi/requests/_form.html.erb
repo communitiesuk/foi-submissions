@@ -10,9 +10,9 @@
 <div class="grid-row">
   <div class="column-two-thirds">
     <%= form_for @foi_request do |f| %>
-      <%= f.text_area :body, class: 'form-control form-control-full-width', required: true, rows: 10 %>
+      <%= f.text_area :body, class: 'form-control form-control-full-width', required: true, rows: 10, aria: { describedby: 'foi-request-tips' } %>
 
-      <aside class="form-aside">
+      <aside class="form-aside" id="foi-request-tips">
         <h2 class="heading-small">Tips for a quick response:</h2>
         <ul class="list list-bullet font-xsmall">
           <li>Keep it <strong>focused</strong>: you’re more likely to get what you want</li>

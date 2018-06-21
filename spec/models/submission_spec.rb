@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Submission, type: :model do
   let(:submission) { build_stubbed(:submission) }
 
-  describe 'assoications' do
+  describe 'associations' do
     it 'has one FOI request' do
       expect(submission.build_foi_request).to be_a FoiRequest
     end
@@ -49,9 +49,16 @@ RSpec.describe Submission, type: :model do
       subject { Submission.delivered_successfully }
       it { is_expected.to match_array [delivered_successfully] }
     end
+
+    describe '.delivered_unsuccessfully' do
+      subject { Submission.delivered_unsuccessfully }
+      it { is_expected.to match [delivered] }
+    end
   end
 
   describe '#queue' do
+    let(:submission) { build_stubbed(:submission_with_foi_request) }
+
     it 'delegates to QueueSubmission service' do
       service = double(:service)
       expect(QueueSubmission).to receive(:new).with(submission).

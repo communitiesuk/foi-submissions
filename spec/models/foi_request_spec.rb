@@ -5,13 +5,17 @@ require 'rails_helper'
 RSpec.describe FoiRequest, type: :model do
   let(:request) { build_stubbed(:foi_request) }
 
-  describe 'assoications' do
+  describe 'associations' do
     it 'belongs to a contact' do
       expect(request.build_contact).to be_a Contact
     end
 
     it 'belongs to a submission' do
       expect(request.build_submission).to be_a Submission
+    end
+
+    it 'has many FOI suggestions' do
+      expect(request.foi_suggestions.new).to be_a FoiSuggestion
     end
 
     it 'removes Contact on destroy' do
@@ -21,7 +25,14 @@ RSpec.describe FoiRequest, type: :model do
 
     it 'does not remove Submission on destroy' do
       request = create(:foi_request, :unqueued)
+      expect(Submission.count).to eq 1
       expect { request.destroy }.to_not(change { Submission.count })
+    end
+
+    it 'does not remove FOI suggestions on destroy' do
+      request = create(:foi_request_with_suggestions)
+      expect(FoiSuggestion.count).to eq 3
+      expect { request.destroy }.to_not(change { FoiSuggestion.count })
     end
   end
 

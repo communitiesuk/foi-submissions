@@ -18,7 +18,7 @@ RSpec.describe Foi::SuggestionsController, type: :controller do
     context 'there are suggestions' do
       before do
         allow(FoiSuggestion).
-          to receive(:from_text).with(foi_request.body).and_return([double])
+          to receive(:from_request).with(foi_request).and_return([double])
       end
 
       it 'returns http success' do
@@ -29,7 +29,7 @@ RSpec.describe Foi::SuggestionsController, type: :controller do
     context 'there are no suggestions' do
       before do
         allow(FoiSuggestion).
-          to receive(:from_text).with(foi_request.body).and_return([])
+          to receive(:from_request).with(foi_request).and_return([])
       end
 
       it 'redirects to the next step' do

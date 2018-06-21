@@ -69,3 +69,66 @@
         margin: 0 auto;
     }
 }
+
+// From govuk_frontend_toolkit _conditionals.scss
+$is-ie: false !default;
+$mobile-ie6: true !default;
+
+// From govuk_frontend_toolkit _conditionals.scss
+$tablet-breakpoint: 641px !default;
+$desktop-breakpoint: 769px !default;
+
+// From govuk_frontend_toolkit _conditionals.scss
+@mixin media($size: false, $max-width: false, $min-width: false, $ignore-for-ie: false) {
+  @if $is-ie and ($ignore-for-ie == false) {
+    @if $size != mobile {
+      @if ($ie-version == 6 and $mobile-ie6 == false) or $ie-version > 6 {
+        @content;
+      }
+    }
+  } @else {
+    @if $size == desktop {
+      @media (min-width: $desktop-breakpoint){
+        @content;
+      }
+    } @else if $size == tablet {
+      @media (min-width: $tablet-breakpoint){
+        @content;
+      }
+    } @else if $size == mobile {
+      @media (max-width: $tablet-breakpoint - 1px){
+        @content;
+      }
+    } @else if $max-width != false {
+      @media (max-width: $max-width){
+        @content;
+      }
+    } @else if $min-width != false {
+      @media (min-width: $min-width){
+        @content;
+      }
+    } @else {
+      @media (min-width: $size){
+        @content
+      }
+    }
+  }
+}
+
+// From govuk_frontend_toolkit _conditionals.scss
+@mixin ie-lte($version) {
+  @if $is-ie {
+    @if $ie-version <= $version {
+      @content;
+    }
+  }
+}
+
+// From govuk_frontend_toolkit _conditionals.scss
+@mixin ie($version) {
+  @if $is-ie {
+    @if $ie-version == $version {
+      @content;
+    }
+  }
+}
