@@ -16,7 +16,11 @@ RSpec.describe Admin::ExportsController, type: :controller do
       get :show, params: { format: 'csv' }, session: session
     end
 
-    let!(:suggestion) { create(:foi_suggestion) }
+    let!(:resource) do
+      link = create(:curated_link_with_suggestions)
+      Resource.find_by(resource_id: link.id, resource_type: 'CuratedLink')
+    end
+    let(:lines) { response.body.split("\n") }
 
     it 'should return a CSV' do
       is_expected.to have_http_status(200)
@@ -24,21 +28,18 @@ RSpec.describe Admin::ExportsController, type: :controller do
     end
 
     it 'should have CSV headers' do
-      lines = response.body.split("\n")
-
       expect(lines).to include(
-        'id,title,url,keywords,shown,' \
+        'id,type,title,url,keywords,shown,' \
         'click_rate,answer_rate,created_at,updated_at'
       )
     end
 
     it 'should have CSV data' do
-      link = suggestion.resource
-      lines = response.body.split("\n")
-
       expect(lines).to include([
-        link.id, link.title, link.url, link.keywords, link.shown,
-        link.click_rate, link.answer_rate, link.created_at, link.updated_at
+        resource.id, resource.type,
+        resource.title, resource.url, resource.keywords,
+        resource.shown, resource.click_rate, resource.answer_rate,
+        resource.created_at.to_s(:db), resource.updated_at.to_s(:db)
       ].join(','))
     end
   end

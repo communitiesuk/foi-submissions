@@ -7,7 +7,7 @@ module Admin
   class ExportsController < AdminController
     def show
       respond_to do |format|
-        format.csv  { render csv: CuratedLink.all }
+        format.csv  { render csv: Resource.all }
       end
     end
   end

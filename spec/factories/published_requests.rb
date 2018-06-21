@@ -35,5 +35,11 @@ FactoryBot.define do
           ]
         } }
     end
+
+    factory :published_request_with_suggestions do
+      after(:create) do |published_request, _evaluator|
+        create_list(:foi_suggestion, 3, resource: published_request)
+      end
+    end
   end
 end
