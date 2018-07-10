@@ -5,13 +5,13 @@
     every: '1d'
   ImportDisclosureLogWorker-week:
     class: ImportDisclosureLogWorker
-    every: '1h'
+    cron: '0 1 * * *' # every day at 01:00
     args: 'week'
   ImportDisclosureLogWorker-month:
     class: ImportDisclosureLogWorker
-    every: '1w'
+    cron: '10 1 * * 1' # every Monday at 01:10
     args: 'month'
   ImportDisclosureLogWorker-year:
     class: ImportDisclosureLogWorker
-    every: '1M' # m = minute, M = month
+    cron: '30 1 1 * *' # 1st of every month at 01:30
     args: 'year'
