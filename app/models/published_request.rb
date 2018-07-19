@@ -12,6 +12,7 @@ class PublishedRequest < ApplicationRecord
     record = find_or_initialize_by(reference: attrs[:ref])
     record.assign_attributes(payload: attrs)
     record.save_or_destroy!
+    record
   end
 
   def save_or_destroy!

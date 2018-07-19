@@ -43,6 +43,10 @@ RSpec.describe PublishedRequest, type: :model do
       expect(record).to receive(:save_or_destroy!)
       subject
     end
+
+    it 'returns the record' do
+      expect(subject).to eq(record)
+    end
   end
 
   describe '#save_or_destroy!' do
