@@ -77,7 +77,7 @@ RSpec.describe PublishedRequest, type: :model do
 
     it 'constructs a cache of the summary' do
       # Munge all responses in to one field for searching
-      expected = <<-TEXT.strip_heredoc.chomp
+      expected = <<-TEXT.strip_heredoc.chomp.squish
       Initial FOI Request
       Dear Redacted
       Automated acknowledgement.
