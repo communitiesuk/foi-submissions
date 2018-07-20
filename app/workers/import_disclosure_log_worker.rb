@@ -19,10 +19,10 @@ class ImportDisclosureLogWorker
 
   def start_date
     case @duration
-    when 'all' then Date.new(1970, 1, 1)
-    when 'year' then Time.zone.today - 1.year
-    when 'month' then Time.zone.today - 1.month
     when 'week' then Time.zone.today - 1.week
+    when 'month' then Time.zone.today - 1.month
+    when 'year' then Time.zone.today - 1.year
+    when 'all' then Date.new(1970, 1, 1)
     end
   end
 end
