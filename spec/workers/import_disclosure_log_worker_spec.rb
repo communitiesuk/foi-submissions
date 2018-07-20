@@ -19,6 +19,18 @@ RSpec.describe ImportDisclosureLogWorker, type: :worker do
     end
   end
 
+  context 'all duration' do
+    let(:duration) { 'all' }
+
+    it 'calls #import on DisclosureLog instance with start date 1970-01-01' do
+      expect(DisclosureLog).to receive(:new).with(
+        start_date: Date.new(1970, 1, 1)
+      ).and_return(log)
+      expect(log).to receive(:import)
+      perform
+    end
+  end
+
   context 'year duration' do
     let(:duration) { 'year' }
 
