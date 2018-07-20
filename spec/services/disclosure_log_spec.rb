@@ -39,7 +39,8 @@ RSpec.describe DisclosureLog, type: :service do
       it 'creates or update published requests' do
         requests.each do |request|
           expect(PublishedRequest).
-            to receive(:create_or_update_from_api!).with(request.attributes)
+            to receive(:create_update_or_destroy_from_api!).
+            with(request.attributes)
         end
 
         subject.import

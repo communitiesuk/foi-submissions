@@ -17,35 +17,73 @@ RSpec.describe PublishedRequest, type: :model do
     end
   end
 
-  describe '.create_or_update_from_api!' do
-    subject { described_class.create_or_update_from_api!(attributes) }
+  describe '.create_update_or_destroy_from_api!' do
+    subject { described_class.create_update_or_destroy_from_api!(attributes) }
 
-    context 'when a record with the ref does not exist' do
-      let(:attributes) { attributes_for(:published_request)[:payload] }
+    let(:record) do
+      double = instance_double(described_class.to_s)
+      allow(double).to receive(:assign_attributes)
+      allow(double).to receive(:save_or_destroy!)
+      double
+    end
 
-      it 'persists the record' do
-        expect { subject }.to change { described_class.count }.by(1)
+    let(:attributes) { attributes_for(:published_request)[:payload] }
+
+    before do
+      allow(described_class).
+        to receive(:find_or_initialize_by).and_return(record)
+    end
+
+    it 'assigns the payload to the record' do
+      expect(record).to receive(:assign_attributes).with(payload: attributes)
+      subject
+    end
+
+    it 'attempts to save or destroy the record' do
+      expect(record).to receive(:save_or_destroy!)
+      subject
+    end
+  end
+
+  describe '#save_or_destroy!' do
+    let(:non_blank_datepublished) do
+      attributes_for(:published_request)[:payload].
+        merge(datepublished: '2018-01-01')
+    end
+
+    let(:blank_datepublished) do
+      attributes_for(:published_request)[:payload].merge(datepublished: '')
+    end
+
+    let(:published_request) { build(:published_request) }
+
+    context 'with a new record' do
+      it 'persists the record when datepublished is not blank' do
+        published_request.payload = non_blank_datepublished
+        expect { published_request.save_or_destroy! }.
+          to change { described_class.count }.by(1)
+      end
+
+      it 'does not persist the record when datepublished is blank' do
+        published_request.payload = blank_datepublished
+        expect { published_request.save_or_destroy! }.
+          not_to(change { described_class.count })
       end
     end
 
-    context 'when a record with the ref exists and attributes have changed' do
-      let(:attributes) { attributes_for(:published_request)[:payload] }
+    context 'with a persisted record' do
+      before { published_request.save! }
 
-      let!(:published_request) do
-        old_attrs =
-          attributes.merge(dateclosed: '1918-04-22', keywords: 'old')
-
-        create(:published_request, payload: old_attrs)
+      it 'updates the record when datepublished is not blank' do
+        published_request.payload = non_blank_datepublished
+        published_request.save_or_destroy!
+        expect(published_request.saved_changes?).to eq(true)
       end
 
-      it 'does not create a new record' do
-        expect { subject }.not_to(change { described_class.count })
-      end
-
-      it 'updates the payload' do
-        subject
-        expect(published_request.reload.payload['keywords']).
-          to eq('Business, business rates')
+      it 'destroys the record when datepublished is blank' do
+        published_request.payload = blank_datepublished
+        expect { published_request.save_or_destroy! }.
+          to change { described_class.count }.by(-1)
       end
     end
   end

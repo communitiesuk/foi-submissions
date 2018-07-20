@@ -8,10 +8,18 @@ class PublishedRequest < ApplicationRecord
 
   before_save :update_cached_columns
 
-  def self.create_or_update_from_api!(attrs)
+  def self.create_update_or_destroy_from_api!(attrs)
     record = find_or_initialize_by(reference: attrs[:ref])
     record.assign_attributes(payload: attrs)
-    record.save!
+    record.save_or_destroy!
+  end
+
+  def save_or_destroy!
+    if payload['datepublished'].blank?
+      destroy!
+    else
+      save!
+    end
   end
 
   private

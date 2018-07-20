@@ -13,7 +13,7 @@ class DisclosureLog
 
   def import
     Infreemation::Request.where(query_params).map do |request|
-      PublishedRequest.create_or_update_from_api!(request.attributes)
+      PublishedRequest.create_update_or_destroy_from_api!(request.attributes)
     end
   end
 
