@@ -113,6 +113,10 @@ RSpec.describe PublishedRequest, type: :model do
       expect(published_request.title).to eq('Business Rates')
     end
 
+    it 'creates a cache of datecreated attribute' do
+      expect(published_request.api_created_at).to eq('2018-01-01')
+    end
+
     it 'constructs a cache of the summary' do
       # Munge all responses in to one field for searching
       expected = <<-TEXT.strip_heredoc.chomp.squish

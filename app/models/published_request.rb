@@ -31,6 +31,7 @@ class PublishedRequest < ApplicationRecord
     construct_summary
     cache_keywords
     parse_published_at
+    parse_api_created_at
   end
 
   def cache_reference
@@ -65,5 +66,10 @@ class PublishedRequest < ApplicationRecord
   def parse_published_at
     date = payload['datepublished']
     self.published_at = Date.parse(date) if date.present?
+  end
+
+  def parse_api_created_at
+    date = payload['datecreated']
+    self.api_created_at = Date.parse(date)
   end
 end
