@@ -12,9 +12,9 @@ RSpec.describe ImportDisclosureLogWorker, type: :worker do
   let(:log) { double(:disclosure_log) }
 
   context 'no duration' do
-    it 'calls #import on DisclosureLog instance without duration' do
+    it 'calls #import! on DisclosureLog instance without duration' do
       expect(DisclosureLog).to receive(:new).with({}).and_return(log)
-      expect(log).to receive(:import)
+      expect(log).to receive(:import!)
       perform
     end
   end
@@ -22,11 +22,11 @@ RSpec.describe ImportDisclosureLogWorker, type: :worker do
   context 'all duration' do
     let(:duration) { 'all' }
 
-    it 'calls #import on DisclosureLog instance with start date 1970-01-01' do
+    it 'calls #import! on DisclosureLog instance with start date 1970-01-01' do
       expect(DisclosureLog).to receive(:new).with(
         start_date: Date.new(1970, 1, 1)
       ).and_return(log)
-      expect(log).to receive(:import)
+      expect(log).to receive(:import!)
       perform
     end
   end
@@ -34,11 +34,11 @@ RSpec.describe ImportDisclosureLogWorker, type: :worker do
   context 'year duration' do
     let(:duration) { 'year' }
 
-    it 'calls #import on DisclosureLog instance with start date 1 year ago' do
+    it 'calls #import! on DisclosureLog instance with start date 1 year ago' do
       expect(DisclosureLog).to receive(:new).with(
         start_date: Date.new(2017, 6, 18)
       ).and_return(log)
-      expect(log).to receive(:import)
+      expect(log).to receive(:import!)
       perform
     end
   end
@@ -46,11 +46,11 @@ RSpec.describe ImportDisclosureLogWorker, type: :worker do
   context 'month duration' do
     let(:duration) { 'month' }
 
-    it 'calls #import on DisclosureLog instance with start date 1 month ago' do
+    it 'calls #import! on DisclosureLog instance with start date 1 month ago' do
       expect(DisclosureLog).to receive(:new).with(
         start_date: Date.new(2018, 5, 18)
       ).and_return(log)
-      expect(log).to receive(:import)
+      expect(log).to receive(:import!)
       perform
     end
   end
@@ -58,11 +58,11 @@ RSpec.describe ImportDisclosureLogWorker, type: :worker do
   context 'week duration' do
     let(:duration) { 'week' }
 
-    it 'calls #import on DisclosureLog instance with start date 1 week ago' do
+    it 'calls #import! on DisclosureLog instance with start date 1 week ago' do
       expect(DisclosureLog).to receive(:new).with(
         start_date: Date.new(2018, 6, 11)
       ).and_return(log)
-      expect(log).to receive(:import)
+      expect(log).to receive(:import!)
       perform
     end
   end

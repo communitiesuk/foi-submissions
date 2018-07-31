@@ -8,13 +8,18 @@ class PublishedRequest < ApplicationRecord
 
   before_save :update_cached_columns
 
-  def self.create_or_update_from_api!(attrs)
-    existing = find_by(reference: attrs[:ref])
+  def self.create_update_or_destroy_from_api!(attrs)
+    record = find_or_initialize_by(reference: attrs[:ref])
+    record.assign_attributes(payload: attrs)
+    record.save_or_destroy!
+    record
+  end
 
-    if existing
-      existing.update!(payload: attrs)
+  def save_or_destroy!
+    if payload['datepublished'].blank?
+      destroy!
     else
-      create!(payload: attrs)
+      save!
     end
   end
 
@@ -27,6 +32,7 @@ class PublishedRequest < ApplicationRecord
     construct_summary
     cache_keywords
     parse_published_at
+    parse_api_created_at
   end
 
   def cache_reference
@@ -61,5 +67,10 @@ class PublishedRequest < ApplicationRecord
   def parse_published_at
     date = payload['datepublished']
     self.published_at = Date.parse(date) if date.present?
+  end
+
+  def parse_api_created_at
+    date = payload['datecreated']
+    self.api_created_at = Date.parse(date)
   end
 end

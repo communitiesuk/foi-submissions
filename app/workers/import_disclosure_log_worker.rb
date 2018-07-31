@@ -8,7 +8,7 @@ class ImportDisclosureLogWorker
 
   def perform(duration = nil)
     @duration = duration
-    DisclosureLog.new(arguments).import
+    DisclosureLog.new(arguments).import!
   end
 
   private
