@@ -45,7 +45,7 @@ class PublishedRequest < ApplicationRecord
     text = payload['requestbody']
     text += "\n"
     text += responses.reverse.join("\n")
-    self.summary = text
+    self.summary = Summary.new(text).clean
   end
 
   def responses

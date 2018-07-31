@@ -5,7 +5,6 @@
 #
 module SuggestionsHelper
   def format_summary(summary)
-    cleaned = strip_tags(CGI.unescapeHTML(summary.gsub('\r\n', "\r\n").squish))
-    truncate(cleaned, length: 175, omission: '…', separator: ' ')
+    truncate(summary, length: 175, omission: '…', separator: ' ')
   end
 end
