@@ -3,10 +3,10 @@
   <%= csp_meta_tag %>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <!--[if lte IE 9]>
-    <%= javascript_include_tag 'application-ie9', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application-ie9', async: true, 'data-turbolinks-track': 'reload' %>
   <![endif]-->
   <!--[if gt IE 9]><!-->
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', async: true, 'data-turbolinks-track': 'reload' %>
   <!--<![endif]-->
 <% end %>
 
