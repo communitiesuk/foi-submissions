@@ -75,10 +75,10 @@ GEM
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)
     execjs (2.7.0)
-    factory_bot (4.8.2)
+    factory_bot (4.11.1)
       activesupport (>= 3.0.0)
-    factory_bot_rails (4.8.2)
-      factory_bot (~> 4.8.2)
+    factory_bot_rails (4.11.1)
+      factory_bot (~> 4.11.1)
       railties (>= 3.0.0)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
@@ -99,7 +99,7 @@ GEM
     hashie (3.5.7)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    i18n (1.0.0)
+    i18n (1.1.0)
       concurrent-ruby (~> 1.0)
     infreemation (0.1.0)
       json (~> 2.1.0)
@@ -164,7 +164,7 @@ GEM
     rack (2.0.5)
     rack-protection (2.0.1)
       rack
-    rack-test (1.0.0)
+    rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.0)
       actioncable (= 5.2.0)
@@ -294,7 +294,7 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   byebug
   exception_notification
-  factory_bot_rails (~> 4.0)
+  factory_bot_rails (~> 4.11)
   govuk_elements_form_builder
   hackney_template!
   infreemation

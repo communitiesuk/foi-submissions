@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :foi_request do
-    body 'How much did you spend on cycling infrastructure last year?'
+    body { 'How much did you spend on cycling infrastructure last year?' }
     association :contact, strategy: :build
 
     trait :unqueued do

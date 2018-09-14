@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :contact do
-    full_name 'James T. Kirk'
-    email 'kirk@example.com'
+    full_name { 'James T. Kirk' }
+    email { 'kirk@example.com' }
   end
 end
