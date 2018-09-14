@@ -17,12 +17,12 @@
 <% end %>
 
 <% content_for :body_end do %>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <!--[if lte IE 9]>
-    <%= javascript_include_tag 'src/taggle-ie9' %>
+    <%= javascript_include_tag 'application-ie9', 'data-turbolinks-track': 'reload' %>
   <![endif]-->
-  <%= javascript_include_tag 'src/taggle' %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <!--[if gt IE 9]><!-->
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <!--<![endif]-->
 <% end %>
 
 <%= render file: 'layouts/hackney_template' %>
