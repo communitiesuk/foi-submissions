@@ -13,6 +13,5 @@
 //= require jquery.min
 //= require src/taggle
 //= require rails-ujs
-//= require activestorage
 //= require turbolinks
 //= require_tree .
