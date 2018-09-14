@@ -160,7 +160,7 @@ GEM
       ast (~> 2.4.0)
     pg (1.0.0)
     powerpack (0.1.1)
-    puma (3.11.3)
+    puma (3.12.0)
     rack (2.0.5)
     rack-protection (2.0.1)
       rack
@@ -303,7 +303,7 @@ DEPENDENCIES
   mini_racer
   omniauth-google-oauth2
   pg (>= 0.18, < 2.0)
-  puma (~> 3.11)
+  puma (~> 3.12)
   rails (~> 5.2.0)
   redis (~> 4.0)
   redis-namespace!
