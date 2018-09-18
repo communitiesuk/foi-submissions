@@ -34,4 +34,6 @@ var setUpCuratedLinkPreview = function () {
     updateCuratedLinkPreview(inputs, previews)
 }
 
-$('.js-curated-link-preview').each(setUpCuratedLinkPreview)
+document.addEventListener('turbolinks:load', function () {
+  $('.js-curated-link-preview').each(setUpCuratedLinkPreview)
+})

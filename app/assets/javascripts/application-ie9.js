@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery.min
+//= require src/taggle-ie9
 //= require src/taggle
 //= require rails-ujs
 //= require turbolinks
