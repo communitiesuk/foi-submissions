@@ -1,6 +1,6 @@
 /* global $ */
 
-$('.js-async-delivery-status').each(function () {
+var checkDeliveryStatus = function () {
   var $box = $(this)
   var source = $box.data('source')
   var $ref = $('.js-submission-reference', $box)
@@ -40,4 +40,8 @@ $('.js-async-delivery-status').each(function () {
   }
 
   runTimer()
+}
+
+document.addEventListener('turbolinks:load', function () {
+  $('.js-async-delivery-status').each(checkDeliveryStatus)
 })
