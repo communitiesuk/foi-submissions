@@ -80,7 +80,7 @@ class GenerateFoiSuggestion
   def self.keywords_query
     <<~SQL
       SELECT array_to_string(ARRAY_AGG(
-        '(' || regexp_replace(keyword, '\s+', ' & ', 'g') || ')'
+        '(''' || regexp_replace(keyword, '\s+', ''' & ''', 'g') || ''')'
       ), ' | ')
       FROM (#{keywords}) AS T(keyword)
     SQL
@@ -90,7 +90,9 @@ class GenerateFoiSuggestion
   # Get a unique list of all comma separated keywords from current resources
   def self.keywords
     <<~SQL
-      SELECT DISTINCT UNNEST(regexp_split_to_array(keywords, ',\s*'))
+      SELECT DISTINCT UNNEST(
+        regexp_split_to_array(replace(keywords, '''', ''''''), ',\s*')
+      )
       FROM resources _r
       WHERE (
         _r.resource_id = resources.resource_id AND
