@@ -118,6 +118,46 @@ RSpec.describe GenerateFoiSuggestion, type: :service do
       end
     end
 
+    context 'resource with AND boolean operator in keyword' do
+      let!(:link) { create(:curated_link, keywords: 'teacher & support staff') }
+
+      it 'returns matches to keywords' do
+        s1 = suggest('teacher')
+        s2 = suggest('teacher & support staff')
+        s3 = suggest('support staff')
+
+        expect(s1.resource).to eq link
+        expect(s2.resource).to eq link
+        expect(s3.resource).to eq link
+      end
+    end
+
+    context 'resource with OR boolean operator in keyword' do
+      let!(:link) { create(:curated_link, keywords: 'foo | bar') }
+
+      it 'returns matches to keywords' do
+        s1 = suggest('foo')
+        expect(s1.resource).to eq link
+
+        s2 = suggest('bar')
+        expect(s2.resource).to eq link
+      end
+    end
+
+    context 'resource with NOT boolean operator in keyword' do
+      let!(:link) { create(:curated_link, keywords: '! baz') }
+
+      it 'returns matches to keywords' do
+        # This spec is here to check the query isn't broken.
+        # We're expecting the resource to match the link due to how ts_highlight
+        # works. It will highlights any matching part of the input string,
+        # including those for NOT operations. This means we can't support the
+        # NOT operation with our current implementation.
+        s1 = suggest('baz')
+        expect(s1.resource).to eq link
+      end
+    end
+
     context 'resource without keywords' do
       before { create(:curated_link, keywords: '') }
 

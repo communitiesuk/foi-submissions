@@ -83,8 +83,8 @@ class GenerateFoiSuggestion
         regexp_replace(
           '(''' ||
           CASE
-          WHEN false) THEN
-            NULL
+          WHEN (keyword ~ '[&|!]') THEN
+            regexp_replace(keyword, '(\s*[&|!]\s+)', ''' \\1 ''', 'g')
           ELSE
             regexp_replace(keyword, '\s+', ''' & ''', 'g')
           END
