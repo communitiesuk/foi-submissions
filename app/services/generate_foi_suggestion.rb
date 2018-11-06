@@ -81,7 +81,14 @@ class GenerateFoiSuggestion
     <<~SQL
       SELECT array_to_string(ARRAY_AGG(
         regexp_replace(
-          '(''' || regexp_replace(keyword, '\s+', ''' & ''', 'g') || ''')'
+          '(''' ||
+          CASE
+          WHEN false) THEN
+            NULL
+          ELSE
+            regexp_replace(keyword, '\s+', ''' & ''', 'g')
+          END
+          || ''')'
         , '''''\s*!', '!')
       ), ' | ')
       FROM (#{keywords}) AS T(keyword)
