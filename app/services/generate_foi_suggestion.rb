@@ -80,7 +80,9 @@ class GenerateFoiSuggestion
   def self.keywords_query
     <<~SQL
       SELECT array_to_string(ARRAY_AGG(
-        '(''' || regexp_replace(keyword, '\s+', ''' & ''', 'g') || ''')'
+        regexp_replace(
+          '(''' || regexp_replace(keyword, '\s+', ''' & ''', 'g') || ''')'
+        , '''''\s*!', '!')
       ), ' | ')
       FROM (#{keywords}) AS T(keyword)
     SQL
