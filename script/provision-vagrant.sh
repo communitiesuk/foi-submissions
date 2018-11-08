@@ -12,6 +12,16 @@ if [ ! -d "$HOME/.rbenv" ]; then
     ~/.rbenv/plugins/ruby-build
   echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
   echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+else
+  echo 'Updating rbenv'
+  pushd ~/.rbenv > /dev/null
+  git pull
+  popd > /dev/null
+
+  echo 'Updating ruby-build'
+  pushd ~/.rbenv/plugins/ruby-build > /dev/null
+  git pull
+  popd > /dev/null
 fi
 
 export PATH="$HOME/.rbenv/bin:$PATH"
