@@ -45,7 +45,9 @@ RSpec.describe DeliverSubmissionWorker, type: :worker do
     it 'calls Submission#deliver with SQL locking' do
       # Update all records in the DB; this doesn't update the in memory Ruby
       # submission instance. This is simulating another worker running.
-      Submission.update(state: Submission::DELIVERED)
+      # rubocop:disable Rails/SkipsModelValidations
+      Submission.update_all(state: Submission::DELIVERED)
+      # rubocop:enable Rails/SkipsModelValidations
 
       # Prove this in memory submission instance still has the old state:
       expect(submission.state).to eq Submission::QUEUED
