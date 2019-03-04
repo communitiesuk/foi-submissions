@@ -55,7 +55,7 @@ group :development, :test do
   gem 'bootsnap', '>= 1.1.0', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails', '~> 4.11'
-  gem 'rspec-rails', '~> 3.7'
+  gem 'rspec-rails', '~> 3.8'
   gem 'rubocop', '~> 0.54.0', require: false
 end
 
