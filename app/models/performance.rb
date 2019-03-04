@@ -12,4 +12,8 @@ class Performance < ApplicationRecord
   }
 
   default_scope -> { order(:created_at) }
+
+  def self.current_percentage
+    last&.percentage
+  end
 end
