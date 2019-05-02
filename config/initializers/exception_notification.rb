@@ -23,7 +23,7 @@ ExceptionNotification.configure do |config|
   site_name = ENV.fetch('VHOST', 'foi-for-councils')
 
   config.add_notifier :email,
-                      email_prefix: "[#{site_name}][ERROR] ",
+                      email_prefix: "[#{site_name}] [ERROR] ",
                       sender_address: ENV['EXCEPTION_NOTIFICATIONS_FROM'],
                       exception_recipients: recipients
 end
