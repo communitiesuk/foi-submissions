@@ -5,7 +5,15 @@
 
 <p class="text">You have a right to request any recorded information held by the Council.</p>
 
-<p class="text">All FOI and EIR responses we send out will be published in the disclosure log on our website.</p>
+<p class="text">
+  <strong class="bold">
+    Find out if your question has been answered before.
+  </strong>
+
+  All FOI and EIR responses we send out will be published in the
+  <%= link_to 'disclosure log', 'https://hackney.gov.uk/foi-disclosure-log' %> on
+  our website.
+</p>
 
 <p class="cta-section">
   <%= link_to 'Start your request', new_foi_request_path, class: 'button button-start' %>
