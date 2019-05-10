@@ -53,10 +53,17 @@
       questions.
     </p>
 
+    <% if @current_performance %>
     <p class="text">
       We aim to respond to all requests within 20 working days, and we’re
-      currently hitting this target for 65% of requests.
+      currently hitting this target for <%= @current_performance %>% of
+      requests.
     </p>
+    <% else %>
+    <p class="text">
+      We aim to respond to all requests within 20 working days.
+    </p>
+    <% end %>
 
     <p class="text">
       Please bear in mind that we may not have the information you’ve asked for
@@ -73,10 +80,12 @@
 
   <div class="column-one-third">
     <div class="data">
-      <span class="data-item bold-xxlarge">65%</span>
+      <% if @current_performance %>
+      <span class="data-item bold-xxlarge"><%= @current_performance %>%</span>
       <span class="data-item bold-xsmall">
         FOI requests currently being answered within 20 working days
       </span>
+      <% end %>
     </div>
   </div>
 </div>

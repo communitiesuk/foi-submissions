@@ -1,0 +1,21 @@
+<% content_for :page_title, 'Performance' %>
+
+<div class="grid-row">
+  <div class="column-full">
+    <h1 class="heading-xlarge">
+      Performance
+    </h1>
+    <%= render partial: 'flash' %>
+  </div>
+</div>
+
+<div class="grid-row">
+  <div class="column-full">
+    <span class="data-item bold-xxlarge"><%= Performance.current_percentage %>%</span>
+    <p>
+      <%= link_to new_admin_performance_path, class: 'button' do %>
+        Update
+      <% end %>
+    </p>
+  </div>
+</div>
