@@ -22,12 +22,13 @@ Rails.application.routes.draw do
   resources :links, only: %i[show]
 
   namespace :admin do
-    root to: redirect('/admin/curated_links')
+    root action: 'show'
     resources :curated_links, except: [:show] do
       collection do
         resource :export, only: [:show], format: 'csv'
       end
     end
+    resource :performance, only: %i[show new create]
   end
 
   namespace :health do

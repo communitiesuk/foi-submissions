@@ -25,6 +25,8 @@ module Foi
     end
 
     def show
+      @current_performance = Performance.current_percentage
+
       respond_to do |format|
         format.html
         format.json { render json: @submission }
