@@ -17,4 +17,5 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 Rails.application.config.assets.precompile += %w[
   application-ie9.js
+  mhclg-logo.png
 ]

@@ -31,10 +31,12 @@ gem 'jbuilder', '~> 2.5'
 
 # Hackney theme
 gem 'govuk_elements_form_builder'
-gem 'hackney_template', path: 'gems/hackney_template-0.0.2'
+gem 'govuk_template'
 
 # Case management
 gem 'infreemation'
+
+gem 'jquery-rails'
 
 # Background workers
 gem 'redis', '~> 4.0'
@@ -65,6 +67,8 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Use Puma as the app server
   gem 'puma', '~> 3.12'
+  # fix console arrow keys on Mac OSX
+  gem 'pry-rails'
   # Spring speeds up development by keeping your application running in the
   # background. Read more: https://github.com/rails/spring
   gem 'spring'

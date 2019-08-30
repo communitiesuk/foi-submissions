@@ -15,11 +15,16 @@
 <% end %>
 
 <% content_for :after_header do %>
-  <%= render partial: 'breadcrumbs' %>
 <% end %>
 
 <% content_for :content do %>
-  <div id='content' role='main'><%= yield %></div>
+<div class="govuk-width-container">
+  <%= render partial: 'breadcrumbs' %>
+  <div class="govuk-main-wrapper">
+    <div id='content' role='main'><%= yield %></div>
+  </div>
+</div>
 <% end %>
 
-<%= render file: 'layouts/hackney_template' %>
+
+<%= render file: 'layouts/govuk_template' %>

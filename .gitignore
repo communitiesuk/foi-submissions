@@ -35,3 +35,6 @@
 
 # Ignore Rails ENV file
 /config/rails_env.rb
+
+# Ignore any local .env files
+*.env

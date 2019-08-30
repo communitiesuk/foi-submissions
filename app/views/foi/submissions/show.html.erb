@@ -1,18 +1,20 @@
 <% content_for :page_title, 'Your request has been sent' %>
 <% content_for :body_classes, 'foi foi-complete' %>
 
-<div class="govuk-box-highlight <%= @submission.reference ? 'govuk-box-highlight--loaded' : 'js-async-delivery-status' %>" aria-live="polite" data-source="<%= sent_foi_request_path(format: :json) %>">
+<div class="govuk-panel govuk-panel--confirmation <%= @submission.reference ? '' : 'js-async-delivery-status' %>" aria-live="polite" data-source="<%= sent_foi_request_path(format: :json) %>">
   <div class="async-delivery-status--generic">
-    <h1 class="heading-xlarge">
+    <h1 class="govuk-panel__title heading-xlarge">
       Thank you for your&nbsp;request
     </h1>
 
-    <p class="font-large" style="margin-left: auto; margin-right: auto; max-width: 18em;">
-      We will email a reference number to
-      <strong class="bold">
-        <%= @submission.foi_request.contact.email %>
-      </strong>
-    </p>
+    <div class="govuk-panel__body">
+      <p class="font-large" style="margin-left: auto; margin-right: auto; max-width: 18em;">
+        We will email a reference number to
+        <strong class="bold">
+          <%= @submission.foi_request.contact.email %>
+        </strong>
+      </p>
+    </div>
   </div>
 
   <div class="async-delivery-status--loading" aria-busy="true">
@@ -72,7 +74,7 @@
     </p>
 
     <p>
-      <button class="button button-secondary js-print-button">
+      <button class="govuk-button govuk-button--secondary js-print-button">
         Print this page
       </button>
     </p>

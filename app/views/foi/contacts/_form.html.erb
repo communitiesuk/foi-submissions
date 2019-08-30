@@ -8,18 +8,18 @@
 <div class="grid-row">
   <div class="column-two-thirds">
     <%= form_for @contact, url: foi_request_contact_path do |f| %>
-      <%= f.text_field :full_name, class: 'form-control form-control-3-4', required: true %>
-      <%= f.email_field :email, class: 'form-control form-control-3-4', required: true %>
+      <%= f.text_field :full_name, class: 'govuk-input', required: true %>
+      <%= f.email_field :email, class: 'govuk-input', required: true %>
 
       <p class="cta-section">
-        <%= f.submit 'Check your request', class: 'button' %>
+        <%= f.submit 'Check your request', class: 'govuk-button' %>
       </p>
 
       <aside class="form-aside">
         <h4 class="heading-small" style="margin: 2.5em 0 1em 0">About your data privacy</h4>
 
         <p class="font-xsmall text">
-          The Council will use personal data about you to process your
+          We will use personal data about you to process your
           Freedom of Information request and any subsequent related
           activity (eg. review, complaint).
         </p>
@@ -35,7 +35,7 @@
           You can read more information about this, and also about your Data
           Protection rights in line with the provisions of the General Data
           Protection Regulations and Data Protection Act 2018 by going to
-          <a href="https://www.hackney.gov.uk/privacy">www.hackney.gov.uk/privacy</a>.
+          <a href="https://www.communities.gov.uk/privacy">www.communities.gov.uk/privacy</a>.
           This includes how to contact the Data Protection Officer, how
           long your information is held, and how we process your personal
           information. Printed copies of the Council’s Privacy Notices can
@@ -43,7 +43,7 @@
         </p>
 
         <p class="font-xsmall text">
-          The Council will not give information about you to anyone else,
+          We will not give information about you to anyone else,
           or use information about you for other purposes, unless the law
           allows this.
         </p>
