@@ -1,7 +1,7 @@
 <% content_for :page_title, 'Make a Freedom of Information request' %>
 <% content_for :body_classes, 'foi foi-index' %>
 
-<h1 class="heading-xlarge" style="max-width: 12em;">Make a Freedom of Information request, or&nbsp;an EIR request</h1>
+<h1 class="heading-xlarge" >Make a Freedom of Information request, or&nbsp;an EIR request</h1>
 
 <p class="text">You have a right to request any recorded information held by the Council.</p>
 
@@ -11,7 +11,7 @@
   </strong>
 
   All FOI and EIR responses we send out will be published in the
-  <%= link_to 'disclosure log', 'https://hackney.gov.uk/foi-disclosure-log' %> on
+  <%= link_to 'disclosure log', 'https://communities.gov.uk/foi-disclosure-log' %> on
   our website.
 </p>
 
@@ -22,30 +22,23 @@
 <div class="post-cta-information text">
   <h2 class="heading-medium">Requesting information about yourself</h2>
 
-  <p>If you want information about yourself, such as a social care file, your employment record, or details of correspondence between yourself and the council, <a href="https://www.hackney.gov.uk/subject-access-request">you should make a Subject Access request</a>.
+  <p>If you want information about yourself, such as a social care file, your employment record, or details of correspondence between yourself and the council, <a href="https://www.communities.gov.uk/subject-access-request">you should make a Subject Access request</a>.
 
   <h2 class="heading-medium">Other ways to request information</h2>
 
   <h3 class="heading-small">“Business as usual” requests</h3>
-  <p>Often <a href="https://www.hackney.gov.uk/contact-us">contacting the relevant department</a> to ask common questions can be faster than waiting for an FOI response. Give it a try!</p>
+  <p>Often <a href="https://www.communities.gov.uk/contact-us">contacting the relevant department</a> to ask common questions can be faster than waiting for an FOI response. Give it a try!</p>
 
   <h3 class="heading-small">Freedom of Information (FOI) requests</h3>
   <p>We recommend you <%= link_to 'use our online FOI request form', new_foi_request_path %>. But we <em>will</em> respond to any FOI request made in writing. That includes:</p>
 
   <div style="padding-left: 2em">
     <h4 class="heading-xsmall">By email</h4>
-    <p><a href="mailto:hackney@infreemation.co.uk">hackney@infreemation.co.uk</a></p>
+    <p><a href="mailto:<%= Rails.configuration.x.foi_request_email %>"><%= Rails.configuration.x.foi_request_email %></a></p>
 
     <h4 class="heading-xsmall">By post</h4>
     <p>
-      Information Management Team<br>
-      4th Floor, Hackney Service Centre<br>
-      1 Hillman Street<br>
-      London<br>
-      E8 1DY
+      <%= Rails.configuration.x.foi_request_postal_address.gsub(/\n/, '<br />').html_safe %>
     </p>
   </div>
-
-  <h3 class="heading-small">Environmental Information Regulations (EIR) requests</h3>
-  <p>EIR requests can be submitted in writing by any of the above methods, as well as verbally, to <a href="tel:+442083564938">020 8356 4938</a>, in which case an officer will transcribe your request, and confirm it in writing.</p>
 </div>
