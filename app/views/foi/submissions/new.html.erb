@@ -29,9 +29,9 @@
     </aside>
 
     <div class="cta-section">
-      <%= link_to 'Edit your request', edit_foi_request_path, class: 'button button-secondary' %>
+      <%= link_to 'Edit your request', edit_foi_request_path, class: 'govuk-button govuk-button--secondary' %>
       <%= form_for :submission, url: send_foi_request_path do |f| %>
-        <%= f.submit 'Send now', class: 'button' %>
+        <%= f.submit 'Send now', class: 'govuk-button' %>
       <% end %>
     </div>
   </div>
