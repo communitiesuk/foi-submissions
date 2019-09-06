@@ -15,3 +15,4 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree ./application
+//= require_tree ../../../vendor/assets/govuk/javascript

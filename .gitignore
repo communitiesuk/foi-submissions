@@ -25,6 +25,7 @@
 /yarn-error.log
 
 /public/assets
+/public/govuk
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
@@ -38,3 +39,5 @@
 
 # Ignore any local .env files
 *.env
+# ..and MacOSX directory thumbnail indices
+.DS_Store

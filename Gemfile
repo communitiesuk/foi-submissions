@@ -9,6 +9,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem 'rails', '~> 5.2.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -52,6 +53,9 @@ gem 'omniauth-google-oauth2'
 
 gem 'scenic'
 
+# Use Puma as the app server
+gem 'puma', '~> 3.12'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger
   # console
@@ -66,8 +70,6 @@ group :development do
   # Access an interactive console on exception pages or by calling 'console'
   # anywhere in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'
-  # Use Puma as the app server
-  gem 'puma', '~> 3.12'
   # fix console arrow keys on Mac OSX
   gem 'pry-rails'
   # Spring speeds up development by keeping your application running in the
