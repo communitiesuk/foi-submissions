@@ -4,8 +4,8 @@ task :copy_govuk_assets_without_compiling do
   cmd = [
     'cp',
     '-r',
-    Rails.root.join('vendor', 'assets', 'govuk'),
-    Rails.root.join('public')
+    Rails.root.join('vendor', 'assets', 'govuk').to_s,
+    Rails.root.join('public').to_s
   ]
   Kernel.system(*cmd)
 end
