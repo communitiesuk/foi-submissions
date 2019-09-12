@@ -1,0 +1,10 @@
+tmp/
+!tmp/.keep
+node_modules/
+package.json
+package_lock.json
+log/*.log
+**/.git
+coverage/
+.DS_Store
+**/.DS_Store
