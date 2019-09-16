@@ -16,3 +16,5 @@ before_install:
 install: bundle install
 notifications:
   email: false
+after_success:
+  - ./script/build_and_push_to_ecr.sh
